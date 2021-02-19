@@ -1,6 +1,7 @@
 .Footer {
   background-color: aqua;
   margin-top: auto;
+  min-height: 172px;
 }
 
 .Footer__copyright {

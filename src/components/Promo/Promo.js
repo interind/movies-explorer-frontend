@@ -7,14 +7,14 @@ function Promo() {
   const links = [
     { path: '#about-project', text: 'О проекте' },
     { path: '#techs', text: 'Технологии' },
-    { path: '#student', text: 'Студент' },
+    { path: '#about-me', text: 'Студент' },
   ];
   const handleLinkClick = (evt) => {
     evt.preventDefault();
     document.querySelector(evt.target.hash).scrollIntoView();
   };
   return (
-    <section className="Promo">
+    <section className="Promo" id={'promo'}>
       <h1 className='Promo__title'>{title}</h1>
       <div className='Promo__nav-tab'>
         <NavTab mod={'Promo-item'} links={links} handleLinkClick={handleLinkClick}/>

@@ -1,0 +1,78 @@
+.AboutMe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 608px;
+}
+.AboutMe-container {
+  display: flex;
+  max-width: 1140px;
+  min-width: 89%;
+  justify-content: space-between;
+}
+.AboutMe__header {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: flex-end;
+  max-width: 1140px;
+  min-width: 89%;
+  min-height: 160px;
+  border-bottom: 1px solid #000;
+  margin-bottom: 66px;
+}
+.AboutMe__title {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.21;
+  margin-bottom: 23px;
+  margin-top: 0;
+}
+.AboutMe__title_place_top {
+  font-size: 50px;
+  line-height: 1.16;
+}
+.AboutMe__subtitle {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.11;
+  margin-bottom: 23px;
+  margin-top: 0;
+}
+.AboutMe__text {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57;
+  margin-bottom: 23px;
+  margin-top: 0;
+  max-width: 600px;
+}
+
+.AboutMe-image {
+  min-width: 270px;
+  min-height: 320px;
+  background-repeat: no-repeat;
+  background-image: url('../../images/student/image_.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+}
+
+.AboutMe-item {
+  color: #000;
+  background-color: none;
+  border-radius: 10px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+.AboutMe-item:hover {
+  border-radius: none;
+  opacity: .5;
+}
