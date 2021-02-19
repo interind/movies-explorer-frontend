@@ -1,0 +1,44 @@
+.Promo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  min-height: 493px;
+  width: 93.8%;
+  background-color: #F5F5F5;
+  border-radius: 5px;
+  margin: 20px auto 0;
+}
+
+.Promo__title {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  color: #000;
+  font-style: normal;
+  line-height: 1.16;
+  max-width: 730px;
+  text-align: center;
+  margin: auto;
+}
+
+.Promo__nav-tab {
+  margin-bottom: 20px;
+}
+
+.Promo-item {
+  background-color: #E8E8E8;
+  width: 96px;
+  height: 36px;
+  border-radius: 10px;
+  color: #000;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+}
+.Promo-item:hover {
+  background-color: #FF6838;
+  color: #fff;
+}

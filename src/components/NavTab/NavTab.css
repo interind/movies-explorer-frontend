@@ -1,0 +1,32 @@
+.NavTab {
+  min-height: 40px;
+}
+
+.NavTab__links {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  min-height: 40px;
+}
+
+.NavTab__link {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.NavTab__item {
+  margin-right: 10px;
+}
+.NavTab__item:last-of-type {
+  margin-right: 0;
+}

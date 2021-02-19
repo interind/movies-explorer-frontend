@@ -1,0 +1,22 @@
+.Footer {
+  background-color: aqua;
+  margin-top: auto;
+}
+
+.Footer__copyright {
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  margin: 0;
+  text-align: center;
+  color: #545454;
+}
+
+@media screen and (max-width: 340px) {
+  .Footer__copyright {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}

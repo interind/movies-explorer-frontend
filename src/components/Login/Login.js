@@ -1,9 +1,13 @@
 import React from 'react';
 import './Login.css';
+import Preloader from '../Preloader/Preloader';
 
 function Login() {
   return (
-    <div>Login</div>
+    <React.Fragment>
+      <div>Login</div>
+      <Preloader />
+    </React.Fragment>
   );
 }
 

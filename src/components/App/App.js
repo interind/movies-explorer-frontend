@@ -11,7 +11,6 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
-import Navigation from '../Navigation/Navigation';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import './App.css';
@@ -21,7 +20,6 @@ function App() {
     <React.Fragment>
       <div className="App">
       <Header />
-      <Navigation/>
       <Switch>
         <Route path='/' exact>
           <Main />
@@ -35,18 +33,18 @@ function App() {
         <Route path='/profile' exact>
           <Profile />
         </Route>
-        <Route path='/sign-up' exact>
-          <Register/>
+        <Route path='/signup' exact>
+          <Register />
         </Route>
-        <Route path='/sign-in' exact>
-          <Login/>
+        <Route path='/signin' exact>
+          <Login />
         </Route>
         <Route path='/404' exact>
-          <NotFound/>
+          <NotFound />
         </Route>
         <Redirect to='/404' />
       </Switch>
-      <Footer/>
+      <Footer />
       </div>
     </React.Fragment>
   );

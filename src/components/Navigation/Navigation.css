@@ -1,0 +1,23 @@
+.Navigation-links {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  padding: 0;
+}
+
+.Navigation-item {
+  margin-right: 10px;
+  width: 76px;
+  height: 32px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+}
+.Navigation-item:last-of-type {
+  margin-right: 0;
+}
+.Navigation-item:hover {
+  background-color: #2BE080;
+  border-radius: 3px;
+}
