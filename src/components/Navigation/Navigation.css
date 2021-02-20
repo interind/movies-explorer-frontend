@@ -18,6 +18,13 @@
   margin-right: 0;
 }
 .Navigation-item:hover {
+  opacity: .8;
+}
+.Navigation-item:active {
+  background-color: #FF6838;
+  border-radius: 3px;
+}
+.Navigation-item_active {
   background-color: #2BE080;
   border-radius: 3px;
 }

@@ -4,11 +4,12 @@ import './Navigation.css';
 
 function Navigation() {
   const links = [
-    { path: '/signup', text: 'Регистрация' },
-    { path: '/signin', text: 'Войти' },
+    { path: '/', text: 'Главная страница', active: '' },
+    { path: '/signup', text: 'Регистрация', active: '' },
+    { path: '/signin', text: 'Войти', active: 'Navigation-item_active' },
   ];
   const handleLinkClick = (evt) => {
-    evt.preventDefault();
+    console.dir(evt.target);
   };
   return (
     <nav>

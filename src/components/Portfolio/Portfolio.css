@@ -50,6 +50,7 @@
   font-weight: inherit;
   color: inherit;
   text-decoration: none;
+  padding: 0 5px;
 }
 .Portfolio-link:hover {
   background: linear-gradient(100deg, #FF6838, #fff);
@@ -58,6 +59,10 @@
 }
 
 .Portfolio-arrow {
-  min-width: 29px;
-  object-fit: contain;
+  max-width: 29px;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  line-height: 1.2;
+  color: black;
 }

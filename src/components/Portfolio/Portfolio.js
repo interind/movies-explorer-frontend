@@ -1,6 +1,5 @@
 import React from 'react';
 import cryptoKeys from '../../utils/crypto';
-import arrow from '../../images/portfolio/text__COLOR_font-main.png';
 import './Portfolio.css';
 
 function Portfolio() {
@@ -20,7 +19,7 @@ function Portfolio() {
             className='Portfolio-item'>
             <a className='Portfolio-link' target='_blank' rel='noopener noreferrer' href={link.path}>
               {link.text}
-              <img className='Portfolio-arrow' src={arrow} alt='стрелка'/>
+              <span className='Portfolio-arrow'>↗</span>
             </a>
           </li>)}
       </ul>

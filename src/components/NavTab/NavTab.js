@@ -10,7 +10,7 @@ function NavTab({ mod, links, handleLinkClick }) {
   return (
     <nav className='NavTab'>
       <ul className='NavTab__links'>
-        {links.map((link) => <li key={cryptoKeys(link.path)} className={classLink}>
+        {links.map((link) => <li key={cryptoKeys(link.path)} className={`${classLink} ${link.active}`}>
             {handleLinkClick ? (<Link className='NavTab__link'
               to={link.path} onClick={handleLinkClick}>
               {link.text}
