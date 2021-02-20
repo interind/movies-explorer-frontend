@@ -15,7 +15,18 @@ function AboutMe() {
     + 'веб-разработке, планирую перейти в сферу разработки.',
   };
   const links = [
-    { path: 'https://github.com/interind', text: 'Github', active: '' },
+    {
+      path: 'https://github.com/interind',
+      text: 'Github',
+      active: '',
+      title: 'ссылка на Гитхаб',
+    },
+    {
+      path: 'https://edabit.com/user/d75pKNSh7ZJGhWMEG',
+      text: 'Edabit',
+      active: '',
+      title: 'ссылка на Edabit',
+    },
   ];
   return (
     <section className='AboutMe' id={'about-me'}>

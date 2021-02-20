@@ -23,6 +23,10 @@
   align-items: center;
   justify-content: center;
 }
+.NavTab__link:hover {
+  cursor: pointer;
+  opacity: .8;
+}
 
 .NavTab__item {
   margin-right: 10px;

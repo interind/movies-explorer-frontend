@@ -4,9 +4,24 @@ import './Navigation.css';
 
 function Navigation() {
   const links = [
-    { path: '/', text: 'Главная страница', active: '' },
-    { path: '/signup', text: 'Регистрация', active: '' },
-    { path: '/signin', text: 'Войти', active: 'Navigation-item_active' },
+    {
+      path: '/',
+      text: 'Главная страница',
+      active: '',
+      title: 'Перейти на главную страницу',
+    },
+    {
+      path: '/signup',
+      text: 'Регистрация',
+      active: '',
+      title: 'Перейти на страницу регистрации',
+    },
+    {
+      path: '/signin',
+      text: 'Войти',
+      active: 'Navigation-item_active',
+      title: 'Перейти на страницу авторизации',
+    },
   ];
   const handleLinkClick = (evt) => {
     console.dir(evt.target);

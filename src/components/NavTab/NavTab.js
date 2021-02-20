@@ -12,10 +12,10 @@ function NavTab({ mod, links, handleLinkClick }) {
       <ul className='NavTab__links'>
         {links.map((link) => <li key={cryptoKeys(link.path)} className={`${classLink} ${link.active}`}>
             {handleLinkClick ? (<Link className='NavTab__link'
-              to={link.path} onClick={handleLinkClick}>
+              to={link.path} title={link.title} onClick={handleLinkClick}>
               {link.text}
             </Link>) : (<a className='NavTab__link'
-              href={link.path} target='_blank' rel='noopener noreferrer'>
+              href={link.path} title={link.title} target='_blank' rel='noopener noreferrer'>
               {link.text}
             </a>)}
           </li>)}
