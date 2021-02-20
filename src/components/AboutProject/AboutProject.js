@@ -21,10 +21,14 @@ function AboutProject() {
         </div>
       </div>
       <div className='AboutProject__containers'>
-        <h3 className='AboutProject__title AboutProject__title_type_start'>1 неделя</h3>
-        <h3 className='AboutProject__title AboutProject__title_type_end'>4 недели</h3>
-        <h3 className='AboutProject__title AboutProject__title_type_start'>Back-end</h3>
-        <h3 className='AboutProject__title AboutProject__title_type_end'>Front-end</h3>
+        <div className='AboutProject__container AboutProject__container_size_m'>
+          <h3 className='AboutProject__title AboutProject__title_theme_green'>1 неделя</h3>
+          <p className='AboutProject__title AboutProject__title_theme_white'>Back-end</p>
+        </div>
+        <div className='AboutProject__container AboutProject__container_size_x'>
+          <h3 className='AboutProject__title AboutProject__title_theme_gray'>4 недели</h3>
+          <p className='AboutProject__title AboutProject__title_theme_white'>Front-end</p>
+        </div>
       </div>
     </section>
   );
