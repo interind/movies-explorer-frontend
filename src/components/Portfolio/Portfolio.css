@@ -40,6 +40,11 @@
   font-size: 30px;
   line-height: 1.66;
   font-weight: 400;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #E8E8E8;
+}
+.Portfolio-item:last-of-type {
+  margin-bottom: 115px;
 }
 .Portfolio-link {
   display: flex;
