@@ -23,13 +23,17 @@ function Navigation() {
       title: 'Перейти на страницу авторизации',
     },
   ];
+  const mod = {
+    item: 'Navigation-item',
+    items: 'Navigation-items',
+  };
   const handleLinkClick = (evt) => {
     console.dir(evt.target);
   };
   return (
     <nav>
       <ul className='Navigation-links'>
-        <NavTab links={links} handleLinkClick={handleLinkClick} mod={'Navigation-item'}/>
+        <NavTab links={links} handleLinkClick={handleLinkClick} mod={mod}/>
       </ul>
     </nav>
   );

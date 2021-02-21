@@ -6,11 +6,12 @@ import cryptoKeys from '../../utils/crypto';
 import './NavTab.css';
 
 function NavTab({ mod, links, handleLinkClick }) {
-  const classLink = classes('NavTab__item', mod);
+  const classItem = classes('NavTab__item', mod.item);
+  const classLinks = classes('NavTab__links', mod.items);
   return (
     <nav className='NavTab'>
-      <ul className='NavTab__links'>
-        {links.map((link) => <li key={cryptoKeys(link.path)} className={`${classLink} ${link.active}`}>
+      <ul className={classLinks}>
+        {links.map((link) => <li key={cryptoKeys(link.path)} className={`${classItem} ${link.active}`}>
             {handleLinkClick ? (<Link className='NavTab__link'
               to={link.path} title={link.title} onClick={handleLinkClick}>
               {link.text}
@@ -25,7 +26,7 @@ function NavTab({ mod, links, handleLinkClick }) {
 }
 
 NavTab.propTypes = {
-  mod: PropTypes.string,
+  mod: PropTypes.object,
   links: PropTypes.array,
   handleLinkClick: PropTypes.func,
 };

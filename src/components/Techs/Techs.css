@@ -7,12 +7,6 @@
   background-color: #F5F5F5;
 }
 .Techs__header {
-  display: flex;
-  box-sizing: border-box;
-  justify-content: flex-start;
-  align-items: flex-end;
-  max-width: 1140px;
-  min-width: 89%;
   min-height: 160px;
   border-bottom: 1px solid #000;
   margin-bottom: 90px;
@@ -60,4 +54,11 @@
 .Techs-item:hover {
   background-color: #FF6838;
   color: #fff;
+}
+@media screen and (max-width: 881px) {
+  .Techs-item {
+    align-self: flex-start;
+    width: 87px;
+    height: 54px;
+  }
 }

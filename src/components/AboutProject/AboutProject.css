@@ -7,12 +7,6 @@
   min-height: 608px;
 }
 .AboutProject__header {
-  display: flex;
-  box-sizing: border-box;
-  justify-content: flex-start;
-  align-items: flex-end;
-  max-width: 1140px;
-  min-width: 89%;
   min-height: 160px;
   border-bottom: 1px solid #000;
 }
@@ -26,6 +20,10 @@
 }
 .AboutProject__title_size_m {
   font-size: 20px;
+}
+.AboutProject__title_theme_s {
+  font-size: 14px;
+  line-height: 1.42;
 }
 .AboutProject__title_theme_green {
   display: flex;
@@ -60,12 +58,17 @@
 .AboutProject__container {
   max-width: 550px;
   width: 100%;
+  margin-right: 30px;
+}
+.AboutProject__container:last-of-type {
+  margin-right: 0;
 }
 .AboutProject__container_size_m {
   justify-content: center;
   text-align: center;
   flex-basis: 20%;
   max-width: 228px;
+  margin-right: 0;
 }
 .AboutProject__container_size_x {
   justify-content: center;

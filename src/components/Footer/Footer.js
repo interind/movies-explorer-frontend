@@ -24,6 +24,10 @@ function Footer() {
       active: '',
     },
   ];
+  const mod = {
+    item: 'Footer-item',
+    items: 'Footer-items',
+  };
   return (
     <footer className='Footer'>
       <div className='Footer__header'>
@@ -33,7 +37,7 @@ function Footer() {
         <p className='Footer-item'>
           &copy;{new Date().getFullYear()}
         </p>
-        <NavTab links={links} mod={'Footer-item'}/>
+        <NavTab links={links} mod={mod}/>
       </div>
     </footer>
   );

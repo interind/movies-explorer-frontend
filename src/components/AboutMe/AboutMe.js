@@ -1,10 +1,15 @@
 import React from 'react';
 import NavTab from '../NavTab/NavTab';
+import HeaderBar from '../HeaderBar/HeaderBar';
 import Portfolio from '../Portfolio/Portfolio';
 import './AboutMe.css';
 
 function AboutMe() {
   const title = 'О студенте';
+  const mod = {
+    item: 'AboutMe-item',
+    items: 'AboutMe-items',
+  };
   const student = {
     name: 'Александр',
     about: 'студент',
@@ -30,17 +35,13 @@ function AboutMe() {
   ];
   return (
     <section className='AboutMe' id={'about-me'}>
-      <div className='AboutMe__header'>
-        <h2 className='AboutMe__title'>
-          {title}
-        </h2>
-      </div>
+      <HeaderBar title={title} modifier={'AboutMe__header'} />
       <div className='AboutMe-container'>
         <div className='AboutMe-info'>
         <h3 className='AboutMe__title AboutMe__title_place_top'>{student.name}</h3>
         <h4 className='AboutMe__subtitle'>{`${student.about} ${student.age}`}</h4>
         <p className='AboutMe__text'>{student.description}</p>
-        <NavTab links={links} mod={'AboutMe-item'} />
+        <NavTab links={links} mod={mod} />
         </div>
         <div className='AboutMe-image' />
       </div>

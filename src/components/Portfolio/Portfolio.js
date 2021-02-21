@@ -1,6 +1,7 @@
 import React from 'react';
 import cryptoKeys from '../../utils/crypto';
 import './Portfolio.css';
+import HeaderBar from '../HeaderBar/HeaderBar';
 
 function Portfolio() {
   const title = 'Портфолио';
@@ -26,9 +27,7 @@ function Portfolio() {
   ];
   return (
     <section className="Portfolio">
-      <div className='Portfolio__header'>
-      <h3 className='Portfolio__title'>{title}</h3>
-      </div>
+      <HeaderBar title={title} modifier={'Portfolio__header'} />
       <ul className='Portfolio-nav'>
         { links.map((link) => <li key={cryptoKeys(link.path)}
             className='Portfolio-item'>
