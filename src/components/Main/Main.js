@@ -7,12 +7,12 @@ import './Main.css';
 
 function Main() {
   return (
-    <React.Fragment>
-    <Promo />
-    <AboutProject />
-    <Techs />
-    <AboutMe />
-    </React.Fragment>
+    <main className='Main'>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+    </main>
   );
 }
 

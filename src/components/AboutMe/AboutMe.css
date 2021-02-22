@@ -11,13 +11,10 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1140px;
+  min-width: 670px;
   width: 89%;
 }
-.AboutMe__header {
-  min-height: 160px;
-  border-bottom: 1px solid #000;
-  margin-bottom: 66px;
-}
+
 .AboutMe__title {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 22px;
@@ -82,4 +79,19 @@
 }
 .AboutMe-item:hover {
   opacity: .5;
+}
+@media screen and (max-width: 730px) {
+  .AboutMe-container {
+    min-width: 292px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 89%;
+  }
+  .AboutMe-image {
+    order: -1;
+    min-width: 292px;
+    align-self: center;
+    margin: 0;
+    margin-bottom: 40px;
+  }
 }

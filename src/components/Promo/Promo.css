@@ -27,23 +27,3 @@
   text-align: center;
   margin: auto;
 }
-
-.Promo__nav-tab {
-  margin-bottom: 20px;
-}
-
-.Promo-item {
-  background-color: #E8E8E8;
-  width: 96px;
-  height: 36px;
-  border-radius: 10px;
-  color: #000;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.33;
-}
-.Promo-item:hover {
-  background-color: #FF6838;
-  color: #fff;
-}

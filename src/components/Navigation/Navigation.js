@@ -4,14 +4,14 @@ import './Navigation.css';
 
 function Navigation({ children }) {
   return (
-    <nav>
+    <nav className='Navigation-links'>
      {children}
     </nav>
   );
 }
 
 Navigation.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
 export default Navigation;

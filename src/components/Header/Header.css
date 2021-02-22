@@ -1,7 +1,51 @@
 .Header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 70px;
   min-height: 74px;
+  margin: 0 auto;
+  max-width: 1140px;
+  min-width: 89%;
+}
+
+.Header__button-menu[type='checkbox'] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+
+
+@media screen and (max-width: 800px) {
+  .Header__button-menu {
+    opacity: 1;
+  }
+
+  .Header__button-menu:hover {
+    opacity: .3;
+  }
+
+  .Header__button-menu[id='span'] {
+    position: absolute;
+    overflow: visible;
+    width: 44px;
+    height: 44px;
+    right: 20px;
+    top: 20px;
+    opacity: 1;
+    background-image: url('../../images/navbar/iconMenu.svg');
+    background-color: initial;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .Header__button-menu[type='checkbox']:checked + .Header__button-menu[id='span'] {
+    background-image: url('../../images/navbar/Close-Icon.svg');
+    border: none;
+  }
+
 }

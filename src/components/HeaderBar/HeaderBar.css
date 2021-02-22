@@ -6,7 +6,21 @@
   max-width: 1140px;
   width: 89%;
 }
+.HeaderBar_place_portfolio {
+  min-height: 110px;
+}
+.HeaderBar_place_techs {
+  min-height: 110px;
+  border-bottom: 1px solid #000;
+}
 .HeaderBar_place_aboutProject {
+  min-height: 110px;
+  border-bottom: 1px solid #000;
+}
+.HeaderBar_place_aboutMe {
+  min-height: 110px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid #000;
 }
 
 .HeaderBar__title {
@@ -18,5 +32,12 @@
   margin-top: 0;
   color: inherit;
 }
-.HeaderBar__title_place_aboutProject {
+.HeaderBar__title_place_portfolio {
+  color:#A0A0A0;
+}
+.HeaderBar__title_place_techs {
+}
+.HeaderBar__title_place_aboutProjet {
+}
+.HeaderBar__title_place_aboutMe {
 }

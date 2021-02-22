@@ -8,9 +8,24 @@ function Promo() {
     place: 'promo',
   };
   const dataLinks = [
-    { path: '#about-project', text: 'О проекте', type: 'local' },
-    { path: '#techs', text: 'Технологии', type: 'local' },
-    { path: '#about-me', text: 'Студент', type: 'local' },
+    {
+      path: '#about-project',
+      text: 'О проекте',
+      type: '',
+      title: 'о проекте',
+    },
+    {
+      path: '#techs',
+      text: 'Технологии',
+      type: '',
+      title: 'технологии проекта',
+    },
+    {
+      path: '#about-me',
+      text: 'Студент',
+      type: '',
+      title: 'автор проекта',
+    },
   ];
   const handleLinkClick = (evt) => {
     evt.preventDefault();
