@@ -5,10 +5,9 @@ import Portfolio from '../Portfolio/Portfolio';
 import './AboutMe.css';
 
 function AboutMe() {
-  const title = 'О студенте';
-  const mod = {
-    item: 'AboutMe-item',
-    items: 'AboutMe-items',
+  const aboutMe = {
+    title: 'О студенте',
+    place: 'aboutMe',
   };
   const student = {
     name: 'Александр',
@@ -19,29 +18,31 @@ function AboutMe() {
     + ' 2006 года работаю в торговой компании и занимаюсь оптовыми продажами.  После того, как прошёл курс по'
     + 'веб-разработке, планирую перейти в сферу разработки.',
   };
-  const links = [
+  const dataLinks = [
     {
       path: 'https://github.com/interind',
       text: 'Github',
       active: '',
       title: 'ссылка на Гитхаб',
+      type: 'url',
     },
     {
       path: 'https://edabit.com/user/d75pKNSh7ZJGhWMEG',
       text: 'Edabit',
       active: '',
       title: 'ссылка на Edabit',
+      type: 'url',
     },
   ];
   return (
     <section className='AboutMe' id={'about-me'}>
-      <HeaderBar title={title} modifier={'AboutMe__header'} />
+      <HeaderBar modifier={aboutMe} />
       <div className='AboutMe-container'>
         <div className='AboutMe-info'>
         <h3 className='AboutMe__title AboutMe__title_place_top'>{student.name}</h3>
         <h4 className='AboutMe__subtitle'>{`${student.about} ${student.age}`}</h4>
         <p className='AboutMe__text'>{student.description}</p>
-        <NavTab links={links} mod={mod} />
+        <NavTab links={dataLinks} place={aboutMe.place} />
         </div>
         <div className='AboutMe-image' />
       </div>

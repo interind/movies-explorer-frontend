@@ -1,23 +1,27 @@
 import React from 'react';
-import classes from 'classnames';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import cryptoKeys from '../../utils/crypto';
 import './NavTab.css';
 
-function NavTab({ mod, links, handleLinkClick }) {
-  const classItem = classes('NavTab__item', mod.item);
-  const classLinks = classes('NavTab__links', mod.items);
+function NavTab(
+  {
+    links,
+    place,
+    handleLinkClick,
+    children,
+  },
+) {
   return (
     <nav className='NavTab'>
-      <ul className={classLinks}>
-        {links.map((link) => <li key={cryptoKeys(link.path)} className={`${classItem} ${link.active}`}>
-            {handleLinkClick ? (<Link className='NavTab__link'
-              to={link.path} title={link.title} onClick={handleLinkClick}>
+      <ul className={`NavTab__items NavTab__items_place_${place}`}>
+        {links.map((link) => <li key={cryptoKeys(link.path)} className={`NavTab__item NavTab__item_place_${place} ${link.active}`}>
+            {link.type === 'local' ? (<NavLink className='NavTab__link' activeClassName={'NavTab__link_active'}
+              to={link.path} exact title={link.title} onClick={handleLinkClick}>
               {link.text}
-            </Link>) : (<a className='NavTab__link'
+            </NavLink>) : (<a className='NavTab__link'
               href={link.path} title={link.title} target='_blank' rel='noopener noreferrer'>
-              {link.text}
+              {link.text} {children}
             </a>)}
           </li>)}
       </ul>
@@ -26,9 +30,10 @@ function NavTab({ mod, links, handleLinkClick }) {
 }
 
 NavTab.propTypes = {
-  mod: PropTypes.object,
+  place: PropTypes.string.isRequired,
   links: PropTypes.array,
   handleLinkClick: PropTypes.func,
+  children: PropTypes.object,
 };
 
 export default NavTab;

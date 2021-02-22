@@ -1,42 +1,17 @@
 import React from 'react';
-import NavTab from '../NavTab/NavTab';
+import PropTypes from 'prop-types';
 import './Navigation.css';
 
-function Navigation() {
-  const links = [
-    {
-      path: '/',
-      text: 'Главная страница',
-      active: '',
-      title: 'Перейти на главную страницу',
-    },
-    {
-      path: '/signup',
-      text: 'Регистрация',
-      active: '',
-      title: 'Перейти на страницу регистрации',
-    },
-    {
-      path: '/signin',
-      text: 'Войти',
-      active: 'Navigation-item_active',
-      title: 'Перейти на страницу авторизации',
-    },
-  ];
-  const mod = {
-    item: 'Navigation-item',
-    items: 'Navigation-items',
-  };
-  const handleLinkClick = (evt) => {
-    console.dir(evt.target);
-  };
+function Navigation({ children }) {
   return (
     <nav>
-      <ul className='Navigation-links'>
-        <NavTab links={links} handleLinkClick={handleLinkClick} mod={mod}/>
-      </ul>
+     {children}
     </nav>
   );
 }
+
+Navigation.propTypes = {
+  children: PropTypes.object.isRequired,
+};
 
 export default Navigation;

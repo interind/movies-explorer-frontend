@@ -3,10 +3,13 @@ import './AboutProject.css';
 import HeaderBar from '../HeaderBar/HeaderBar';
 
 function AboutProject() {
-  const title = 'О проекте';
+  const aboutProject = {
+    title: 'О проекте',
+    place: 'aboutProject',
+  };
   return (
     <section className='AboutProject' id={'about-project'}>
-      <HeaderBar title={title} modifier={'AboutProject__header'} />
+      <HeaderBar modifier={aboutProject} />
       <div className='AboutProject__containers'>
         <div className='AboutProject__container'>
           <h3 className='AboutProject__title AboutProject__title_size_m'>Дипломный проект включал 5 этапов</h3>

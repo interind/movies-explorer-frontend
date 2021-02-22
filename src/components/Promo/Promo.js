@@ -3,25 +3,24 @@ import NavTab from '../NavTab/NavTab';
 import './Promo.css';
 
 function Promo() {
-  const title = 'Учебный проект студента факультета Веб-разработки.';
-  const links = [
-    { path: '#about-project', text: 'О проекте' },
-    { path: '#techs', text: 'Технологии' },
-    { path: '#about-me', text: 'Студент' },
-  ];
-  const mod = {
-    item: 'Promo-item',
-    items: 'Promo-items',
+  const promo = {
+    title: 'Учебный проект студента факультета Веб-разработки.',
+    place: 'promo',
   };
+  const dataLinks = [
+    { path: '#about-project', text: 'О проекте', type: 'local' },
+    { path: '#techs', text: 'Технологии', type: 'local' },
+    { path: '#about-me', text: 'Студент', type: 'local' },
+  ];
   const handleLinkClick = (evt) => {
     evt.preventDefault();
     document.querySelector(evt.target.hash).scrollIntoView();
   };
   return (
     <section className="Promo">
-      <h1 className='Promo__title'>{title}</h1>
+      <h1 className='Promo__title'>{promo.title}</h1>
       <div className='Promo__nav-tab'>
-        <NavTab mod={mod} links={links} handleLinkClick={handleLinkClick}/>
+        <NavTab links={dataLinks} place={promo.place} handleLinkClick={handleLinkClick}/>
       </div>
     </section>
   );

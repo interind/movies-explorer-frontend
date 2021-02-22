@@ -6,6 +6,8 @@
   max-width: 1140px;
   width: 89%;
 }
+.HeaderBar_place_aboutProject {
+}
 
 .HeaderBar__title {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -15,4 +17,6 @@
   margin-bottom: 23px;
   margin-top: 0;
   color: inherit;
+}
+.HeaderBar__title_place_aboutProject {
 }
