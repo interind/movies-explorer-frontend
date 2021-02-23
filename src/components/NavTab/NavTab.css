@@ -4,6 +4,7 @@
   list-style: none;
   min-height: 40px;
   padding: 0;
+  margin: 0;
 }
 
 .NavTab_hidden {
@@ -19,6 +20,7 @@
 }
 .NavTab_place_techs {
   flex-wrap: wrap;
+  margin-bottom: 100px;
 }
 
 .NavTab_place_aboutMe {
@@ -43,12 +45,6 @@
   margin-left: 10px;
 }
 
-.NavTab__item_place_popup {
-  margin-right: 10px;
-  min-width: 76px;
-  align-items: center;
-  justify-content: center;
-}
 .NavTab__item_place_header {
   margin-right: 10px;
   min-width: 76px;
@@ -58,12 +54,19 @@
 .NavTab__item_place_techs {
   margin-right: 10px;
   margin-bottom: 10px;
-  min-width: 90px;
-  min-height: 60px;
+  width: 90px;
+  height: 60px;
   background-color: #E8E8E8;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
+}
+.NavTab__item_place_aboutMe {
+  margin-right: 10px;
+}
+.NavTab__item_place_footer {
+  justify-content: center;
+  align-items: center;
 }
 .NavTab__item_place_promo {
   margin-right: 10px;
@@ -77,13 +80,6 @@
   background-color: #FF6838;
   opacity: 1;
   color: #fff;
-}
-.NavTab__item_place_aboutMe {
-  margin-right: 10px;
-}
-.NavTab__item_place_footer {
-  justify-content: center;
-  align-items: center;
 }
 .NavTab__item_place_footer:last-of-type {
   margin-bottom: 0;
@@ -143,24 +139,34 @@
   height: 100%;
 }
 
-@media screen and (max-width:660px) {
+@media screen and (max-width: 800px) {
+  .NavTab__item_place_techs {
+    width: 87px;
+    height: 57px;
+  }
+}
+@media screen and (max-width: 660px) {
   .NavTab_place_techs {
     display: grid;
     grid-template-columns: repeat(2, auto);
     grid-gap: 10px;
+    margin-bottom: 90px;
   }
   .NavTab__item_place_portfolio {
     font-size: 28px;
     line-height: 1.67;
   }
 }
-@media screen and (max-width:460px) {
-  .NavTab_place_footer {
-    flex-direction: column;
-    order: -1;
+@media screen and (max-width: 560px) {
+  .NavTab_place_techs {
+    margin-bottom: 70px;
   }
   .NavTab__item_place_portfolio {
     font-size: 18px;
+  }
+  .NavTab_place_footer {
+    flex-direction: column;
+    order: -1;
   }
   .NavTab__item_place_footer {
     margin-bottom: 10px;

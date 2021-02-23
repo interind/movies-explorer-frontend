@@ -66,7 +66,7 @@ function Techs() {
   return (
     <section className='Techs' id={'techs'}>
       <HeaderBar modifier={techs} />
-      <h3 className='Techs__title Techs__title_place_blank'>{pageInfo.title}</h3>
+      <h3 className='Techs__title'>{pageInfo.title}</h3>
       <p className='Techs__subtitle'>{pageInfo.subtitle}</p>
     <NavTab place={techs.place} links={dataLinks}/>
     </section>

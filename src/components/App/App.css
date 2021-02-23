@@ -1,6 +1,8 @@
 .App {
-  display: grid;
+  display: flex;
+  flex-flow: column nowrap;
   box-sizing: border-box;
+  align-items: center;
   background-color: inherit;
   margin: 0 auto;
   min-width: 319px;

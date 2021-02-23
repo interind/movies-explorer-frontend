@@ -17,6 +17,7 @@
 }
 .HeaderBar_place_techs {
   min-height: 110px;
+  margin-bottom: 80px;
   border-bottom: 1px solid #000;
 }
 .HeaderBar_place_aboutProject {
@@ -51,4 +52,17 @@
 .HeaderBar__title_place_aboutProjet {
 }
 .HeaderBar__title_place_aboutMe {
+}
+
+@media screen and (max-width: 770px) {
+  .HeaderBar_place_techs {
+    margin-bottom: 80px;
+    min-height: 140px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .HeaderBar_place_techs {
+    margin-bottom: 60px;
+    min-height: 120px;
+  }
 }
