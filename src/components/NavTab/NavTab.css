@@ -1,3 +1,4 @@
+/* стили списка */
 .NavTab {
   display: flex;
   justify-content: center;
@@ -15,19 +16,19 @@
 .NavTab_place_header {
   min-width: 200px;
 }
+
+.NavTab_place_promo {
+  margin-bottom: 30px;
+}
+.NavTab_place_aboutMe {
+
+}
 .NavTab_place_popup {
   flex-direction: column;
 }
 .NavTab_place_techs {
   flex-wrap: wrap;
   margin-bottom: 100px;
-}
-
-.NavTab_place_aboutMe {
-
-}
-.NavTab_place_promo {
-
 }
 .NavTab_place_footer {
 
@@ -39,6 +40,8 @@
   padding: 0;
 }
 
+/* стили для элементов списка */
+
 .NavTab__item {
   display: flex;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -48,8 +51,25 @@
 .NavTab__item_place_header {
   margin-right: 10px;
   min-width: 76px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
   align-items: center;
   justify-content: center;
+}
+.NavTab__item_place_promo {
+  margin-right: 10px;
+  width: 96px;
+  height: 36px;
+  font-size: 12px;
+  line-height: 1.33;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8E8E8;
+}
+.NavTab__item_place_aboutMe {
+  margin-right: 10px;
 }
 .NavTab__item_place_techs {
   margin-right: 10px;
@@ -61,20 +81,9 @@
   align-items: center;
   justify-content: center;
 }
-.NavTab__item_place_aboutMe {
-  margin-right: 10px;
-}
 .NavTab__item_place_footer {
   justify-content: center;
   align-items: center;
-}
-.NavTab__item_place_promo {
-  margin-right: 10px;
-  min-width: 96px;
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  background-color: #E8E8E8;
 }
 .NavTab__item_place_promo:hover, .NavTab__item_place_techs:hover  {
   background-color: #FF6838;
@@ -158,6 +167,12 @@
   }
 }
 @media screen and (max-width: 560px) {
+  .NavTab__item_place_promo {
+    width: 82px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
   .NavTab_place_techs {
     margin-bottom: 70px;
   }
