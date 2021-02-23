@@ -17,7 +17,7 @@ function NavTab(
   return (
       <ul className={`NavTab NavTab_place_${place} ${hiddenClass}`}>
         {links.map((link) => <li key={cryptoKeys(link.path)} className={`NavTab__item NavTab__item_place_${place} ${link.active ? 'NavTab__item-active' : ''}`}>
-            {link.type === 'local' && (<NavLink className='NavTab__link' activeStyle={{ textDecoration: 'underline', textDecorationColor: '#FF6838' }} exact
+            {link.type === 'local' && (<NavLink className='NavTab__link' activeClassName={'NavTab_active'} exact
               to={link.path} title={link.title}>
               {link.text}
             </NavLink>)}

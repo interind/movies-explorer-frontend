@@ -80,7 +80,18 @@
 .AboutMe-item:hover {
   opacity: .5;
 }
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 770px) {
+  .AboutMe-container {
+    max-width: 364px;
+  }
+    .AboutMe-image {
+    min-width: 292px;
+  }
+  .AboutMe__text {
+  font-size: 12px;
+}
+}
+@media screen and (max-width: 700px) {
   .AboutMe-container {
     min-width: 292px;
     flex-direction: column;
@@ -93,5 +104,14 @@
     align-self: center;
     margin: 0;
     margin-bottom: 40px;
+  }
+}
+@media screen and (max-width: 460px) {
+  .AboutMe-container {
+    min-width: 320px;
+
+  }
+  .AboutMe-image {
+    min-width: 292px;
   }
 }

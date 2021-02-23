@@ -6,8 +6,14 @@
   max-width: 1140px;
   width: 89%;
 }
+.HeaderBar_place_footer {
+  justify-content: center;
+  min-height: 115px;
+  border-bottom: 1px solid #E8E8E8;
+}
 .HeaderBar_place_portfolio {
   min-height: 110px;
+  align-self: center;
 }
 .HeaderBar_place_techs {
   min-height: 110px;
@@ -34,6 +40,11 @@
 }
 .HeaderBar__title_place_portfolio {
   color:#A0A0A0;
+}
+.HeaderBar__title_place_footer {
+  font-size: 13px;
+  color: #A0A0A0;
+  margin-bottom: 20px;
 }
 .HeaderBar__title_place_techs {
 }

@@ -1,6 +1,25 @@
-.Navigation-links {
-  display: flex;
+.Navigation {
   width: 100%;
+}
+.Navigation_place_header {
+  display: flex;
   justify-content: space-between;
   overflow: hidden;
+}
+.Navigation_place_popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 0 0 auto;
+  min-height: 100vh;
+  min-width: 320px;
+  max-width: 520px;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 800px) {
+  .Navigation_place_header {
+    display: none;
+  }
 }

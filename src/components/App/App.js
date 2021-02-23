@@ -20,7 +20,6 @@ function App() {
     <React.Fragment>
       <div className='App'>
       <Header />
-      <div className='App-content'>
       <Switch>
         <Route path='/' exact>
           <Main />
@@ -45,7 +44,6 @@ function App() {
         </Route>
         <Redirect to='/404' />
       </Switch>
-      </div>
       <Footer />
       </div>
     </React.Fragment>

@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   min-height: 74px;
-  margin: 0 auto;
   max-width: 1140px;
   min-width: 89%;
+  margin: 0 auto 20px auto;
 }
 
 .Header__button-menu[type='checkbox'] {
@@ -18,15 +18,15 @@
   clip: rect(0 0 0 0);
 }
 
-
-
 @media screen and (max-width: 800px) {
   .Header__button-menu {
     opacity: 1;
+    z-index: 10;
   }
 
   .Header__button-menu:hover {
     opacity: .3;
+    cursor: pointer;
   }
 
   .Header__button-menu[id='span'] {
@@ -34,17 +34,18 @@
     overflow: visible;
     width: 44px;
     height: 44px;
-    right: 20px;
-    top: 20px;
+    right: 40px;
+    padding: 0;
+    top: 15px;
     opacity: 1;
-    background-image: url('../../images/navbar/iconMenu.svg');
+    background-image: url('../../images/navbar/BlackIcon-main.svg');
     background-color: initial;
     background-repeat: no-repeat;
     background-position: center;
   }
 
   .Header__button-menu[type='checkbox']:checked + .Header__button-menu[id='span'] {
-    background-image: url('../../images/navbar/Close-Icon.svg');
+    background-image: url('../../images/navbar/Group.svg');
     border: none;
   }
 

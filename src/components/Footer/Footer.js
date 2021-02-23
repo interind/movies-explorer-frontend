@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import NavTab from '../NavTab/NavTab';
+import HeaderBar from '../HeaderBar/HeaderBar';
 
 function Footer() {
   const footer = {
@@ -32,10 +33,8 @@ function Footer() {
   ];
   return (
     <footer className='Footer'>
-      <div className='Footer__header'>
-        <h2 className='Footer__title'>{footer.title}</h2>
-      </div>
-      <div className='Footer__footer'>
+      <HeaderBar modifier={footer} />
+      <div className='Footer__container'>
         <p className='Footer-item'>
           &copy;{new Date().getFullYear()}
         </p>

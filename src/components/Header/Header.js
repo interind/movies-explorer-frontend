@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Logo from '../Logo/Logo';
+import Popup from '../Popup/Popup';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
-function Header({ toggleNavbar }) {
+function Header() {
+  const [status, setStatus] = React.useState(false);
   const dataLinks = [
     {
       path: '/',
@@ -29,19 +30,15 @@ function Header({ toggleNavbar }) {
       type: 'local',
     },
   ];
-  const [status, setStatus] = React.useState(false);
   const header = {
     title: '',
     place: 'header',
   };
-  React.useEffect(() => {
-    if (window.innerWidth <= '800') {
-      setStatus(true);
-    } else {
-      setStatus(false);
-    }
-  }, []);
-
+  const popup = {
+    title: '',
+    place: 'popup',
+  };
+  const toggleNavbar = () => setStatus(!status);
   return (
     <header className='Header'>
       <Logo />
@@ -52,16 +49,19 @@ function Header({ toggleNavbar }) {
           onChange={toggleNavbar}></input>
         <span id='span' className='Header__button-menu'></span>
       </label>
-      {!status && (<Navigation>
+      <Navigation place={header.place}>
         <NavTab links={dataLinks} place={header.place} hidden={true}/>
         <NavTab links={dataLinks} place={header.place}/>
-      </Navigation>)}
+      </Navigation>
+      {status && (
+        <Popup>
+          <Navigation place={popup.place}>
+            <NavTab links={dataLinks} place={popup.place}/>
+            <button />
+          </Navigation>
+        </Popup>)}
     </header>
   );
 }
-
-Header.propTypes = {
-  toggleNavbar: PropTypes.func,
-};
 
 export default Header;
