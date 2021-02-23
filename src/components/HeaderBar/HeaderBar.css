@@ -6,28 +6,29 @@
   max-width: 1140px;
   width: 89%;
 }
-.HeaderBar_place_footer {
-  justify-content: center;
-  min-height: 115px;
-  border-bottom: 1px solid #E8E8E8;
-}
-.HeaderBar_place_portfolio {
-  min-height: 110px;
-  align-self: center;
+.HeaderBar_place_aboutProject {
+  min-height: 160px;
+  margin-bottom: 70px;
+  border-bottom: 1px solid #000;
 }
 .HeaderBar_place_techs {
   min-height: 110px;
   margin-bottom: 80px;
   border-bottom: 1px solid #000;
 }
-.HeaderBar_place_aboutProject {
-  min-height: 110px;
-  border-bottom: 1px solid #000;
-}
 .HeaderBar_place_aboutMe {
   min-height: 110px;
   margin-bottom: 60px;
   border-bottom: 1px solid #000;
+}
+.HeaderBar_place_portfolio {
+  min-height: 110px;
+  align-self: center;
+}
+.HeaderBar_place_footer {
+  justify-content: center;
+  min-height: 115px;
+  border-bottom: 1px solid #E8E8E8;
 }
 
 .HeaderBar__title {
@@ -49,18 +50,26 @@
 }
 .HeaderBar__title_place_techs {
 }
-.HeaderBar__title_place_aboutProjet {
-}
 .HeaderBar__title_place_aboutMe {
 }
 
 @media screen and (max-width: 770px) {
+  .HeaderBar_place_aboutProject {
+    min-height: 140px;
+  }
   .HeaderBar_place_techs {
     margin-bottom: 80px;
     min-height: 140px;
   }
 }
 @media screen and (max-width: 470px) {
+  .HeaderBar_place_aboutProject {
+    min-height: 120px;
+  }
+  .HeaderBar__title_place_aboutProjet {
+    font-size: 18px;
+    margin-bottom: 28px;
+  }
   .HeaderBar_place_techs {
     margin-bottom: 60px;
     min-height: 120px;
