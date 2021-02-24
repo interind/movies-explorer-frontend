@@ -51,7 +51,6 @@ function Header() {
           onChange={toggleNavbar}
           />
         <Navigation place={header.place}>
-          <NavTab links={dataLinks} place={header.place} hidden={true}/>
           <NavTab links={dataLinks} place={header.place}/>
         </Navigation>
       </div>
