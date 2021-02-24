@@ -49,10 +49,6 @@
   color: #A0A0A0;
   margin-bottom: 20px;
 }
-.HeaderBar__title_place_techs {
-}
-.HeaderBar__title_place_aboutMe {
-}
 
 @media screen and (max-width: 770px) {
   .HeaderBar_place_aboutProject {
