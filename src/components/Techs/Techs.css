@@ -49,5 +49,6 @@
     font-size: 11px;
     line-height: 1.45;
     margin-bottom: 50px;
+    max-width: 284px;
   }
 }

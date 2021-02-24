@@ -39,7 +39,7 @@ function AboutMe() {
       <HeaderBar modifier={aboutMe} />
       <div className='AboutMe-container'>
         <div className='AboutMe-info'>
-        <h3 className='AboutMe__title AboutMe__title_place_top'>{student.name}</h3>
+        <h3 className='AboutMe__title AboutMe__title_place_author'>{student.name}</h3>
         <h4 className='AboutMe__subtitle'>{`${student.about} ${student.age}`}</h4>
         <p className='AboutMe__text'>{student.description}</p>
         <NavTab links={dataLinks} place={aboutMe.place} />

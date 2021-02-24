@@ -1,15 +1,15 @@
 .Portfolio {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-width: 320px;
   width: 100%;
 }
 
 .Portfolio-arrow {
   max-width: 29px;
   min-width: 18px;
+  align-self: flex-end;
   width: 29px;
   height: 60px;
   background-image: url(../../images/portfolio/text__COLOR_font-main.svg);
@@ -23,6 +23,11 @@
 
 @media screen and (max-width: 460px) {
   .Portfolio {
-  align-items: stretch;
+    align-items: stretch;
+    width: 90%;
+    align-items: flex-start;
+  }
+  .Portfolio-arrow {
+    width: 18px;
   }
 }

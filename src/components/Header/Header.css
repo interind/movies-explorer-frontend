@@ -56,3 +56,15 @@
     margin-bottom: 14px;
   }
 }
+@media screen and (max-width: 400px) {
+  .Header {
+    min-width: 240px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+    align-self: center;
+  }
+  .Header__button-menu[id='span'] {
+    right: 0;
+  }
+}

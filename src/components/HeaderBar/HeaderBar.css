@@ -22,8 +22,8 @@
   border-bottom: 1px solid #000;
 }
 .HeaderBar_place_portfolio {
-  min-height: 110px;
-  align-self: center;
+  min-height: fit-content;
+  margin-bottom: 50px;
 }
 .HeaderBar_place_footer {
   justify-content: center;
@@ -42,6 +42,7 @@
 }
 .HeaderBar__title_place_portfolio {
   color:#A0A0A0;
+  margin-bottom: 0;
 }
 .HeaderBar__title_place_footer {
   font-size: 13px;
@@ -65,6 +66,23 @@
 @media screen and (max-width: 470px) {
   .HeaderBar_place_aboutProject {
     min-height: 120px;
+    margin-bottom: 60px;
+  }
+  .HeaderBar_place_portfolio {
+    min-width: 292px;
+    align-self: center;
+  }
+  .HeaderBar_place_footer {
+    max-width: 300px;
+    margin-bottom: 30px;
+  }
+  .HeaderBar__title_place_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-size: 12px;
+    line-height: 1.21;
   }
   .HeaderBar__title_place_aboutProjet {
     font-size: 18px;
