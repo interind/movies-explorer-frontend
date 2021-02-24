@@ -31,14 +31,16 @@ function AboutProject() {
   return (
     <section className='AboutProject' id={'about-project'}>
       <HeaderBar modifier={aboutProject} />
-      { dataInfo.map((info) => <div key={cryptoKeys(info.title)} className='AboutProject__container'>
-          <h3 className='AboutProject__title'>{info.title}</h3>
-          <p className='AboutProject__subtitle'>{info.description}</p>
-      </div>)}
-      { timeInfo.map((info) => <div key={cryptoKeys(info.title)} className='AboutProject__container'>
-          <h3 className={`AboutProject__title AboutProject__title_theme_${info.title.includes('1') ? 'green' : 'gray'}`}>{info.title}</h3>
-          <p className='AboutProject__subtitle AboutProject__subtitle_theme_gray'>{info.description}</p>
-      </div>)}
+      <div className='AboutProject__containers'>
+        { dataInfo.map((info) => <div key={cryptoKeys(info.title)} className='AboutProject__container'>
+            <h3 className='AboutProject__title'>{info.title}</h3>
+            <p className='AboutProject__subtitle'>{info.description}</p>
+        </div>)}
+        { timeInfo.map((info) => <div key={cryptoKeys(info.title)} className='AboutProject__container'>
+            <h3 className={`AboutProject__title AboutProject__title_theme_${info.title.includes('1') ? 'green' : 'gray'}`}>{info.title}</h3>
+            <p className='AboutProject__subtitle AboutProject__subtitle_theme_gray'>{info.description}</p>
+        </div>)}
+      </div>
     </section>
   );
 }
