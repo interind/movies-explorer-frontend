@@ -18,7 +18,7 @@ import './App.css';
 function App() {
   return (
     <React.Fragment>
-      <div className='App'>
+      <div className='App' onClick={ (evt) => console.dir(evt.target)}>
       <Header />
       <Switch>
         <Route path='/' exact>
