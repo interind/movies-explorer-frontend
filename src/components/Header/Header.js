@@ -53,13 +53,13 @@ function Header() {
         <NavTab links={dataLinks} place={header.place} hidden={true}/>
         <NavTab links={dataLinks} place={header.place}/>
       </Navigation>
-      {status && (
-        <Popup>
-          <Navigation place={popup.place}>
-            <NavTab links={dataLinks} place={popup.place}/>
-            <button />
-          </Navigation>
-        </Popup>)}
+    {status && (
+      <Popup>
+        <Navigation place={popup.place}>
+          <NavTab links={dataLinks} place={popup.place}/>
+          <button />
+        </Navigation>
+      </Popup>)}
     </header>
   );
 }
