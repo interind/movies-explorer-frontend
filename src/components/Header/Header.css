@@ -1,55 +1,56 @@
 .Header {
-  display: flex;
-  position: relative;
-  align-items: center;
   min-height: 74px;
+  position: relative;
   max-width: 1280px;
   background-color: #fff;
-  padding: 0 60px;
   align-self: stretch;
   margin-bottom: 20px;
 }
+.Header__container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 60px;
+  right: 60px;
+  height: 74px;
+}
 
-.Header__button-menu[type='checkbox'] {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+.Header__button-close {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  height: 40px;
+  background-image: url('../../images/navbar/Close-Icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Header__button-open {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  height: 40px;
+  background-image: url('../../images/navbar/BlackIcon-main.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Header__button-close:hover, .Header__button-open:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 @media screen and (max-width: 800px) {
-  .Header__button-menu {
+  .Header__button-open {
+    visibility: visible;
     opacity: 1;
-    z-index: 10;
-  }
-
-  .Header__button-menu:hover {
-    opacity: .3;
-    cursor: pointer;
-  }
-
-  .Header__button-menu[id='span'] {
-    position: absolute;
-    overflow: visible;
-    width: 44px;
-    height: 44px;
-    right: 40px;
-    padding: 0;
-    top: 15px;
-    opacity: 1;
-    background-image: url('../../images/navbar/BlackIcon-main.svg');
-    background-color: initial;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  .Header__button-menu[type='checkbox']:checked + .Header__button-menu[id='span'] {
-    background-image: url('../../images/navbar/Group.svg');
-    border: none;
   }
 }
 @media screen and (max-width: 500px) {
@@ -64,8 +65,5 @@
     margin: 0;
     margin-bottom: 20px;
     align-self: center;
-  }
-  .Header__button-menu[id='span'] {
-    right: 0;
   }
 }

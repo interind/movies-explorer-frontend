@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from '../Logo/Logo';
 import Popup from '../Popup/Popup';
+import Button from '../Button/Button';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
@@ -41,20 +42,27 @@ function Header() {
   const toggleNavbar = () => setStatus(!status);
   return (
     <header className='Header'>
-      <Logo />
-      <label>
-        <input
-          type='checkbox'
-          className='Header__button-menu'
-          onChange={toggleNavbar}></input>
-        <span id='span' className='Header__button-menu'></span>
-      </label>
-      <Navigation place={header.place}>
-        <NavTab links={dataLinks} place={header.place} hidden={true}/>
-        <NavTab links={dataLinks} place={header.place}/>
-      </Navigation>
+      <div className='Header__container'>
+        <Logo />
+         <Button
+          title={'Открыть'}
+          type={'button'}
+          className={'Header__button-open'}
+          onChange={toggleNavbar}
+          />
+        <Navigation place={header.place}>
+          <NavTab links={dataLinks} place={header.place} hidden={true}/>
+          <NavTab links={dataLinks} place={header.place}/>
+        </Navigation>
+      </div>
     {status && (
       <Popup>
+        <Button
+          title={'Закрыть'}
+          type={'button'}
+          className={'Header__button-close'}
+          onChange={toggleNavbar}
+          />
         <Navigation place={popup.place}>
           <NavTab links={dataLinks} place={popup.place}/>
           <button />
