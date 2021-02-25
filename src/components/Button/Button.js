@@ -21,7 +21,7 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   children: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };
 
 export default Button;

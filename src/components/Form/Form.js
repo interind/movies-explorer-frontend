@@ -4,7 +4,7 @@ import './Form.css';
 
 function Form({
   nameFrom,
-  className,
+  className = '',
   onSubmit,
   children,
 }) {
@@ -18,7 +18,7 @@ function Form({
 Form.propTypes = {
   className: PropTypes.string.isRequired,
   nameFrom: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

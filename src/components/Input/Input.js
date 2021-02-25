@@ -6,25 +6,22 @@ function Input({
   name,
   type,
   value,
-  children,
-  className,
+  className = '',
   placeholder,
   onInput,
   onChange,
 }) {
   return (
-    <label>
-      <input
-        className={className}
-        name={name}
-        type={type}
-        onChange={onChange}
-        onInput={onInput}
-        placeholder={placeholder}
-        value={value}
-        />
-      {children}
-    </label>
+    <input
+      className={className}
+      name={name}
+      id={`input-${name}`}
+      type={type}
+      onChange={onChange}
+      onInput={onInput}
+      placeholder={placeholder}
+      value={value}
+    ></input>
   );
 }
 
@@ -34,9 +31,8 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  className: PropTypes.string,
 
 };
 

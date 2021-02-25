@@ -1,9 +1,13 @@
 import React from 'react';
+import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 
 function Movies() {
   return (
-    <div>Movies</div>
+    <React.Fragment>
+      <div>Movies</div>
+      <SearchForm />
+    </React.Fragment>
   );
 }
 

@@ -10,12 +10,19 @@ import './Header.css';
 function Header() {
   const history = useHistory();
   const [status, setStatus] = React.useState(false);
+  const page = {
+    path: '/',
+    text: 'Главная страница',
+    active: '',
+    title: 'Перейти на главную страницу',
+    type: 'local',
+  };
   const dataLinks = [
     {
-      path: '/',
-      text: 'Главная страница',
+      path: '/movies',
+      text: 'Фильмы',
       active: '',
-      title: 'Перейти на главную страницу',
+      title: 'Перейти на страницу поиска фильмов',
       type: 'local',
     },
     {
@@ -49,7 +56,7 @@ function Header() {
   return (
     <header className='Header'>
       <div className='Header__container'>
-        <Logo />
+        <Logo element={page}/>
          <Button
           title={'Открыть'}
           type={'button'}
@@ -68,7 +75,7 @@ function Header() {
           onChange={toggleNavbar}
           />
         <Navigation place={popup.place}>
-          <NavTab links={dataLinks} place={popup.place}/>
+          <NavTab links={[page, ...dataLinks]} place={popup.place}/>
           <Button
             title={'Профиль'}
             type={'button'}
