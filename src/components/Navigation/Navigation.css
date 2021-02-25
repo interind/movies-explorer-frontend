@@ -16,6 +16,8 @@
   min-width: 320px;
   max-width: 520px;
   background-color: #fff;
+  transition: inherit;
+  height: inherit;
 }
 
 @media screen and (max-width: 800px) {

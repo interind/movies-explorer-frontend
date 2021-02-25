@@ -2,16 +2,18 @@
   position: fixed;
   visibility: hidden;
   opacity: 0;
+  height: 0;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   min-width: 320px;
   background-color: rgba(0, 0, 0, .3);
-  transition: visibility .3s linear, opacity .7s ease;
+  transition: all .4s ease;
 }
 .Popup_opened {
+  height: 100vh;
   visibility: visible;
   opacity: 1;
-  transition: visibility .2s linear, opacity .6s ease;
+  transition: all .5s ease;
 }
