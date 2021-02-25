@@ -54,8 +54,7 @@ function Header() {
           <NavTab links={dataLinks} place={header.place}/>
         </Navigation>
       </div>
-    {status && (
-      <Popup>
+      <Popup isOpen={status}>
         <Button
           title={'Закрыть'}
           type={'button'}
@@ -66,7 +65,7 @@ function Header() {
           <NavTab links={dataLinks} place={popup.place}/>
           <button />
         </Navigation>
-      </Popup>)}
+      </Popup>
     </header>
   );
 }

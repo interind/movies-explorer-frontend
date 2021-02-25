@@ -95,7 +95,7 @@
   align-items: center;
 }
 .NavTab__item_place_promo:hover, .NavTab__item_place_techs:hover  {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #2BE080;
   color: #fff;
 }
 .NavTab__item_place_footer:last-of-type {
@@ -157,6 +157,12 @@
   color: inherit;
   width: 100%;
   height: inherit;
+}
+.NavTab__link:hover {
+  color: inherit;
+  background-color: inherit;
+  cursor: inherit;
+  border-radius: inherit;
 }
 
 @media screen and (max-width: 800px) {

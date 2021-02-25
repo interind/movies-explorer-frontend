@@ -18,6 +18,16 @@
   width: calc(100% - 50px);
   max-width: 1280px;
 }
+.Header::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  width: 100vw;
+  background: #fff;
+}
 
 .Header__button-close {
   position: absolute;
@@ -26,10 +36,14 @@
   width: 40px;
   background-color: transparent;
   border: none;
+  outline: none;
   height: 40px;
-  background-image: url('../../images/navbar/Close-Icon.svg');
+  background-image: url('../../images/button/Close-black.svg');
   background-position: center;
   background-repeat: no-repeat;
+}
+.Header__button-close:active {
+  background-image: url('../../images/button/Close-orange.svg');
 }
 .Header__button-open {
   visibility: hidden;
@@ -38,8 +52,9 @@
   margin-right: 30px;
   background-color: transparent;
   border: none;
+  outline: none;
   height: 40px;
-  background-image: url('../../images/navbar/BlackIcon-main.svg');
+  background-image: url('../../images/button/BlackIcon-mainOpen.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
