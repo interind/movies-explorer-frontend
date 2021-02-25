@@ -42,6 +42,21 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+.Header__button-avatar {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  background-image: url('../../images/profile/icon__profile.svg');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+.Header__button-avatar:hover {
+  opacity: .5;
+  cursor: pointer;
+}
 .Header__button-close:active {
   background-image: url('../../images/button/Close-orange.svg');
 }
@@ -60,7 +75,7 @@
 }
 .Header__button-close:hover, .Header__button-open:hover {
   cursor: pointer;
-  opacity: .8;
+  opacity: .5;
 }
 
 @media screen and (max-width: 800px) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Popup from '../Popup/Popup';
 import Button from '../Button/Button';
@@ -7,6 +8,7 @@ import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 function Header() {
+  const history = useHistory();
   const [status, setStatus] = React.useState(false);
   const dataLinks = [
     {
@@ -40,6 +42,10 @@ function Header() {
     place: 'popup',
   };
   const toggleNavbar = () => setStatus(!status);
+  const editAvatar = () => {
+    history.push('/profile');
+    toggleNavbar();
+  };
   return (
     <header className='Header'>
       <div className='Header__container'>
@@ -63,7 +69,14 @@ function Header() {
           />
         <Navigation place={popup.place}>
           <NavTab links={dataLinks} place={popup.place}/>
-          <button />
+          <Button
+            title={'Профиль'}
+            type={'button'}
+            className={'Header__button-avatar'}
+            onChange={editAvatar}
+          >
+          Аккаунт
+          </Button>
         </Navigation>
       </Popup>
     </header>
