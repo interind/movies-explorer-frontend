@@ -14,6 +14,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
+import ImagePopup from '../ImagePopup/ImagePopup';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
@@ -25,8 +26,8 @@ function App() {
   const [image, setImage] = React.useState({});
   const [isOpenImage, setIsOpenImage] = React.useState(false);
 
-  function openImage({ src, name }) {
-    setImage({ src, name });
+  function openImage({ src, name, description }) {
+    setImage({ src, name, description });
     return setIsOpenImage(true);
   }
   function onCloseImage() {
@@ -79,15 +80,9 @@ function App() {
       <Footer />
       </div>
       <Popup isOpen={isOpenImage}>
-        <img src={image.src} alt={image.name} style={{ width: '100%' }}/>
-        <Button type="button" style={{
-          width: '40px',
-          height: '40px',
-          backgroundColor: 'orange',
-          position: 'absolute',
-          top: '40px',
-          right: '40px',
-        }} onChange={onCloseImage} className='' title=''/>
+        <ImagePopup className='Popup-image' card={image}/>
+        <p className='Popup-description'>{image.description}</p>
+        <Button type="button" className='Popup-button-close' onChange={onCloseImage} title=''/>
       </Popup>
       </CurrentUserContext.Provider>
     </React.Fragment>

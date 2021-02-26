@@ -26,7 +26,7 @@ function MoviesCard({
             }}
             onClick={(evt) => {
               if (evt.target === evt.currentTarget) {
-                onCardClick({ src: visible, name: card.nameRU });
+                onCardClick({ src: visible, name: card.nameRU, description: card.description });
               }
             }}
           />
