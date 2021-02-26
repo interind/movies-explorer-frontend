@@ -26,6 +26,13 @@ function Header() {
       type: 'local',
     },
     {
+      path: '/saved-movies',
+      text: 'Мои Фильмы',
+      active: '',
+      title: 'Перейти на страницу поиска фильмов',
+      type: 'local',
+    },
+    {
       path: '/signup',
       text: 'Регистрация',
       active: '',

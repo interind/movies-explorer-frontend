@@ -5,6 +5,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import data from '../../vendor/data/response.json';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
@@ -20,6 +21,7 @@ import './App.css';
 
 function App() {
   const [moviesData, setMoviesDate] = React.useState([]);
+  const [userMovies, setUserMovies] = React.useState([]);
   const [image, setImage] = React.useState({});
   const [isOpenImage, setIsOpenImage] = React.useState(false);
 
@@ -31,6 +33,15 @@ function App() {
     return setIsOpenImage(false);
   }
 
+  function handleMovies(card) {
+    const cardID = userMovies.some((c) => c.id === card.id);
+    if (cardID) {
+      setUserMovies(userMovies.filter((car) => car !== card));
+    } else {
+      setUserMovies([card, ...userMovies]);
+    }
+  }
+
   React.useEffect(() => {
     const arr = JSON.parse(JSON.stringify(data));
     setMoviesDate(arr);
@@ -38,6 +49,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <CurrentUserContext.Provider value={userMovies}>
       <div className='App'>
       <Header />
       <Switch>
@@ -45,10 +57,10 @@ function App() {
           <Main />
         </Route>
         <Route path='/movies' exact>
-          <Movies movies={moviesData} openImage={openImage}/>
+          <Movies movies={moviesData} openImage={openImage} toggleMovies={handleMovies}/>
         </Route>
         <Route path='/saved-movies' exact>
-          <SavedMovies />
+          <SavedMovies movies={userMovies} openImage={openImage} toggleMovies={handleMovies}/>
         </Route>
         <Route path='/profile' exact>
           <Profile />
@@ -77,6 +89,7 @@ function App() {
           right: '40px',
         }} onChange={onCloseImage} className='' title=''/>
       </Popup>
+      </CurrentUserContext.Provider>
     </React.Fragment>
   );
 }

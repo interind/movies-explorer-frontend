@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import './MoviesCard.css';
 
 function MoviesCard({
   card,
   onCardClick,
+  toggleMovies,
 }) {
+  const userMovies = React.useContext(CurrentUserContext);
   const [visible, setVisible] = React.useState(`https://api.nomoreparties.co${card.image.url}`);
-  const [like, setLike] = React.useState(false);
-  const classLike = classes('MoviesCard__button-like', { 'MoviesCard__button-like_color_black': like });
+  const classLike = classes('MoviesCard__button-like', { 'MoviesCard__button-like_color_black': userMovies.find((car) => car.id === card.id) });
 
   return (
     <React.Fragment>
@@ -35,7 +37,9 @@ function MoviesCard({
               className={classLike}
               type='button'
               title={'🖤'}
-              onClick={() => setLike(!like)}
+              onClick={() => {
+                toggleMovies(card);
+              }}
             ></button>
             <span
               className='MoviesCard__duration'
@@ -52,7 +56,7 @@ MoviesCard.propTypes = {
   card: PropTypes.object,
   movie: PropTypes.object,
   onCardClick: PropTypes.func,
-  onCardDelete: PropTypes.func,
+  toggleMovies: PropTypes.func,
 };
 
 export default MoviesCard;
