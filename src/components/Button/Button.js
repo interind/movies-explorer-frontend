@@ -4,13 +4,19 @@ import './Button.css';
 
 function Button({
   className,
+  style,
   title,
   type,
   children,
   onChange,
 }) {
   return (
-    <button className={className} type={type} title={title} onClick={onChange}>
+    <button
+    className={className}
+    style={style}
+    type={type}
+    title={title}
+    onClick={onChange}>
       {children}
     </button>
   );
@@ -18,6 +24,7 @@ function Button({
 
 Button.propTypes = {
   className: PropTypes.string.isRequired,
+  style: PropTypes.object,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   children: PropTypes.string,

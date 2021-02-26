@@ -18,7 +18,7 @@ function FilterCheckbox({
           name='checkbox'
           onChange={onChange}
           onInput={onInput}/>
-        <span id='span' className='FilterCheckbox'></span>
+        <span id='span' className='FilterCheckbox'/>
         <span className='FilterCheckbox-text'>{children}</span>
       </label>
     </React.Fragment>

@@ -31,6 +31,8 @@
 .NavTab_place_popup {
   user-select: none;
   flex-direction: column;
+  z-index: 10;
+  background-color: #fff;
 }
 .NavTab_place_techs {
   flex-wrap: wrap;
@@ -93,6 +95,8 @@
 .NavTab__item_place_footer {
   justify-content: center;
   align-items: center;
+  font-size: 13px;
+  line-height: 1.21;
 }
 .NavTab__item_place_promo:hover, .NavTab__item_place_techs:hover  {
   background-color: #2BE080;
@@ -106,6 +110,7 @@
 }
 
 .NavTab__item_place_popup {
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   font-size: 30px;

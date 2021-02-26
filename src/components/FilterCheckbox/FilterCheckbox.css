@@ -1,12 +1,7 @@
 .FilterCheckbox[type='checkbox'] {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
 }
 
 .FilterCheckbox {
@@ -15,6 +10,7 @@
 
 .FilterCheckbox:hover {
   opacity: .3;
+  cursor: pointer;
 }
 
 .FilterCheckbox[id='span'] {

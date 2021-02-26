@@ -19,7 +19,7 @@ Form.propTypes = {
   className: PropTypes.string.isRequired,
   nameFrom: PropTypes.string.isRequired,
   children: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 };
 
 export default Form;

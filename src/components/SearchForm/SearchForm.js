@@ -8,10 +8,7 @@ import './SearchForm.css';
 function SearchForm() {
   return (
     <section className="SearchForm">
-      <Form className='SearchForm-container' nameFrom='searchForm' onSubmit={(evt) => {
-        evt.preventDefault();
-        return console.dir(evt.target);
-      }}>
+      <Form className='SearchForm-container' nameFrom='searchForm'>
         <Input className={'SearchForm-input'} name='search' type='text' placeholder='Поиск фильмов' />
         <Button className='SearchForm__button-search' type='submit' title='Поиск' />
         <div className='SearchForm-Check'>
