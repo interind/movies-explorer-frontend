@@ -6,14 +6,23 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './Movies.css';
 
-function Movies({ movies, openImage, toggleMovies }) {
+function Movies({
+  movies,
+  openImage,
+  toggleMovies,
+  filterTimes,
+  isCheckFilter,
+  isOpenCheck,
+}) {
   const [count, setCount] = React.useState(3);
   return (
     <React.Fragment>
       <div>Movies</div>
-      <SearchForm />
+      <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
-          {movies.slice(0, count).map((card) => <MoviesCard
+          {!isOpenCheck && movies.slice(0, count).map((card) => <MoviesCard
+           key={card.id} onCardClick={openImage} card={card} toggleMovies={toggleMovies}/>)}
+          {isOpenCheck && filterTimes(movies).slice(0, count).map((card) => <MoviesCard
            key={card.id} onCardClick={openImage} card={card} toggleMovies={toggleMovies}/>)}
           <Button className='MoviesCardList__button' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
             Ещё
@@ -27,6 +36,9 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   openImage: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
+  filterTimes: PropTypes.func.isRequired,
+  isCheckFilter: PropTypes.func.isRequired,
+  isOpenCheck: PropTypes.bool.isRequired,
 };
 
 export default Movies;

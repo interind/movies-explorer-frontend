@@ -47,7 +47,7 @@
 
 .MoviesCard__pic {
   display: block;
-  width: 202px;
+  width: 220px;
   height: 122px;
   object-fit: cover;
   object-position: center;
@@ -84,16 +84,16 @@
 
 .MoviesCard__button-like {
   grid-column: 1;
-  grid-row: 3;
+  grid-row: 2;
   display: flex;
-  align-items: center;
-  width: 21px;
-  height: 19px;
+  align-self: flex-end;
+  width: 14px;
+  height: 12px;
   outline-style: none;
   background-repeat: no-repeat;
+  background-size: cover;
   border: 0;
   padding: 0;
-  margin-bottom: 16px;
   background-color: transparent;
   background-image: url(../../images/moviesCard/GroupWhite.svg);
 }
@@ -105,8 +105,14 @@
 
 .MoviesCard__button-like:focus {
   outline: none;
-  box-shadow: 0 0 0 3px lightskyblue;
+  box-shadow: 0 0 0 1px lightskyblue;
 }
-.MoviesCard__button-like_color_black {
+.MoviesCard__button-like_color_red {
   background-image: url(../../images/moviesCard/GroupRed.svg);
+}
+.MoviesCard__button-like_theme_delete {
+  background-image: url(../../images/moviesCard/Close-black.svg);
+}
+.MoviesCard__button-like_theme_delete:active {
+  background-image: url(../../images/moviesCard/Close-red.svg);
 }

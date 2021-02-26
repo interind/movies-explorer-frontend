@@ -5,14 +5,26 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './SavedMovies.css';
 
-function SavedMovies({ movies, openImage, toggleMovies }) {
+function SavedMovies({
+  movies,
+  openImage,
+  toggleMovies,
+  filterTimes,
+  isCheckFilter,
+  isOpenCheck,
+}) {
   return (
     <React.Fragment>
     <div>SavedMovies</div>
-      <SearchForm />
+      <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
-          {(movies.length > 0) ? (movies.map((card) => <MoviesCard
-           key={card.id} onCardClick={openImage} card={card} toggleMovies={toggleMovies}/>)) : 'Фильмов нет'}
+          {(isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
+           key={card.id} onCardClick={openImage}
+           card={card} movies={movies} toggleMovies={toggleMovies}/>))}
+          {(!isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
+           key={card.id} onCardClick={openImage}
+           card={card} movies={movies} toggleMovies={toggleMovies}/>))}
+           {movies.length <= 0 && 'Фильмов ещё нет'}
       </MoviesCardList>
     </React.Fragment>
   );
@@ -22,6 +34,9 @@ SavedMovies.propTypes = {
   movies: PropTypes.array,
   openImage: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
+  filterTimes: PropTypes.func.isRequired,
+  isCheckFilter: PropTypes.func.isRequired,
+  isOpenCheck: PropTypes.bool.isRequired,
 };
 
 export default SavedMovies;

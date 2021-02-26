@@ -24,7 +24,16 @@ function App() {
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [image, setImage] = React.useState({});
+  const [filterDuration, setFilterDuration] = React.useState(false);
   const [isOpenImage, setIsOpenImage] = React.useState(false);
+
+  function filterTimes(arr) {
+    return arr.filter((item) => item.duration <= 60);
+  }
+
+  function isCheckFilter() {
+    return setFilterDuration(!filterDuration);
+  }
 
   function openImage({ src, name, description }) {
     setImage({ src, name, description });
@@ -58,10 +67,24 @@ function App() {
           <Main />
         </Route>
         <Route path='/movies' exact>
-          <Movies movies={moviesData} openImage={openImage} toggleMovies={handleMovies}/>
+          <Movies
+            filterTimes={filterTimes}
+            isOpenCheck={filterDuration}
+            movies={moviesData}
+            openImage={openImage}
+            toggleMovies={handleMovies}
+            isCheckFilter={isCheckFilter}
+            />
         </Route>
         <Route path='/saved-movies' exact>
-          <SavedMovies movies={userMovies} openImage={openImage} toggleMovies={handleMovies}/>
+          <SavedMovies
+            movies={userMovies}
+            isOpenCheck={filterDuration}
+            filterTimes={filterTimes}
+            openImage={openImage}
+            toggleMovies={handleMovies}
+            isCheckFilter={isCheckFilter}
+          />
         </Route>
         <Route path='/profile' exact>
           <Profile />
