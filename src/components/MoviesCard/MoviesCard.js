@@ -7,7 +7,7 @@ function MoviesCard({
   card,
   onCardClick,
 }) {
-  const [visible, setVisible] = React.useState(`http:/${card.image.url}`);
+  const [visible, setVisible] = React.useState(`https://api.nomoreparties.co${card.image.url}`);
   const [like, setLike] = React.useState(false);
   const classLike = classes('MoviesCard__button-like', { 'MoviesCard__button-like_color_black': like });
 
@@ -24,7 +24,7 @@ function MoviesCard({
             }}
             onClick={(evt) => {
               if (evt.target === evt.currentTarget) {
-                onCardClick({ src: card.image.url, name: card.nameRU });
+                onCardClick({ src: visible, name: card.nameRU });
               }
             }}
           />
@@ -41,7 +41,7 @@ function MoviesCard({
               className='MoviesCard__duration'
               title='время фильма'
             >
-              {card.duration}
+              {`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}
             </span>
         </div>
     </React.Fragment>
