@@ -27,7 +27,7 @@ function Header() {
     },
     {
       path: '/saved-movies',
-      text: 'Мои Фильмы',
+      text: 'Сохраненные Фильмы',
       active: '',
       title: 'Перейти на страницу поиска фильмов',
       type: 'local',
@@ -58,10 +58,15 @@ function Header() {
     place: 'popup',
   };
 
-  const toggleNavbar = () => setStatus(!status);
+  const openPopup = () => {
+    setStatus(true);
+  };
+  const closePopup = () => {
+    setStatus(false);
+  };
   const editAvatar = () => {
     history.push('/profile');
-    toggleNavbar();
+    closePopup();
   };
   return (
     <header className='Header'>
@@ -71,19 +76,25 @@ function Header() {
           title={'Открыть'}
           type={'button'}
           className={'Header__button-open'}
-          onChange={toggleNavbar}
+          onChange={openPopup}
+          />
+          <Button
+            title={'Профиль'}
+            type={'button'}
+            className={'Header__button-avatar Header-hidden '}
+            onChange={editAvatar}
           />
         <Navigation place={header.place}>
           <NavTab links={moviesPage} place={header.place}/>
           <NavTab links={dataLinks} place={header.place}/>
         </Navigation>
       </div>
-      <Popup isOpen={status}>
+      <Popup isOpen={status} closePopup={closePopup}>
         <Button
           title={'Закрыть'}
           type={'button'}
           className={'Header__button-close'}
-          onChange={toggleNavbar}
+          onChange={closePopup}
           />
         <Navigation place={popup.place}>
           <NavTab links={[page, ...dataLinks]} place={popup.place}/>
@@ -92,9 +103,7 @@ function Header() {
             type={'button'}
             className={'Header__button-avatar'}
             onChange={editAvatar}
-          >
-          Аккаунт
-          </Button>
+          />
         </Navigation>
       </Popup>
     </header>

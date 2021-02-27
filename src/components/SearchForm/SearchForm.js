@@ -10,7 +10,7 @@ function SearchForm({ onChange }) {
   return (
     <section className="SearchForm">
       <Form className='SearchForm-container' nameFrom='searchForm'>
-        <Input className={'SearchForm-input'} name='search' type='text' placeholder='Поиск фильмов' />
+        <Input className={'SearchForm-input'} name='search' type='text' placeholder='Фильм' />
         <Button className='SearchForm__button-search' type='submit' title='Поиск' />
         <div className='SearchForm-Check'>
           <FilterCheckbox classLabel='SearchForm-label' onChange={onChange}>Короткометражки</FilterCheckbox>

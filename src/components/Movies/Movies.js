@@ -16,7 +16,6 @@ function Movies({
   const [count, setCount] = React.useState(3);
   return (
     <React.Fragment>
-      <div>Movies</div>
       <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
           {isOpenCheck && movies.slice(0, count).map((card) => <MoviesCard

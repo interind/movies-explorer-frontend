@@ -14,7 +14,6 @@ function SavedMovies({
 }) {
   return (
     <React.Fragment>
-    <div>SavedMovies</div>
       <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
           {(!isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
