@@ -28,6 +28,10 @@
     align-items: flex-start;
   }
   .Portfolio-arrow {
-    width: 18px;
+    width: 9px;
+    height: 14px;
+    margin-bottom: 19px;
+    background-size: contain;
+    background-position: center;
   }
 }

@@ -15,6 +15,9 @@
 
 .NavTab_place_header {
   min-width: 200px;
+  justify-content: flex-start;
+}
+.NavTab_place_header:last-of-type {
   margin-left: auto;
 }
 

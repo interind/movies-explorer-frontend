@@ -17,7 +17,7 @@ function Header() {
     title: 'Перейти на главную страницу',
     type: 'local',
   };
-  const dataLinks = [
+  const moviesPage = [
     {
       path: '/movies',
       text: 'Фильмы',
@@ -32,6 +32,8 @@ function Header() {
       title: 'Перейти на страницу поиска фильмов',
       type: 'local',
     },
+  ];
+  const dataLinks = [
     {
       path: '/signup',
       text: 'Регистрация',
@@ -55,6 +57,7 @@ function Header() {
     title: '',
     place: 'popup',
   };
+
   const toggleNavbar = () => setStatus(!status);
   const editAvatar = () => {
     history.push('/profile');
@@ -71,6 +74,7 @@ function Header() {
           onChange={toggleNavbar}
           />
         <Navigation place={header.place}>
+          <NavTab links={moviesPage} place={header.place}/>
           <NavTab links={dataLinks} place={header.place}/>
         </Navigation>
       </div>

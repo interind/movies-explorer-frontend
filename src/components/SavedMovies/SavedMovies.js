@@ -7,7 +7,6 @@ import './SavedMovies.css';
 
 function SavedMovies({
   movies,
-  openImage,
   toggleMovies,
   filterTimes,
   isCheckFilter,
@@ -18,11 +17,11 @@ function SavedMovies({
     <div>SavedMovies</div>
       <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
-          {(isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
-           key={card.id} onCardClick={openImage}
+          {(!isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
+           key={card.id}
            card={card} movies={movies} toggleMovies={toggleMovies}/>))}
-          {(!isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
-           key={card.id} onCardClick={openImage}
+          {(isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
+           key={card.id}
            card={card} movies={movies} toggleMovies={toggleMovies}/>))}
            {movies.length <= 0 && 'Фильмов ещё нет'}
       </MoviesCardList>
@@ -32,7 +31,6 @@ function SavedMovies({
 
 SavedMovies.propTypes = {
   movies: PropTypes.array,
-  openImage: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,

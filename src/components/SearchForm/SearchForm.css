@@ -47,6 +47,7 @@
   margin-right: auto;
   box-sizing: border-box;
   width: 100%;
+  min-width: 238px;
   font-family: inherit;
   font-size: inherit;
   border: none;

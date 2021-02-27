@@ -8,7 +8,6 @@ import './Movies.css';
 
 function Movies({
   movies,
-  openImage,
   toggleMovies,
   filterTimes,
   isCheckFilter,
@@ -20,10 +19,10 @@ function Movies({
       <div>Movies</div>
       <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
-          {!isOpenCheck && movies.slice(0, count).map((card) => <MoviesCard
-           key={card.id} onCardClick={openImage} card={card} toggleMovies={toggleMovies}/>)}
-          {isOpenCheck && filterTimes(movies).slice(0, count).map((card) => <MoviesCard
-           key={card.id} onCardClick={openImage} card={card} toggleMovies={toggleMovies}/>)}
+          {isOpenCheck && movies.slice(0, count).map((card) => <MoviesCard
+           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
+          {!isOpenCheck && filterTimes(movies).slice(0, count).map((card) => <MoviesCard
+           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
           <Button className='MoviesCardList__button' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
             Ещё
           </Button>
@@ -34,7 +33,6 @@ function Movies({
 
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
-  openImage: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,

@@ -5,8 +5,9 @@
   grid-gap: 40px;
   max-width: 1280px;
   min-width: 100%;
-  justify-items: center;
+  justify-items: stretch;
   padding-top: 70px;
+  text-align: center;
 }
 
 .MoviesCardList__button {
@@ -27,5 +28,21 @@
 .MoviesCardList__button:hover {
   cursor: pointer;
   transform: translateY(-2px) scale(1.005) translateZ(0);
-  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.11), 0 14px 26px;
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.11), 0 14px 20px;
+  opacity: .5;
+}
+
+@media screen and (max-width: 620px) {
+  .MoviesCardList {
+    grid-gap: 20px;
+  }
+  .MoviesCardList__button {
+    width: 240px;
+  }
+}
+@media screen and (max-width: 340px) {
+  .MoviesCardList {
+    min-width: 95%;
+    width: 310px;
+  }
 }
