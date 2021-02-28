@@ -7,12 +7,10 @@
   padding: 0;
   margin: 0;
 }
-
-.NavTab_hidden {
+.NavTab_place_hidden {
   opacity: 0;
   pointer-events: none;
 }
-
 .NavTab_place_header {
   min-width: 200px;
   justify-content: flex-start;
@@ -20,7 +18,6 @@
 .NavTab_place_header:last-of-type {
   margin-left: auto;
 }
-
 .NavTab_place_promo {
   margin-bottom: 30px;
   min-height: fit-content;
@@ -58,7 +55,6 @@
   margin: 0;
   margin-left: 10px;
 }
-
 .NavTab__item_place_header {
   min-width: 76px;
   font-size: 12px;
@@ -111,7 +107,13 @@
 .NavTab__item_place_techs:last-of-type {
   margin-right: 0;
 }
-
+.NavTab__item_place_avatar {
+  width: 100px;
+  height: 30px;
+  background-image: url(../../images/button/profile.png);
+  background-position: center;
+  background-size: contain;
+}
 .NavTab__item_place_popup {
   z-index: 10;
   display: flex;
@@ -148,8 +150,6 @@
 .NavTab_active {
   border-bottom: 1px solid #000;
 }
-
-
 .NavTab__link {
   display: inherit;
   justify-content: inherit;
