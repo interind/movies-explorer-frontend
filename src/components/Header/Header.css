@@ -29,71 +29,6 @@
   background: #fff;
 }
 
-.Header__button-close {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  width: 22px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  height: 22px;
-  background-image: url('../../images/button/Close-black22.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.Header__button-avatar {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  width: 100px;
-  height: 30px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  background-image: url('../../images/button/profile.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.Header__button-avatar:hover {
-  opacity: .5;
-  cursor: pointer;
-}
-.Header__button-close:active {
-  background-image: url('../../images/button/Close-orange.svg');
-}
-.Header__button-open {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  height: 0;
-  width: 0;
-
-}
-.Header__button-close:hover, .Header__button-open:hover {
-  cursor: pointer;
-  opacity: .5;
-}
-
-@media screen and (max-width: 800px) {
-  .Header-hidden {
-    display: none;
-  }
-  .Header__button-open {
-    pointer-events: visibleFill;
-    width: 40px;
-    height: 40px;
-    margin-right: 30px;
-    visibility: visible;
-    opacity: 1;
-    background-image: url('../../images/button/BlackIcon-mainOpen.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-}
 @media screen and (max-width: 500px) {
   .Header {
     margin-bottom: 14px;
@@ -106,8 +41,4 @@
     margin: 0;
     margin-bottom: 20px;
   }
-
-   .Header__button-open {
-     height: 43px;
-   }
 }

@@ -10,7 +10,7 @@ function Profile({ onEditProfile, user, isLoadingButton }) {
   const [profile, setProfile] = useState({ ...user });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Отправка...' : 'Изменить';
+  const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -50,10 +50,10 @@ function Profile({ onEditProfile, user, isLoadingButton }) {
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>
-        <Button className={'Profile-button-edit'} type='submit' title='изменить' status={activeButton}>
+        <Button className={'Button__profile-edit'} type='submit' title='изменить' status={activeButton}>
           {textButton}
         </Button>
-        <Button className={'Profile-button-exit'} type='button' title='сохранить' status={activeButton}>
+        <Button className={'Button__profile-exit'} type='button' title='выйти' status={activeButton}>
           Выйти из профиля
         </Button>
       </Form>

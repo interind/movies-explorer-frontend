@@ -27,24 +27,6 @@
   min-width: 300px;
 }
 
-.Popup-button-close {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  background-image: url(../../images/button/Close-orange.svg);
-  width: 40px;
-  height: 40px;
-  background-position: center;
-  background-size: content;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-
-.Popup-button-close:hover {
-  cursor: pointer;
-  opacity: .5;
-}
 .Popup-description {
   position: absolute;
   left: 50%;

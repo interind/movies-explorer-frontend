@@ -16,27 +16,6 @@
   border-bottom: 1px solid #E8E8E8;
   margin-bottom: 10px;
 }
-
-.SearchForm__button-search {
-  grid-column: 4/5;
-  grid-row: 1;
-  width: 44px;
-  height: 44px;
-  margin-left: 10px;
-  background-color: transparent;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background-image: url('../../images/search/search.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.SearchForm__button-search:hover {
-  opacity: .5;
-  cursor: pointer;
-}
-
 .SearchForm-input {
   grid-column: 1/4;
   grid-row: 1;
@@ -61,7 +40,6 @@
   justify-content: center;
   margin: 0 auto;
 }
-
 .SearchForm-Check {
   grid-column: 2/3;
   grid-row: 3;

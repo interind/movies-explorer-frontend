@@ -22,7 +22,7 @@ function Movies({
            key={card.id} card={card} toggleMovies={toggleMovies}/>)}
           {!isOpenCheck && filterTimes(movies).slice(0, count).map((card) => <MoviesCard
            key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          <Button className='MoviesCardList__button' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
+          <Button className='Button-MoviesCardList' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
             Ещё
           </Button>
       </MoviesCardList>

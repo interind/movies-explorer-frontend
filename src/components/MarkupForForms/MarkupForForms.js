@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
+import Button from '../Button/Button';
 
 export default {
   Profile: function Profile({
@@ -22,6 +23,8 @@ export default {
     });
     return (
       <React.Fragment>
+        <label className='Profile__label' htmlFor='input-name'>
+          Имя
         <input
           className={inputValidClass}
           id='input-name'
@@ -35,6 +38,7 @@ export default {
           onInput={validationProfile}
           required
         />
+        </label>
         {name === '' && (
           <div className='Profile__error'>
             <span
@@ -45,6 +49,8 @@ export default {
             </span>
           </div>
         )}
+          <label className='Profile__label' htmlFor='input-email'>
+            Почта
           <input
           className={inputValidClass}
           type='email'
@@ -56,6 +62,7 @@ export default {
           onInput={validationProfile}
           required
         />
+        </label>
         {email !== '' && (
           <div className='Profile__error'>
             <span
@@ -266,33 +273,16 @@ export default {
       </React.Fragment>
     );
   },
-  Tool: function Tool(props) {
-    Tool.propTypes = {
-      classTool: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-      alt: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      onClose: PropTypes.func.isRequired,
+  Search: function Search({ movie, onFind }) {
+    Search.propTypes = {
+      movie: PropTypes.string,
+      onFind: PropTypes.func,
     };
     return (
-      <div
-        className={props.classTool}
-        onMouseDown={(evt) => evt.currentTarget === evt.target && props.onClose()
-        }
-      >
-        <div className='popup__container popup__container_type_tool'>
-          <img
-            className='popup__pic popup__pic_type_tool'
-            src={props.icon}
-            alt={props.alt}
-          ></img>
-          <p className='popup__title popup__title_type_tool'>{props.title}</p>
-          <button
-            className='popup__button-close'
-            onClick={props.onClose}
-          ></button>
-        </div>
-      </div>
+      <React.Fragment>
+        <input className='SearchForm-input' name='search' defaultValue={movie} type='text' placeholder='Фильм' />
+        <Button className='Button__search' type='submit' title='Поиск' onChange={onFind}/>
+      </React.Fragment>
     );
   },
 };

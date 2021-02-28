@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
+import Button from '../Button/Button';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import './MoviesCard.css';
+import '../Button/Button.css';
 
 function MoviesCard({
   card,
@@ -11,9 +13,9 @@ function MoviesCard({
 }) {
   const userMovies = React.useContext(CurrentUserContext);
   const visible = `https://api.nomoreparties.co${card.image.url}`;
-  const classLike = classes('MoviesCard__button-like',
-    { 'MoviesCard__button-like_color_red': userMovies.find((car) => car.id === card.id) },
-    { 'MoviesCard__button-like_theme_delete': movies === userMovies });
+  const classLike = classes('Button-like',
+    { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
+    { 'Button-like_theme_delete': movies === userMovies });
 
   return (
     <React.Fragment>
@@ -22,14 +24,14 @@ function MoviesCard({
             <h2 className='MoviesCard__title' title={card.nameRU}>
               {card.nameRU}
             </h2>
-            <button
+            <Button
               className={classLike}
               type='button'
               title={'🖤'}
-              onClick={() => {
+              onChange={() => {
                 toggleMovies(card);
               }}
-            ></button>
+           />
             <span
               className='MoviesCard__duration'
               title='время фильма'

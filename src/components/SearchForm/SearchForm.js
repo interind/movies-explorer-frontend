@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Form from '../Form/Form';
-import Button from '../Button/Button';
+import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
@@ -9,8 +9,7 @@ function SearchForm({ onChange }) {
   return (
     <section className="SearchForm">
       <Form className='SearchForm-container' nameFrom='searchForm'>
-        <input className='SearchForm-input' name='search' type='text' placeholder='Фильм' />
-        <Button className='SearchForm__button-search' type='submit' title='Поиск' />
+        <MarkupForForms.Search/>
         <div className='SearchForm-Check'>
           <FilterCheckbox classLabel='SearchForm-label' onChange={onChange}>Короткометражки</FilterCheckbox>
         </div>

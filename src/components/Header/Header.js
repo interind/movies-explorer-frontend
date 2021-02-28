@@ -75,13 +75,13 @@ function Header() {
          <Button
           title={'Открыть'}
           type={'button'}
-          className={'Header__button-open'}
+          className={'Button__open_place_header'}
           onChange={openPopup}
           />
           <Button
             title={'Профиль'}
             type={'button'}
-            className={'Header__button-avatar Header-hidden '}
+            className={'Button-avatar Button_hidden'}
             onChange={editAvatar}
           />
         <Navigation place={header.place}>
@@ -93,7 +93,7 @@ function Header() {
         <Button
           title={'Закрыть'}
           type={'button'}
-          className={'Header__button-close'}
+          className={'Button__close_place_header'}
           onChange={closePopup}
           />
         <Navigation place={popup.place}>
@@ -101,7 +101,7 @@ function Header() {
           <Button
             title={'Профиль'}
             type={'button'}
-            className={'Header__button-avatar'}
+            className={'Button-avatar'}
             onChange={editAvatar}
           />
         </Navigation>

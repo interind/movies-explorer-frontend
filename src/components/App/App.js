@@ -58,6 +58,7 @@ function App() {
             <Switch>
               <Route path='/' exact>
                 <Main />
+                <Footer />
               </Route>
               <Route path='/movies' exact>
                 <Movies
@@ -67,6 +68,7 @@ function App() {
                   toggleMovies={handleMovies}
                   isCheckFilter={isCheckFilter}
                   />
+                  <Footer />
               </Route>
               <Route path='/saved-movies' exact>
                 <SavedMovies
@@ -76,6 +78,7 @@ function App() {
                   toggleMovies={handleMovies}
                   isCheckFilter={isCheckFilter}
                 />
+                <Footer />
               </Route>
               <Route path='/profile' exact>
                 <Profile onEditProfile={onEditProfile} user={user}/>
@@ -91,7 +94,6 @@ function App() {
               </Route>
               <Redirect to='/404' />
             </Switch>
-            <Footer />
           </div>
         </ErrorBoundary>
       </CurrentUserContext.Provider>
