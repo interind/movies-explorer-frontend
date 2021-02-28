@@ -15,6 +15,9 @@
   min-width: 200px;
   justify-content: flex-start;
 }
+.NavTab_place_avatar {
+  align-items: center;
+}
 .NavTab_place_header:last-of-type {
   margin-left: auto;
 }
@@ -111,7 +114,8 @@
   width: 100px;
   height: 30px;
   background-image: url(../../images/button/profile.png);
-  background-position: center;
+  background-position: bottom;
+  background-repeat: no-repeat;
   background-size: contain;
 }
 .NavTab__item_place_popup {

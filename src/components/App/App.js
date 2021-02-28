@@ -74,10 +74,10 @@ function App() {
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [filterDuration, setFilterDuration] = React.useState(false);
-  const [place, setPlace] = React.useState({ left: null, right: 'header' });
+  const [place, setPlace] = React.useState({ left: 'header', right: 'header' });
 
-  function tooglePlace(obj) {
-    setPlace({ ...place, obj });
+  function tooglePlace(str) {
+    setPlace({ ...place, left: str });
   }
   function filterTimes(arr) {
     return arr.filter((item) => item.duration < 60);
@@ -113,13 +113,20 @@ function App() {
       <CurrentUserContext.Provider value={userMovies}>
         <ErrorBoundary>
           <div className='App'>
-            <Header
+             {(place.left === 'header') && (<Header
+              link={moviesPage}
+              profileLink={avatar}
+              place={place}
+              openPopup={openPopup}
+              onClose={closePopup}
+            />)}
+            {!place.left && (<Header
               link={moviesPage}
               profileLink={dataLinks}
               place={place}
               openPopup={openPopup}
               onClose={closePopup}
-            />
+            />)}
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
               <Button
                 title={'Закрыть'}
@@ -127,10 +134,14 @@ function App() {
                 className={'Button__close_place_header'}
                 onChange={closePopup}
                 />
-              <Navigation place={'popup'}>
+              {(place.left === 'header') && (<Navigation place={'popup'}>
                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
                 <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-              </Navigation>
+              </Navigation>)}
+              {!place.left && (<Navigation place={'popup'}>
+                <NavTab links={[moviesPage]} onChange={closePopup}/>
+                <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
+              </Navigation>)}
             </Popup>
             <Switch>
               <Route path='/' exact>
@@ -139,7 +150,6 @@ function App() {
               </Route>
               <Route path='/movies' exact>
                 <Movies
-                  tooglePlace={tooglePlace}
                   filterTimes={filterTimes}
                   isOpenCheck={filterDuration}
                   movies={moviesData}
@@ -150,7 +160,6 @@ function App() {
               </Route>
               <Route path='/saved-movies' exact>
                 <SavedMovies
-                  tooglePlace={tooglePlace}
                   movies={userMovies}
                   isOpenCheck={filterDuration}
                   filterTimes={filterTimes}

@@ -13,8 +13,14 @@ function Header({
   onClose,
   openPopup,
 }) {
-  const header = 'header';
   const page = { path: '/', title: 'на главную' };
+  const avatar = [{
+    path: '/profile',
+    text: '',
+    active: '',
+    title: 'страница профиля',
+    type: 'local',
+  }];
   return (
     <header className='Header'>
       <div className='Header__container'>
@@ -25,10 +31,16 @@ function Header({
           className={'Button__open_place_header'}
           onChange={openPopup}
           />
+          {!place.left && (
         <Navigation place={place.right}>
           <NavTab links={link} place={place.left} onChange={onClose}/>
           <NavTab links={profileLink} place={place.right} onChange={onClose}/>
-        </Navigation>
+        </Navigation>)}
+          {place.left && (
+        <Navigation place={place.right}>
+          <NavTab links={link} place={place.left} onChange={onClose}/>
+          <NavTab links={avatar} place={'avatar'} onChange={onClose}/>
+        </Navigation>)}
       </div>
     </header>
   );

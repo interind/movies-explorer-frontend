@@ -1,6 +1,5 @@
 .Header {
   min-height: 74px;
-  position: relative;
   max-width: 1280px;
   background-color: #fff;
   align-self: stretch;
@@ -10,23 +9,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 74px;
   width: 100%;
   max-width: 1280px;
-}
-.Header::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 74px;
-  width: 100%;
-  background: #fff;
 }
 
 @media screen and (max-width: 500px) {

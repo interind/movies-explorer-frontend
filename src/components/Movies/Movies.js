@@ -8,17 +8,12 @@ import './Movies.css';
 
 function Movies({
   movies,
-  tooglePlace,
   toggleMovies,
   filterTimes,
   isCheckFilter,
   isOpenCheck,
 }) {
   const [count, setCount] = React.useState(3);
-  React.useEffect(() => {
-    const place = { left: 'movies', right: 'avatar' };
-    tooglePlace(place);
-  }, [tooglePlace]);
   return (
     <React.Fragment>
       <SearchForm onChange={isCheckFilter}/>
@@ -38,7 +33,6 @@ function Movies({
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
-  tooglePlace: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,
   isOpenCheck: PropTypes.bool.isRequired,
