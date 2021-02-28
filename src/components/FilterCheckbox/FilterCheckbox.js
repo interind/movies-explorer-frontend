@@ -11,7 +11,7 @@ function FilterCheckbox({
   return (
     <React.Fragment>
       <label className={classLabel}>
-      <Input
+        <input
           className='FilterCheckbox'
           type='checkbox'
           name='checkbox'

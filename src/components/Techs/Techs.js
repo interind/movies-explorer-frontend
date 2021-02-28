@@ -9,7 +9,6 @@ function Techs() {
     subtitle: 'На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.',
   };
   const techs = {
-    title: 'Технологии',
     place: 'techs',
   };
   const dataLinks = [
@@ -65,7 +64,9 @@ function Techs() {
   ];
   return (
     <section className='Techs' id={'techs'}>
-      <HeaderBar modifier={techs} />
+      <HeaderBar modifier={techs}>
+        Технологии
+      </HeaderBar>
       <h3 className='Techs__title'>{pageInfo.title}</h3>
       <p className='Techs__subtitle'>{pageInfo.subtitle}</p>
     <NavTab place={techs.place} links={dataLinks}/>

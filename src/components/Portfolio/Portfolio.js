@@ -4,7 +4,7 @@ import NavTab from '../NavTab/NavTab';
 import './Portfolio.css';
 
 function Portfolio() {
-  const portfolio = { title: 'Портфолио', place: 'portfolio' };
+  const portfolio = { place: 'portfolio' };
   const dataLinks = [
     {
       path: 'https://interind.github.io/russian-travel/index.html',
@@ -30,7 +30,9 @@ function Portfolio() {
   ];
   return (
     <section className="Portfolio">
-      <HeaderBar modifier={portfolio} />
+      <HeaderBar modifier={portfolio}>
+        Портфолио
+      </HeaderBar>
       <NavTab links={dataLinks} place={portfolio.place} >
         <span className='Portfolio-arrow'/>
       </NavTab>

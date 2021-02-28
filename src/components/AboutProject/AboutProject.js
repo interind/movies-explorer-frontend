@@ -5,7 +5,6 @@ import './AboutProject.css';
 
 function AboutProject() {
   const aboutProject = {
-    title: 'О проекте',
     place: 'aboutProject',
   };
   const dataInfo = [
@@ -30,7 +29,9 @@ function AboutProject() {
   ];
   return (
     <section className='AboutProject' id={'about-project'}>
-      <HeaderBar modifier={aboutProject} />
+      <HeaderBar modifier={aboutProject}>
+        О проекте
+      </HeaderBar>
       <div className='AboutProject__containers'>
         { dataInfo.map((info) => <div key={cryptoKeys(info.title)} className='AboutProject__container'>
             <h3 className='AboutProject__title'>{info.title}</h3>

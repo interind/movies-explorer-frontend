@@ -5,7 +5,6 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 
 function Footer() {
   const footer = {
-    title: 'Учебный проект Яндекс.Практикум х BeatFilm.',
     place: 'footer',
   };
   const dataLinks = [
@@ -33,7 +32,9 @@ function Footer() {
   ];
   return (
     <footer className='Footer'>
-      <HeaderBar modifier={footer} />
+      <HeaderBar modifier={footer}>
+        Учебный проект Яндекс.Практикум х BeatFilm.
+      </HeaderBar>
       <div className='Footer__container'>
         <p className='Footer-item'>
           &copy;{new Date().getFullYear()}

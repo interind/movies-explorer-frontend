@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Button.css';
 
 function Button({
-  className,
+  className = '',
   style,
+  status,
   title,
   type,
   children,
@@ -12,12 +12,13 @@ function Button({
 }) {
   return (
     <button
-    className={className}
-    style={style}
-    type={type}
-    title={title}
-    onClick={onChange}>
-      {children}
+      className={className}
+      style={style}
+      type={type}
+      title={title}
+      disabled={status}
+      onClick={onChange}>
+        {children}
     </button>
   );
 }
@@ -29,6 +30,7 @@ Button.propTypes = {
   type: PropTypes.string.isRequired,
   children: PropTypes.string,
   onChange: PropTypes.func,
+  status: PropTypes.bool,
 };
 
 export default Button;

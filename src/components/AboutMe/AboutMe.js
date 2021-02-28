@@ -6,7 +6,6 @@ import './AboutMe.css';
 
 function AboutMe() {
   const aboutMe = {
-    title: 'О студенте',
     place: 'aboutMe',
   };
   const student = {
@@ -36,7 +35,9 @@ function AboutMe() {
   ];
   return (
     <section className='AboutMe' id={'about-me'}>
-      <HeaderBar modifier={aboutMe} />
+      <HeaderBar modifier={aboutMe}>
+        О студенте
+      </HeaderBar>
       <div className='AboutMe-container'>
         <div className='AboutMe-info'>
         <h3 className='AboutMe__title AboutMe__title_place_author'>{student.name}</h3>

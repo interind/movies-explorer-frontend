@@ -1,0 +1,55 @@
+.Login__input {
+  box-sizing: border-box;
+  border: 0;
+  max-width: 358px;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 10px 5px;
+  margin-top: 13.11%; /*48*/
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.Login__input:focus {
+  outline: 1px groove rgba(106, 151, 235, 0.657);
+}
+.Login__input_type_error:invalid {
+  border-bottom-color: #f00;
+}
+
+.Login__error {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.Login__input-error {
+  visibility: hidden;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-style: normal;
+  font-family: inherit;
+  color: #f00;
+  align-self: flex-start;
+}
+
+.Login__input-error_active {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-height: 414px) {
+  .Login__input {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .Login__input {
+    margin-top: 10%; /*20*/
+  }
+}
