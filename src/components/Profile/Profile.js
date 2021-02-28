@@ -6,11 +6,8 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import './Profile.css';
 
-function Profile({ isLoadingButton }) {
-  const [profile, setProfile] = useState({
-    name: '',
-    email: '',
-  });
+function Profile({ onEditProfile, user, isLoadingButton }) {
+  const [profile, setProfile] = useState({ ...user });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = isLoadingButton ? 'Отправка...' : 'Изменить';
@@ -38,12 +35,14 @@ function Profile({ isLoadingButton }) {
   function handleEditProfile(evt) {
     evt.preventDefault();
     clearInput();
+    onEditProfile(profile);
   }
+
   return (
     <section className='Profile'>
       <Form className='Profile-form' nameFrom='profile-form' onSubmit={handleEditProfile}>
-        <HeaderBar modifier={{ place: 'profile' }}>
-          Привет, Виталий!
+        <HeaderBar place='profile'>
+        {`Привет, ${user.name}!`}
         </HeaderBar>
         <MarkupForForms.Profile
           name={profile.name}
@@ -51,16 +50,20 @@ function Profile({ isLoadingButton }) {
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>
-        <Button className={'Profile-button-edit'} type='submit' title='изменить' onClick={handleEditProfile} status={activeButton}>
+        <Button className={'Profile-button-edit'} type='submit' title='изменить' status={activeButton}>
           {textButton}
         </Button>
-        <Button className={'Profile-button-exit'} type='button' title='сохранить' status={activeButton}/>
+        <Button className={'Profile-button-exit'} type='button' title='сохранить' status={activeButton}>
+          Выйти из профиля
+        </Button>
       </Form>
     </section>
   );
 }
 
 Profile.propTypes = {
+  onEditProfile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
   isLoadingButton: PropTypes.bool,
 };
 

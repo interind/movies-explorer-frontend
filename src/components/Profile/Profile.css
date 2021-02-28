@@ -1,13 +1,27 @@
+.Profile {
+  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vw;
+}
+
+.Profile-form{
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  min-width: 300px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
 .Profile__input {
   box-sizing: border-box;
   border: 0;
   max-width: 358px;
   width: 100%;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 12px;
   padding: 10px 5px;
-  margin-top: 13.11%; /*48*/
-  margin-bottom: 5px;
+  margin-top: 48px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -42,6 +56,40 @@
   left: 0;
 }
 
+.Profile-button-edit {
+  color: green;
+  min-height: 20px;
+  max-width: 100%;
+  font-family: inherit;
+  font-size: 12px;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.Profile-button-exit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  min-height: 20px;
+  background: none;
+  border: none;
+  color: red;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.Profile-button-edit:hover, .Profile-button-exit:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+
+
 @media screen and (max-height: 414px) {
   .Profile__input {
     margin-top: 20px;
@@ -50,7 +98,7 @@
 
 @media screen and (max-width: 320px) {
   .Profile__input {
-    margin-top: 10%; /*20*/
+    margin-top: 20px;
   }
 }
 

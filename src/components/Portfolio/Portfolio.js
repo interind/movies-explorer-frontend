@@ -30,7 +30,7 @@ function Portfolio() {
   ];
   return (
     <section className="Portfolio">
-      <HeaderBar modifier={portfolio}>
+      <HeaderBar place={portfolio.place}>
         Портфолио
       </HeaderBar>
       <NavTab links={dataLinks} place={portfolio.place} >

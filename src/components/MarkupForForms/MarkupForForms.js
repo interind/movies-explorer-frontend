@@ -30,7 +30,7 @@ export default {
           minLength='2'
           maxLength='40'
           placeholder='Имя'
-          value={name}
+          defaultValue={name}
           onChange={setEditProfile}
           onInput={validationProfile}
           required
@@ -50,7 +50,7 @@ export default {
           type='email'
           placeholder='Почта'
           id='input-email'
-          value={email}
+          defaultValue={email}
           name='email'
           onChange={setEditProfile}
           onInput={validationProfile}

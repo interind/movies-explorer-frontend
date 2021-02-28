@@ -9,7 +9,7 @@ function Form({
   children,
 }) {
   return (
-    <form className={className} name={nameFrom} onChange={onSubmit}>
+    <form className={className} name={nameFrom} onSubmit={onSubmit}>
       {children}
     </form>
   );
@@ -18,7 +18,7 @@ function Form({
 Form.propTypes = {
   className: PropTypes.string.isRequired,
   nameFrom: PropTypes.string.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.any.isRequired,
   onSubmit: PropTypes.func,
 };
 

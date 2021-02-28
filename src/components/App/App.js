@@ -19,6 +19,7 @@ import ErrorBoundary from '../Error/ErrorBoundary';
 import './App.css';
 
 function App() {
+  const [user, setUser] = React.useState({ name: 'Виталий', email: 'pochta@yandex.ru' });
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [filterDuration, setFilterDuration] = React.useState(false);
@@ -27,6 +28,9 @@ function App() {
     return arr.filter((item) => item.duration < 60);
   }
 
+  function onEditProfile(profile) {
+    setUser({ ...user, ...profile });
+  }
   function isCheckFilter() {
     return setFilterDuration(!filterDuration);
   }
@@ -74,7 +78,7 @@ function App() {
                 />
               </Route>
               <Route path='/profile' exact>
-                <Profile />
+                <Profile onEditProfile={onEditProfile} user={user}/>
               </Route>
               <Route path='/signup' exact>
                 <Register />

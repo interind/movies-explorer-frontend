@@ -35,7 +35,7 @@ function AboutMe() {
   ];
   return (
     <section className='AboutMe' id={'about-me'}>
-      <HeaderBar modifier={aboutMe}>
+      <HeaderBar place={aboutMe.place}>
         О студенте
       </HeaderBar>
       <div className='AboutMe-container'>

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './HeaderBar.css';
 
-function HeaderBar({ modifier, children }) {
-  const { place } = modifier;
+function HeaderBar({ place, children }) {
   return (
     <div className={`HeaderBar HeaderBar_place_${place}`}>
       <h2 className={`HeaderBar__title HeaderBar__title_place_${place}`}>
@@ -14,7 +13,7 @@ function HeaderBar({ modifier, children }) {
 }
 
 HeaderBar.propTypes = {
-  modifier: PropTypes.object.isRequired,
+  place: PropTypes.string.isRequired,
   children: PropTypes.string,
 };
 

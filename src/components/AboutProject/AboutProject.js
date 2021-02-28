@@ -29,7 +29,7 @@ function AboutProject() {
   ];
   return (
     <section className='AboutProject' id={'about-project'}>
-      <HeaderBar modifier={aboutProject}>
+      <HeaderBar place={aboutProject.place}>
         О проекте
       </HeaderBar>
       <div className='AboutProject__containers'>

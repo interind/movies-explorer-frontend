@@ -32,7 +32,7 @@ function Footer() {
   ];
   return (
     <footer className='Footer'>
-      <HeaderBar modifier={footer}>
+      <HeaderBar place={footer.place}>
         Учебный проект Яндекс.Практикум х BeatFilm.
       </HeaderBar>
       <div className='Footer__container'>

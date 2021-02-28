@@ -64,7 +64,7 @@ function Techs() {
   ];
   return (
     <section className='Techs' id={'techs'}>
-      <HeaderBar modifier={techs}>
+      <HeaderBar place={techs.place}>
         Технологии
       </HeaderBar>
       <h3 className='Techs__title'>{pageInfo.title}</h3>
