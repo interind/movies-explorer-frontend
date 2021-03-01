@@ -30,16 +30,17 @@ function Header({
           type={'button'}
           className={'Button__open_place_header'}
           onChange={openPopup}
-          />
-          {!place.left && (
-        <Navigation place={place.right}>
-          <NavTab links={link} place={place.left} onChange={onClose}/>
-          <NavTab links={profileLink} place={place.right} onChange={onClose}/>
+        />
+          {!place && (
+        <Navigation place={place}>
+          <NavTab links={link} onChange={onClose}/>
+          <NavTab links={profileLink} place={place} onChange={onClose}/>
         </Navigation>)}
-          {place.left && (
-        <Navigation place={place.right}>
-          <NavTab links={link} place={place.left} onChange={onClose}/>
+          {place && (
+        <Navigation place={place}>
+          <NavTab links={link} place={place} onChange={onClose}/>
           <NavTab links={avatar} place={'avatar'} onChange={onClose}/>
+          <NavTab links={profileLink} place={place} onChange={onClose}/>
         </Navigation>)}
       </div>
     </header>
@@ -47,7 +48,7 @@ function Header({
 }
 
 Header.propTypes = {
-  place: PropTypes.object.isRequired,
+  place: PropTypes.string.isRequired,
   link: PropTypes.array.isRequired,
   profileLink: PropTypes.array.isRequired,
   openPopup: PropTypes.func.isRequired,

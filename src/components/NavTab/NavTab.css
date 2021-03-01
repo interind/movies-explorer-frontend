@@ -113,7 +113,7 @@
 .NavTab__item_place_avatar {
   width: 100px;
   height: 30px;
-  background-image: url(../../images/button/profile.png);
+  background-image: url(../../images/button/profile.svg);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: contain;

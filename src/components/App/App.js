@@ -74,7 +74,7 @@ function App() {
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [filterDuration, setFilterDuration] = React.useState(false);
-  const [place, setPlace] = React.useState({ left: 'header', right: 'header' });
+  const [place, setPlace] = React.useState('header');
 
   function tooglePlace(str) {
     setPlace({ ...place, left: str });
@@ -113,20 +113,13 @@ function App() {
       <CurrentUserContext.Provider value={userMovies}>
         <ErrorBoundary>
           <div className='App'>
-             {(place.left === 'header') && (<Header
-              link={moviesPage}
-              profileLink={avatar}
-              place={place}
-              openPopup={openPopup}
-              onClose={closePopup}
-            />)}
-            {!place.left && (<Header
+            <Header
               link={moviesPage}
               profileLink={dataLinks}
               place={place}
               openPopup={openPopup}
               onClose={closePopup}
-            />)}
+            />
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
               <Button
                 title={'Закрыть'}
@@ -134,11 +127,11 @@ function App() {
                 className={'Button__close_place_header'}
                 onChange={closePopup}
                 />
-              {(place.left === 'header') && (<Navigation place={'popup'}>
+              {(place === 'header') && (<Navigation place={'popup'}>
                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
                 <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
               </Navigation>)}
-              {!place.left && (<Navigation place={'popup'}>
+              {!place && (<Navigation place={'popup'}>
                 <NavTab links={[moviesPage]} onChange={closePopup}/>
                 <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
               </Navigation>)}
