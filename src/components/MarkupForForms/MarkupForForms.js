@@ -76,41 +76,51 @@ export default {
       </React.Fragment>
     );
   },
-  Login: function Login(props) {
+  Login: function Login({
+    email,
+    password,
+    setEditLogin,
+    validationCheck,
+    placeMessage,
+  }) {
     Login.propTypes = {
       password: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      editEmail: PropTypes.func.isRequired,
-      editPassword: PropTypes.func.isRequired,
+      setEditLogin: PropTypes.func.isRequired,
       validationCheck: PropTypes.func.isRequired,
       placeMessage: PropTypes.object.isRequired,
     };
-    const inputValidClass = classes('popup__input popup__input_type_check', {
-      popup__input_type_error: props.password || props.email,
+    const inputValidClass = classes('Login__input Login__input_type_check', {
+      Login__input_type_error: password || email,
     });
     return (
       <React.Fragment>
+         <label className='Profile__label' htmlFor='input-email'>
+            Почта
         <input
           className={inputValidClass}
           type='email'
           placeholder='Почта'
           id='input-email'
-          value={props.email}
+          defaultValue={email}
           name='email'
-          onChange={props.editEmail}
-          onInput={props.validationCheck}
+          onChange={setEditLogin}
+          onInput={validationCheck}
           required
         />
-        {props.email !== '' && (
-          <div className='popup__error'>
+        </label>
+        {email !== '' && (
+          <div className='Login__error'>
             <span
-              className='popup__input-error popup__input-error_active'
+              className='Login__input-error Login__input-error_active'
               id='input-email-error'
             >
-              {props.placeMessage.email}
+              {placeMessage.email}
             </span>
           </div>
         )}
+         <label className='Profile__label' htmlFor='input-password'>
+            Пaроль
         <input
           className={inputValidClass}
           type='password'
@@ -118,47 +128,51 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          value={props.password}
+          defaultValue={password}
           maxLength='30'
-          onChange={props.editPassword}
-          onInput={props.validationCheck}
+          onChange={setEditLogin}
+          onInput={validationCheck}
           autoComplete='off'
           required
         />
-        {props.password && (
-          <div className='popup__error'>
+        </label>
+        {password && (
+          <div className='Login__error'>
             <span
-              className='popup__input-error popup__input-error_active'
+              className='Login__input-error Login__input-error_active'
               id='input-password-error'
             >
-              {props.placeMessage.password}
+              {placeMessage.password}
             </span>
           </div>
         )}
       </React.Fragment>
     );
   },
-  Register: function Register(props) {
+  Register: function Register({
+    name,
+    email,
+    password,
+    setEditRegister,
+    placeMessage,
+    validationCheck,
+  }) {
     Register.propTypes = {
       email: PropTypes.string.isRequired,
-      about: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      avatar: PropTypes.string.isRequired,
       password: PropTypes.string.isRequired,
-      editName: PropTypes.func.isRequired,
-      editAbout: PropTypes.func.isRequired,
-      editEmail: PropTypes.func.isRequired,
-      editPassword: PropTypes.func.isRequired,
-      editAvatar: PropTypes.func.isRequired,
+      setEditRegister: PropTypes.func.isRequired,
       validationCheck: PropTypes.func.isRequired,
       placeMessage: PropTypes.object.isRequired,
     };
-    const inputValidClass = classes('popup__input popup__input_type_check', {
-      popup__input_type_error:
-       (props.password || props.email || props.name || props.about || props.avatar),
+    const inputValidClass = classes('Register__input Register__input_type_check', {
+      Register__input_type_error:
+       (password || email || name),
     });
     return (
       <React.Fragment>
+        <label className='Profile__label' htmlFor='input-name'>
+            Имя
         <input
           className={inputValidClass}
           id='input-name'
@@ -167,64 +181,47 @@ export default {
           minLength='2'
           maxLength='40'
           placeholder='Ваше имя'
-          value={props.name}
-          onChange={props.editName}
-          onInput={props.validationCheck}
+          value={name}
+          onChange={setEditRegister}
+          onInput={validationCheck}
         />
-        {props.name !== '' && (
-          <div className='popup__error'>
+        </label>
+        {name !== '' && (
+          <div className='Register__error'>
             <span
-              className='popup__input-error popup__input-error_active'
+              className='Register__input-error Register__input-error_active'
               id='input-name-error'
             >
-              {props.placeMessage.name}
+              {placeMessage.name}
             </span>
           </div>
         )}
-        <input
-          className={inputValidClass}
-          id='input-about'
-          type='text'
-          name='about'
-          minLength='2'
-          maxLength='200'
-          placeholder='Ваша профессия'
-          value={props.about}
-          onChange={props.editAbout}
-          onInput={props.validationCheck}
-        />
-        {props.about !== '' && (
-          <div className='popup__error'>
-            <span
-              className='popup__input-error popup__input-error_active'
-              id='input-about-error'
-            >
-              {props.placeMessage.about}
-            </span>
-          </div>
-        )}
+         <label className='Profile__label' htmlFor='input-email'>
+            Почта
         <input
           className={inputValidClass}
           type='email'
           placeholder='Почта'
           id='input-email'
-          value={props.email}
+          defaultValue={email}
           name='email'
-          onChange={props.editEmail}
-          onInput={props.validationCheck}
-          title='обязательное поле'
+          onChange={setEditRegister}
+          onInput={validationCheck}
           required
         />
-        {props.email !== '' && (
-          <div className='popup__error'>
+        </label>
+        {email !== '' && (
+          <div className='Register__error'>
             <span
-              className='popup__input-error popup__input-error_active'
+              className='Register__input-error Register__input-error_active'
               id='input-email-error'
             >
-              {props.placeMessage.email}
+              {placeMessage.email}
             </span>
           </div>
         )}
+         <label className='Profile__label' htmlFor='input-password'>
+            Пaроль
         <input
           className={inputValidClass}
           type='password'
@@ -232,41 +229,21 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          value={props.password}
+          defaultValue={password}
           maxLength='30'
-          onChange={props.editPassword}
-          onInput={props.validationCheck}
+          onChange={setEditRegister}
+          onInput={validationCheck}
           autoComplete='off'
-          title='обязательное поле'
           required
         />
-        {props.password && (
-          <div className='popup__error'>
+        </label>
+        {password && (
+          <div className='Register__error'>
             <span
-              className='popup__input-error popup__input-error_active'
+              className='Register__input-error Register__input-error_active'
               id='input-password-error'
             >
-              {props.placeMessage.password}
-            </span>
-          </div>
-        )}
-        <input
-          className={inputValidClass}
-          type='url'
-          placeholder='Ссылка на аватарку'
-          id='input-avatar'
-          name='avatar'
-          value={props.avatar}
-          onChange={props.editAvatar}
-          onInput={props.validationCheck}
-        />
-        {props.avatar !== '' && (
-          <div className='popup__error'>
-            <span
-              className='popup__input-error popup__input-error_active'
-              id='input-avatar-error '
-            >
-              {props.placeMessage.avatar}
+              {placeMessage.password}
             </span>
           </div>
         )}

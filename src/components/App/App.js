@@ -74,10 +74,10 @@ function App() {
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [filterDuration, setFilterDuration] = React.useState(false);
-  const [place, setPlace] = React.useState('header');
+  const [place, setPlace] = React.useState('');
 
   function tooglePlace(str) {
-    setPlace({ ...place, left: str });
+    setPlace(str);
   }
   function filterTimes(arr) {
     return arr.filter((item) => item.duration < 60);
@@ -113,13 +113,20 @@ function App() {
       <CurrentUserContext.Provider value={userMovies}>
         <ErrorBoundary>
           <div className='App'>
-            <Header
+            {!place ? (<Header
               link={moviesPage}
               profileLink={dataLinks}
-              place={place}
+              place={'header'}
               openPopup={openPopup}
               onClose={closePopup}
-            />
+              />)
+              : (<Header
+                link={moviesPage}
+                profileLink={avatar}
+                place={'header'}
+                openPopup={openPopup}
+                onClose={closePopup}
+              />)}
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
               <Button
                 title={'Закрыть'}
@@ -127,11 +134,11 @@ function App() {
                 className={'Button__close_place_header'}
                 onChange={closePopup}
                 />
-              {(place === 'header') && (<Navigation place={'popup'}>
+              {place ? (<Navigation place={'popup'}>
                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
                 <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-              </Navigation>)}
-              {!place && (<Navigation place={'popup'}>
+              </Navigation>)
+                : (<Navigation place={'popup'}>
                 <NavTab links={[moviesPage]} onChange={closePopup}/>
                 <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
               </Navigation>)}
@@ -149,7 +156,7 @@ function App() {
                   toggleMovies={handleMovies}
                   isCheckFilter={isCheckFilter}
                   />
-                  <Footer />
+                <Footer />
               </Route>
               <Route path='/saved-movies' exact>
                 <SavedMovies

@@ -31,17 +31,11 @@ function Header({
           className={'Button__open_place_header'}
           onChange={openPopup}
         />
-          {!place && (
-        <Navigation place={place}>
-          <NavTab links={link} onChange={onClose}/>
-          <NavTab links={profileLink} place={place} onChange={onClose}/>
-        </Navigation>)}
-          {place && (
         <Navigation place={place}>
           <NavTab links={link} place={place} onChange={onClose}/>
           <NavTab links={avatar} place={'avatar'} onChange={onClose}/>
           <NavTab links={profileLink} place={place} onChange={onClose}/>
-        </Navigation>)}
+        </Navigation>
       </div>
     </header>
   );
