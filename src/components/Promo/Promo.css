@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  margin: 0 auto;
   max-width: 1200px;
   min-height: 493px;
   width: 93.8%;
@@ -18,8 +19,9 @@
   font-style: normal;
   line-height: 1.16;
   max-width: 730px;
-  text-align: center;
   margin: 160px auto 151px auto;
+  text-align: center;
+  letter-spacing: -4px;
 }
 
 @media screen and (max-width: 880px) {
@@ -44,6 +46,6 @@
 @media screen and (max-width: 560px) {
   .Promo {
     min-height: 586px;
-    min-width: 292px;
+    min-width: 90%;
   }
 }

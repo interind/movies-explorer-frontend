@@ -36,9 +36,9 @@ function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </HeaderBar>
       <div className='Footer__container'>
-        <p className='Footer-item'>
-          &copy;{new Date().getFullYear()}
-        </p>
+        <span className='Footer-item'>
+          &copy; {new Date().getFullYear()}
+        </span>
         <NavTab links={dataLinks} place={footer.place}/>
       </div>
     </footer>

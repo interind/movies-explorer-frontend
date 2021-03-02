@@ -4,7 +4,8 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1280px;
-  align-self: stretch;
+  width: 100%;
+  min-width: 100%;
   margin-top: auto;
   min-height: 172px;
   background-color: #fff;
@@ -23,10 +24,9 @@
 .Footer-item {
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 13px;
   line-height: 1.21;
-  margin-right: 10px;
   color: #000;
 }
 .Footer-item:last-of-type {

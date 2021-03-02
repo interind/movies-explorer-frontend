@@ -4,7 +4,15 @@
 .Navigation_place_header {
   display: flex;
   justify-content: space-between;
-  margin-right: 60px;
+}
+.Navigation_place_register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #A0A0A0;
+  font-size: 14px;
+  line-height: 1.21;
+  margin-bottom: 70px;
 }
 .Navigation_place_popup {
   display: flex;

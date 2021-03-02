@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: stretch;
+  max-width: 1280px;
+  width: 100%;
   min-height: 608px;
+  min-width: 100%;
   background-color: #F5F5F5;
 }
 .Techs__title {

@@ -3,7 +3,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  max-width: 1140px;
   width: 100%;
+  min-width: 90%;
 }
 
 .Portfolio-arrow {
@@ -13,9 +15,9 @@
   width: 29px;
   height: 60px;
   background-image: url(../../images/portfolio/text__COLOR_font-main.svg);
-  background-position: top;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 60%;
   font-size: 50px;
   line-height: 1.2;
   color: black;
@@ -23,8 +25,6 @@
 
 @media screen and (max-width: 460px) {
   .Portfolio {
-    align-items: stretch;
-    width: 90%;
     align-items: flex-start;
   }
   .Portfolio-arrow {

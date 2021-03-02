@@ -1,19 +1,25 @@
 .Header {
+  display: flex;
   min-height: 74px;
   max-width: 1280px;
   background-color: #fff;
-  align-self: stretch;
+  width: 100%;
   margin-bottom: 20px;
 }
 .Header__container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 74px;
-  width: 100%;
-  max-width: 1280px;
+  margin: 0 auto;
+  min-width: 90%;
+  max-width: 1140px;
 }
 
+@media screen and (max-width: 800px) {
+  .Header__container {
+    justify-content: space-between;
+  }
+}
 @media screen and (max-width: 500px) {
   .Header {
     margin-bottom: 14px;
@@ -21,9 +27,13 @@
 }
 @media screen and (max-width: 400px) {
   .Header {
-    min-width: 240px;
+    min-width: 100%;
     padding: 0;
     margin: 0;
     margin-bottom: 20px;
+  }
+  .Header__container {
+    min-width: 90%;
+    width: 85%;
   }
 }

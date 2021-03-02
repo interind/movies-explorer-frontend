@@ -16,7 +16,7 @@ function Register({ onRegister, isLoadingButton }) {
     title: 'Перейти на страницу авторизации',
     type: 'local',
   }];
-  const [register, setRegister] = useState({ name: '', email: '', password: '' });
+  const [register, setRegister] = useState({ name: 'Виталий', email: 'pochta@yandex.ru', password: '123456' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
@@ -68,7 +68,7 @@ function Register({ onRegister, isLoadingButton }) {
           {textButton}
         </Button>
         <Navigation place={'register'}>
-          <p>Уже зарегистрированы?</p>
+          <span>Уже зарегистрированы?</span>
           <NavTab links={link} place={'register'}/>
         </Navigation>
       </Form>

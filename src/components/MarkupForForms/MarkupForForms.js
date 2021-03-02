@@ -90,12 +90,12 @@ export default {
       validationCheck: PropTypes.func.isRequired,
       placeMessage: PropTypes.object.isRequired,
     };
-    const inputValidClass = classes('Login__input Login__input_type_check', {
+    const inputValidClass = classes('Login__input', {
       Login__input_type_error: password || email,
     });
     return (
       <React.Fragment>
-         <label className='Profile__label' htmlFor='input-email'>
+         <label className='Login__label' htmlFor='input-email'>
             Почта
         <input
           className={inputValidClass}
@@ -119,7 +119,7 @@ export default {
             </span>
           </div>
         )}
-         <label className='Profile__label' htmlFor='input-password'>
+         <label className='Login__label' htmlFor='input-password'>
             Пaроль
         <input
           className={inputValidClass}
@@ -165,13 +165,13 @@ export default {
       validationCheck: PropTypes.func.isRequired,
       placeMessage: PropTypes.object.isRequired,
     };
-    const inputValidClass = classes('Register__input Register__input_type_check', {
+    const inputValidClass = classes('Register__input', {
       Register__input_type_error:
        (password || email || name),
     });
     return (
       <React.Fragment>
-        <label className='Profile__label' htmlFor='input-name'>
+        <label className='Register__label' htmlFor='input-name'>
             Имя
         <input
           className={inputValidClass}
@@ -180,10 +180,11 @@ export default {
           name='name'
           minLength='2'
           maxLength='40'
-          placeholder='Ваше имя'
+          placeholder='Напишите ваше имя'
           value={name}
           onChange={setEditRegister}
           onInput={validationCheck}
+          required
         />
         </label>
         {name !== '' && (
@@ -196,12 +197,12 @@ export default {
             </span>
           </div>
         )}
-         <label className='Profile__label' htmlFor='input-email'>
+         <label className='Register__label' htmlFor='input-email'>
             Почта
         <input
           className={inputValidClass}
           type='email'
-          placeholder='Почта'
+          placeholder='Напишите вашу почту'
           id='input-email'
           defaultValue={email}
           name='email'
@@ -220,12 +221,12 @@ export default {
             </span>
           </div>
         )}
-         <label className='Profile__label' htmlFor='input-password'>
+         <label className='Register__label' htmlFor='input-password'>
             Пaроль
         <input
           className={inputValidClass}
           type='password'
-          placeholder='Пароль'
+          placeholder='Придумайте надежный пароль'
           id='input-password'
           name='password'
           minLength='6'
