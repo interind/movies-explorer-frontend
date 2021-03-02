@@ -2,51 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../Logo/Logo';
 import Button from '../Button/Button';
-import NavTab from '../NavTab/NavTab';
-import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 function Header({
-  place,
-  link,
-  profileLink,
-  onClose,
+  className,
+  children,
   openPopup,
 }) {
   const page = { path: '/', title: 'на главную' };
-  const avatar = [{
-    path: '/profile',
-    text: '',
-    active: '',
-    title: 'страница профиля',
-    type: 'local',
-  }];
   return (
     <header className='Header'>
-      <div className='Header__container'>
+      <div className={`Header__container ${className ? `Header__container_place_${className}` : ''}`}>
         <Logo element={page}/>
-         <Button
+        {openPopup && (<Button
           title={'Открыть'}
           type={'button'}
           className={'Button__open_place_header'}
           onChange={openPopup}
-        />
-        <Navigation place={place}>
-          <NavTab links={link} place={place} onChange={onClose}/>
-          <NavTab links={avatar} place={'avatar'} onChange={onClose}/>
-          <NavTab links={profileLink} place={place} onChange={onClose}/>
-        </Navigation>
+        />)}
+        {children}
       </div>
     </header>
   );
 }
 
 Header.propTypes = {
-  place: PropTypes.string.isRequired,
-  link: PropTypes.array.isRequired,
-  profileLink: PropTypes.array.isRequired,
-  openPopup: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  openPopup: PropTypes.func,
+  children: PropTypes.any,
 };
 
 export default Header;

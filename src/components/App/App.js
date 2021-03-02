@@ -3,6 +3,7 @@ import {
   Route,
   Switch,
   Redirect,
+  useHistory,
 } from 'react-router-dom';
 import data from '../../vendor/data/response.json';
 import CurrentUserContext from '../../context/CurrentUserContext';
@@ -23,6 +24,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 
 function App() {
+  const history = useHistory();
   const page = {
     path: '/',
     text: 'Главная страница',
@@ -98,6 +100,11 @@ function App() {
   const closePopup = () => {
     setStatusPopup(false);
   };
+
+  function signOut() {
+    localStorage.clear();
+    history.push('/signin');
+  }
   function handleMovies(card) {
     const cardID = userMovies.some((c) => c.id === card.id);
     if (cardID) {
@@ -116,20 +123,6 @@ function App() {
       <CurrentUserContext.Provider value={userMovies}>
         <ErrorBoundary>
           <div className='App'>
-            {!place ? (<Header
-              link={moviesPage}
-              profileLink={dataLinks}
-              place={'header'}
-              openPopup={openPopup}
-              onClose={closePopup}
-              />)
-              : (<Header
-                link={moviesPage}
-                profileLink={avatar}
-                place={'header'}
-                openPopup={openPopup}
-                onClose={closePopup}
-              />)}
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
               <Button
                 title={'Закрыть'}
@@ -142,16 +135,28 @@ function App() {
                 <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
               </Navigation>)
                 : (<Navigation place={'popup'}>
-                <NavTab links={[moviesPage]} onChange={closePopup}/>
+                <NavTab links={moviesPage} onChange={closePopup}/>
                 <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
               </Navigation>)}
             </Popup>
             <Switch>
               <Route path='/' exact>
+                <Header openPopup={openPopup}>
+                    <Navigation place={'header'}>
+                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
+                      <NavTab links={dataLinks} place={'header'} onChange={closePopup}/>
+                    </Navigation>
+                  </Header>
                 <Main />
                 <Footer />
               </Route>
               <Route path='/movies' exact>
+                <Header openPopup={openPopup}>
+                    <Navigation place={'header'}>
+                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
+                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
+                    </Navigation>
+                </Header>
                 <Movies
                   filterTimes={filterTimes}
                   filterMovies={filterMovies}
@@ -163,6 +168,12 @@ function App() {
                 <Footer />
               </Route>
               <Route path='/saved-movies' exact>
+                <Header openPopup={openPopup}>
+                    <Navigation place={'header'}>
+                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
+                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
+                    </Navigation>
+                </Header>
                 <SavedMovies
                   movies={userMovies}
                   isOpenCheck={filterDuration}
@@ -173,17 +184,28 @@ function App() {
                 <Footer />
               </Route>
               <Route path='/profile' exact>
-                <Profile onEditProfile={onEditProfile} user={user} tooglePlace={tooglePlace}/>
+                <Header openPopup={openPopup}>
+                    <Navigation place={'header'}>
+                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
+                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
+                    </Navigation>
+                  </Header>
+                <Profile
+                  onEditProfile={onEditProfile}
+                  user={user}
+                  tooglePlace={tooglePlace}
+                  signOut={signOut}
+                />
               </Route>
               <Route path='/signup' exact>
+                <Header className={'register'} />
                 <Register tooglePlace={tooglePlace} />
               </Route>
               <Route path='/signin' exact>
+                <Header className={'login'} />
                 <Login tooglePlace={tooglePlace} />
               </Route>
-              <Route path='*'>
-                <NotFound />
-              </Route>
+              <Route path='*' component={NotFound} />
               <Redirect to='/' />
             </Switch>
           </div>

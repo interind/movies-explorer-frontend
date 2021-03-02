@@ -9,10 +9,17 @@
 .Header__container {
   display: flex;
   align-items: center;
-  height: 74px;
   margin: 0 auto;
   min-width: 90%;
   max-width: 1140px;
+}
+.Header__container_place_register {
+  max-width: 396px;
+  min-width: 30%;
+}
+.Header__container_place_login {
+  max-width: 396px;
+  min-width: 35%;
 }
 
 @media screen and (max-width: 800px) {

@@ -20,6 +20,7 @@
 }
 .NavTab_place_avatar {
   align-items: center;
+  margin-left: auto;
 }
 .NavTab_place_header:last-of-type {
   margin-left: auto;

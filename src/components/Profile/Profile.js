@@ -6,7 +6,12 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import './Profile.css';
 
-function Profile({ onEditProfile, user, isLoadingButton }) {
+function Profile({
+  onEditProfile,
+  user,
+  isLoadingButton,
+  signOut,
+}) {
   const [profile, setProfile] = useState({ ...user });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
@@ -53,7 +58,7 @@ function Profile({ onEditProfile, user, isLoadingButton }) {
         <Button className={'Button__profile-edit'} type='submit' title='изменить' status={activeButton}>
           {textButton}
         </Button>
-        <Button className={'Button__profile-exit'} type='button' title='выйти' status={activeButton}>
+        <Button className={'Button__profile-exit'} onChange={signOut} type='button' title='выйти'>
           Выйти из профиля
         </Button>
       </Form>
@@ -63,6 +68,7 @@ function Profile({ onEditProfile, user, isLoadingButton }) {
 
 Profile.propTypes = {
   onEditProfile: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   isLoadingButton: PropTypes.bool,
 };
