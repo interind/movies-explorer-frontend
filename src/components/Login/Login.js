@@ -55,7 +55,7 @@ function Login({ onLogin, isLoadingButton }) {
     <section className='Login'>
       <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
         <HeaderBar component={Logo} place='login'>
-          Рады видеть
+          Рады видеть!
         </HeaderBar>
         <MarkupForForms.Login
           password={login.password}

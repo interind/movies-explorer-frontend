@@ -56,7 +56,7 @@ export default {
           <input
           className={inputValidClass}
           type='email'
-          placeholder='Почта'
+          placeholder='E-mail'
           id='input-email'
           defaultValue={email}
           name='email'
@@ -102,7 +102,7 @@ export default {
         <input
           className={inputValidClass}
           type='email'
-          placeholder='Почта'
+          placeholder='E-mail'
           id='input-email'
           defaultValue={email}
           name='email'
@@ -184,7 +184,7 @@ export default {
           autoCapitalize='words'
           minLength='2'
           maxLength='40'
-          placeholder='Напишите ваше имя'
+          placeholder='Ваше имя'
           value={name}
           onChange={setEditRegister}
           onInput={validationCheck}
@@ -206,7 +206,7 @@ export default {
         <input
           className={inputValidClass}
           type='email'
-          placeholder='Напишите вашу почту'
+          placeholder='Ваш e-mail'
           id='input-email'
           defaultValue={email}
           name='email'

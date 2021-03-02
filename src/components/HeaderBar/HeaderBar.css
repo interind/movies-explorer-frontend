@@ -106,6 +106,7 @@
   }
   .HeaderBar_place_footer {
     max-width: 300px;
+    width: 100%;
     margin-bottom: 30px;
   }
   .HeaderBar_place_register {
@@ -115,12 +116,10 @@
     align-items: center;
   }
   .HeaderBar__title_place_footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
+    font-weight: 400;
     font-size: 12px;
     line-height: 1.21;
+    text-align: center;
   }
   .HeaderBar__title_place_aboutProjet {
     font-size: 18px;

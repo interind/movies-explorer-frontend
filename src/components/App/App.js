@@ -27,7 +27,7 @@ function App() {
   const history = useHistory();
   const page = {
     path: '/',
-    text: 'Главная страница',
+    text: 'Главная',
     active: '',
     title: 'Перейти на главную страницу',
     type: 'local',
@@ -130,12 +130,12 @@ function App() {
                 className={'Button__close_place_header'}
                 onChange={closePopup}
                 />
-              {place ? (<Navigation place={'popup'}>
+              {!place ? (<Navigation place={'popup'}>
                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
-                <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
+                <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
               </Navigation>)
                 : (<Navigation place={'popup'}>
-                <NavTab links={moviesPage} onChange={closePopup}/>
+                <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
                 <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
               </Navigation>)}
             </Popup>

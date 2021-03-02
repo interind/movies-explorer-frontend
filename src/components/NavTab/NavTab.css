@@ -25,6 +25,9 @@
   align-items: center;
   margin-left: auto;
 }
+.NavTab_place_avatar-popup {
+  align-items: center;
+}
 .NavTab_place_header:last-of-type {
   margin-left: auto;
 }
@@ -68,6 +71,17 @@
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   margin: 0;
   margin-left: 10px;
+}
+.NavTab__item_place_popup {
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.21;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.NavTab__item_place_popup:last-of-type {
+  margin-bottom: 0;
 }
 .NavTab__item_place_header {
   min-width: 76px;
@@ -148,16 +162,15 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-.NavTab__item_place_popup {
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  font-size: 30px;
-  line-height: 1.66;
-  font-weight: 400;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #E8E8E8;
+.NavTab__item_place_avatar-popup {
+  width: 100px;
+  height: 30px;
+  background-image: url(../../images/button/profile.svg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
+
 .NavTab__item_place_portfolio {
   min-width: 292px;
   min-height: 50px;
@@ -185,9 +198,6 @@
   height: 32px;
   margin-left: 30px;
 }
-.NavTab_active {
-  border-bottom: 1px solid #000;
-}
 .NavTab__link {
   display: inherit;
   justify-content: inherit;
@@ -211,6 +221,9 @@
   border-radius: inherit;
 }
 
+.NavTab__link_active {
+  text-decoration: underline;
+}
 @media screen and (max-width: 800px) {
   .NavTab__item_place_techs {
     width: 87px;
@@ -241,6 +254,9 @@
   .NavTab_place_techs {
     margin-bottom: 70px;
   }
+  .NavTab_place_popup {
+    align-items: center;
+  }
   .NavTab_place_promo {
     margin-bottom: 22px;
     max-width: 258px;
@@ -263,7 +279,9 @@
   }
   .NavTab__item_place_portfolio:last-of-type {
     margin-bottom: 90px;
-
+  }
+  .NavTab_item_place_popup {
+    font-size: 18px;
   }
   .NavTab_place_footer {
     flex-direction: column;
@@ -272,5 +290,9 @@
   .NavTab__item_place_footer {
     margin-bottom: 10px;
     font-size: 12px;
+    margin-left: 0;
+  }
+  .NavTab__item_place_footer:last-of-type {
+    margin-bottom: 30px;
   }
 }

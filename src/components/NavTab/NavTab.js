@@ -16,7 +16,7 @@ function NavTab(
   return (
       <ul className={`NavTab NavTab_place_${place || 'hidden'}`}>
         {links.map((link) => <li key={cryptoKeys(link.path)} onClick={onChange} className={`NavTab__item NavTab__item_place_${place} ${link.active ? 'NavTab__item-active' : ''}`}>
-            {link.type === 'local' && (<NavLink className='NavTab__link' activeClassName={`${link.active ? '' : 'NavTab_active'}`} exact
+            {link.type === 'local' && (<NavLink className='NavTab__link' activeClassName={`${link.active ? '' : 'NavTab__link_active'}`} exact
               to={link.path} title={link.title}>
               {link.text}
             </NavLink>)}

@@ -74,7 +74,9 @@
 
 
 @media screen and (max-width: 780px) {
-
+  .MoviesCard {
+    max-width: 708px;
+  }
 }
 @media screen and (max-width: 620px) {
   .MoviesCard {

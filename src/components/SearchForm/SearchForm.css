@@ -28,10 +28,13 @@
   max-width: 1086px;
   width: 95%;
   min-width: 238px;
-  font-family: inherit;
-  font-size: inherit;
-  border: none;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding-left: 20px;
   outline: none;
+}
+.SearchForm-input:placeholder {
+  color: #A0A0A0;
 }
 .SearchForm-input:focus {
   background: linear-gradient(100deg, #fff, #ff6738cb, #fff);
@@ -50,6 +53,14 @@
   align-self: flex-start;
 }
 
+@media screen and (max-width: 780px) {
+  .SearchForm-container {
+    max-width: 708px;
+  }
+  .SearchForm-input {
+    width: 92%;
+  }
+}
 @media screen and (max-width: 450px) {
   .SearchForm-input {
     width: 80%;
