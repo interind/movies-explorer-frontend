@@ -12,7 +12,7 @@ function MoviesCard({
   toggleMovies,
 }) {
   const userMovies = React.useContext(CurrentUserContext);
-  const visible = `https://api.nomoreparties.co${card.image.url}`;
+  const visible = card.image.url !== '' ? `https://api.nomoreparties.co${card.image.url}` : './static/media/errorPic.b39bbd5d.jpg';
   const classLike = classes('Button-like',
     { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
     { 'Button-like_theme_delete': movies === userMovies });

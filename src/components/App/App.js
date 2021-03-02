@@ -82,6 +82,9 @@ function App() {
   function filterTimes(arr) {
     return arr.filter((item) => item.duration < 60);
   }
+  function filterMovies(arr) {
+    return arr.filter((item) => item.image !== null || undefined);
+  }
 
   function onEditProfile(profile) {
     setUser({ ...user, ...profile });
@@ -151,6 +154,7 @@ function App() {
               <Route path='/movies' exact>
                 <Movies
                   filterTimes={filterTimes}
+                  filterMovies={filterMovies}
                   isOpenCheck={filterDuration}
                   movies={moviesData}
                   toggleMovies={handleMovies}

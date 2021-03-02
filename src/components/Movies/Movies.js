@@ -10,6 +10,7 @@ function Movies({
   movies,
   toggleMovies,
   filterTimes,
+  filterMovies,
   isCheckFilter,
   isOpenCheck,
 }) {
@@ -18,9 +19,10 @@ function Movies({
     <React.Fragment>
       <SearchForm onChange={isCheckFilter}/>
       <MoviesCardList>
-          {isOpenCheck && movies.slice(0, count).map((card) => <MoviesCard
+          {isOpenCheck && filterMovies(movies).slice(0, count).map((card) => <MoviesCard
            key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          {!isOpenCheck && filterTimes(movies).slice(0, count).map((card) => <MoviesCard
+          {!isOpenCheck && filterMovies(filterTimes(movies)).slice(0, count)
+            .map((card) => <MoviesCard
            key={card.id} card={card} toggleMovies={toggleMovies}/>)}
           <Button className='Button-MoviesCardList' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
             Ещё
@@ -34,6 +36,7 @@ Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
+  filterMovies: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,
   isOpenCheck: PropTypes.bool.isRequired,
 };

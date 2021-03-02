@@ -1,0 +1,24 @@
+.NotFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1280px;
+  min-width: 100%;
+  min-height: 80vh;
+}
+
+.NotFound__title {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 140px;
+  line-height: 1.20;
+  font-weight: normal;
+  margin: auto 0 5px 0;
+}
+.NotFound__subtitle {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.18;
+  font-weight: 400;
+  margin: 0;
+}

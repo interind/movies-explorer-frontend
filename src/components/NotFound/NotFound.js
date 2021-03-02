@@ -1,19 +1,18 @@
 import React from 'react';
-import NavTab from '../NavTab/NavTab';
+import { useHistory } from 'react-router-dom';
+import Button from '../Button/Button';
 import './NotFound.css';
 
 function NotFound() {
-  const link = [{
-    path: '/',
-    text: 'Главная страница',
-    active: '',
-    title: 'Перейти на главную страницу',
-    type: 'local',
-  }];
+  const history = useHistory();
+
   return (
     <div className='NotFound'>
-    <h2>404 ошибка</h2>
-    <NavTab links={link} place={'page'}/>
+    <h2 className='NotFound__title'>404</h2>
+    <p className='NotFound__subtitle'>Страница не найдена</p>
+    <Button className={'Button__goBack'} type={'button'} title={'Назад'} onChange={history.goBack}>
+      Назад
+    </Button>
     </div>
   );
 }
