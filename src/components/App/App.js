@@ -193,16 +193,13 @@ function App() {
                 <Profile
                   onEditProfile={onEditProfile}
                   user={user}
-                  tooglePlace={tooglePlace}
                   signOut={signOut}
                 />
               </Route>
               <Route path='/signup' exact>
-                <Header className={'register'} />
                 <Register tooglePlace={tooglePlace} />
               </Route>
               <Route path='/signin' exact>
-                <Header className={'login'} />
                 <Login tooglePlace={tooglePlace} />
               </Route>
               <Route path='*' component={NotFound} />

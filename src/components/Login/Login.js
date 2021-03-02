@@ -7,6 +7,7 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Login.css';
+import Logo from '../Logo/Logo';
 
 function Login({ onLogin, isLoadingButton }) {
   const link = [{
@@ -19,7 +20,7 @@ function Login({ onLogin, isLoadingButton }) {
   const [login, setLogin] = useState({ email: '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
+  const textButton = isLoadingButton ? 'Проверка...' : 'Войти';
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -53,7 +54,7 @@ function Login({ onLogin, isLoadingButton }) {
   return (
     <section className='Login'>
       <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
-        <HeaderBar place='login'>
+        <HeaderBar component={Logo} place='login'>
           Рады видеть
         </HeaderBar>
         <MarkupForForms.Login

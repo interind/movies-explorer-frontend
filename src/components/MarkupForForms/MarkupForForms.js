@@ -33,6 +33,8 @@ export default {
           minLength='2'
           maxLength='40'
           placeholder='Имя'
+          autoCorrect='off'
+          autoCapitalize='words'
           defaultValue={name}
           onChange={setEditProfile}
           onInput={validationProfile}
@@ -178,6 +180,8 @@ export default {
           id='input-name'
           type='text'
           name='name'
+          autoCorrect='off'
+          autoCapitalize='words'
           minLength='2'
           maxLength='40'
           placeholder='Напишите ваше имя'

@@ -9,6 +9,7 @@
   left: 0;
   background-color: rgba(0, 0, 0, .3);
   transition: all .4s ease;
+  z-index: 10;
 }
 .Popup_opened {
   height: 100vh;

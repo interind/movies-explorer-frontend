@@ -5,9 +5,9 @@ import './MoviesCardList.css';
 function MoviesCardList({ children }) {
   return (
     <React.Fragment>
-        <div className='MoviesCardList'>
+        <section className='MoviesCardList'>
          {children}
-        </div>
+        </section>
     </React.Fragment>
   );
 }

@@ -9,11 +9,10 @@ function Header({
   children,
   openPopup,
 }) {
-  const page = { path: '/', title: 'на главную' };
   return (
     <header className='Header'>
       <div className={`Header__container ${className ? `Header__container_place_${className}` : ''}`}>
-        <Logo element={page}/>
+        <Logo />
         {openPopup && (<Button
           title={'Открыть'}
           type={'button'}

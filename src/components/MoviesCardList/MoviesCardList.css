@@ -4,7 +4,7 @@
   grid-template-rows: repeat(auto-fit, auto);
   grid-gap: 40px;
   max-width: 1280px;
-  min-width: 100%;
+  width: 100%;
   justify-items: stretch;
   padding-top: 70px;
   text-align: center;

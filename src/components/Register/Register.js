@@ -7,6 +7,7 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Register.css';
+import Logo from '../Logo/Logo';
 
 function Register({ onRegister, isLoadingButton }) {
   const link = [{
@@ -19,7 +20,7 @@ function Register({ onRegister, isLoadingButton }) {
   const [register, setRegister] = useState({ name: 'Виталий', email: 'pochta@yandex.ru', password: '123456' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
+  const textButton = isLoadingButton ? 'Проверка...' : 'Зарегистрироваться';
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -54,7 +55,7 @@ function Register({ onRegister, isLoadingButton }) {
   return (
     <section className='Register'>
       <Form className='Register-form' nameFrom='register-form' onSubmit={verifiesAuthorization}>
-        <HeaderBar place='register'>
+        <HeaderBar component={Logo} place='register'>
           Добро пожаловать!
         </HeaderBar>
         <MarkupForForms.Register

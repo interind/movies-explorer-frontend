@@ -45,6 +45,13 @@
   border-radius: 3px;
   margin-top: 130px;
 }
+.Button__login {
+  height: 45px;
+  color: #fff;
+  background: #FF6838;
+  border-radius: 3px;
+  margin-top: 130px;
+}
 .Button__search {
   grid-column: 4/5;
   grid-row: 1;
@@ -165,6 +172,14 @@
 @media screen and (max-width: 400px) {
   .Button__open_place_header {
     height: 43px;
+  }
+  .Button__register {
+    width: 260px;
+    margin-top: auto;
+  }
+  .Button__login {
+    width: 260px;
+    margin-top: auto;
   }
 }
 @media screen and (max-width: 350px) {

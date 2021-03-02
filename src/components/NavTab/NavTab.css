@@ -18,6 +18,9 @@
 .NavTab_place_register {
   justify-content: center;
 }
+.NavTab_place_login {
+  justify-content: center;
+}
 .NavTab_place_avatar {
   align-items: center;
   margin-left: auto;
@@ -79,6 +82,15 @@
   font-weight: 400;
   line-height: 1.21;
   margin-left: 6px;
+  color: #FF6838;
+  align-items: center;
+  justify-content: center;
+}
+.NavTab__item_place_login {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  margin-left: 7px;
   color: #FF6838;
   align-items: center;
   justify-content: center;
@@ -236,6 +248,13 @@
   .NavTab_place_portfolio {
     justify-content: flex-start;
     width: 89%;
+  }
+  .NavTab__item_place_register {
+    font-size: 12px;
+    width: 36px;
+  }
+  .NavTab__item_place_login {
+    font-size: 12px;
   }
   .NavTab__item_place_portfolio {
     align-items: center;
