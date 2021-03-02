@@ -181,6 +181,12 @@
     width: 260px;
     margin-top: auto;
   }
+  .Button__profile-edit {
+    width: 260px;
+  }
+  .Button__profile-exit {
+    width: 260px;
+  }
 }
 @media screen and (max-width: 350px) {
   .Button-like {
