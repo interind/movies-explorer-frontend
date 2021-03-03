@@ -12,7 +12,8 @@ function MoviesCard({
   toggleMovies,
 }) {
   const userMovies = React.useContext(CurrentUserContext);
-  const visible = card.image.url !== '' ? `https://api.nomoreparties.co${card.image.url}` : './static/media/errorPic.b39bbd5d.jpg';
+  const movieUrl = card.image.url !== '' ? `https://api.nomoreparties.co${card.image.url}` : './static/media/errorPic.b39bbd5d.jpg';
+  const [visible, setVisible] = React.useState(movieUrl);
   const classLike = classes('Button-like',
     { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
     { 'Button-like_theme_delete': movies === userMovies });
@@ -20,7 +21,16 @@ function MoviesCard({
   return (
     <React.Fragment>
         <div className='MoviesCard'>
-          <a className='MoviesCard__pic' style={{ backgroundImage: `url(${visible})` }} title={card.description} href={card.trailerLink} target='_blank' rel='noopener noreferrer'/>
+          <a className='MoviesCard__link' title={card.description} href={card.trailerLink} target='_blank' rel='noopener noreferrer'>
+            <img
+              className='MoviesCard__pic'
+              src={visible}
+              alt={card.nameRU}
+              onError={() => {
+                setVisible('/static/media/errorPic.b39bbd5d.jpg');
+              }}
+            />
+          </a>
             <h2 className='MoviesCard__title' title={card.nameRU}>
               {card.nameRU}
             </h2>
