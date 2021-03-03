@@ -13,17 +13,19 @@ function SavedMovies({
   isCheckFilter,
   isOpenCheck,
 }) {
+  const notFound = <p>Фильмов нет</p>;
   return (
     <React.Fragment>
       <SearchForm onFilter={isCheckFilter} onSearch={searchMovies}/>
       <MoviesCardList>
-          {(isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
+          {(isOpenCheck && movies.length > 0) && (filterTimes(movies).length <= 0
+            ? notFound : filterTimes(movies).map((card) => <MoviesCard
            key={card.id}
-           card={card} movies={movies} toggleMovies={toggleMovies}/>))}
+           card={card} movies={movies} toggleMovies={toggleMovies}/>)) }
           {(!isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
            key={card.id}
            card={card} movies={movies} toggleMovies={toggleMovies}/>))}
-           {movies.length <= 0 && 'Фильмов ещё нет'}
+           {movies.length <= 0 && notFound}
       </MoviesCardList>
     </React.Fragment>
   );

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 
 function MoviesCardList({ children }) {
+  const notFound = <p>Фильмов нет</p>;
   return (
     <React.Fragment>
         <section className='MoviesCardList'>
-         {children}
+         {children || notFound}
         </section>
     </React.Fragment>
   );
