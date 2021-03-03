@@ -8,7 +8,7 @@
 .AboutProject__containers {
   align-self: center;
   display: grid;
-  grid-template-columns: 228px 1fr 40px 1fr 1fr;
+  grid-template-columns: 228px 1fr 40px 228px 1fr;
   max-width: 1140px;
   width: 90%;
 }
