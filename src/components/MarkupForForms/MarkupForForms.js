@@ -255,15 +255,33 @@ export default {
       </React.Fragment>
     );
   },
-  Search: function Search({ movie, onFind }) {
+  Search: function Search({
+    movie,
+    onSearch,
+    activeButton,
+    setEditMovies,
+  }) {
     Search.propTypes = {
       movie: PropTypes.string,
-      onFind: PropTypes.func,
+      placeMessage: PropTypes.string,
+      onSearch: PropTypes.func,
+      setEditMovies: PropTypes.func,
+      validationCheck: PropTypes.func,
+      activeButton: PropTypes.bool,
     };
     return (
       <React.Fragment>
-        <input className='SearchForm-input' name='search' defaultValue={movie} type='text' placeholder='Фильм' />
-        <Button className='Button__search' type='submit' title='Поиск' onChange={onFind}/>
+        <input
+        className='SearchForm__input'
+        name='search'
+        defaultValue={movie}
+        type='text'
+        placeholder='Фильм'
+        minLength='1'
+        onChange={setEditMovies}
+        autoComplete='off'
+        required />
+        <Button className='Button__search' type='submit' title='Поиск' onChange={onSearch} status={activeButton}/>
       </React.Fragment>
     );
   },

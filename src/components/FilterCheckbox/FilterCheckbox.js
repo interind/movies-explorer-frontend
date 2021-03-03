@@ -5,7 +5,7 @@ import './FilterCheckbox.css';
 function FilterCheckbox({
   classLabel = '',
   onInput,
-  onChange,
+  onFilter,
   children,
 }) {
   return (
@@ -15,7 +15,7 @@ function FilterCheckbox({
           className='FilterCheckbox'
           type='checkbox'
           name='checkbox'
-          onChange={onChange}
+          onChange={onFilter}
           onInput={onInput}/>
         <span id='span' className='FilterCheckbox'/>
         <span className='FilterCheckbox-text'>{children}</span>
@@ -27,7 +27,7 @@ function FilterCheckbox({
 FilterCheckbox.propTypes = {
   value: PropTypes.any,
   onInput: PropTypes.func,
-  onChange: PropTypes.func,
+  onFilter: PropTypes.func,
   classLabel: PropTypes.string,
   classCheck: PropTypes.string,
   idSpan: PropTypes.string,

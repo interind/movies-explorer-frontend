@@ -7,6 +7,7 @@ import './SavedMovies.css';
 
 function SavedMovies({
   movies,
+  searchMovies,
   toggleMovies,
   filterTimes,
   isCheckFilter,
@@ -14,7 +15,7 @@ function SavedMovies({
 }) {
   return (
     <React.Fragment>
-      <SearchForm onChange={isCheckFilter}/>
+      <SearchForm onFilter={isCheckFilter} onSearch={searchMovies}/>
       <MoviesCardList>
           {(isOpenCheck && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
            key={card.id}
@@ -30,6 +31,7 @@ function SavedMovies({
 
 SavedMovies.propTypes = {
   movies: PropTypes.array,
+  searchMovies: PropTypes.func,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,
