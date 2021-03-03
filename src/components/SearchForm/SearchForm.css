@@ -1,0 +1,68 @@
+.SearchForm {
+  display: flex;
+  max-width: 1280px;
+  width: 100%;
+}
+.SearchForm-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 54px;
+  grid-template-rows: 1fr 28px auto;
+  align-items: center;
+  max-width: 1140px;
+  width: 100%;
+  min-width: 89%;
+  background-color: #fff;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #E8E8E8;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.SearchForm-input {
+  grid-column: 1/5;
+  grid-row: 1;
+  min-height: 50px;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  max-width: 1086px;
+  width: 95%;
+  min-width: 238px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  padding-left: 20px;
+  outline: none;
+}
+.SearchForm-input:placeholder {
+  color: #A0A0A0;
+}
+.SearchForm-input:focus {
+  background: linear-gradient(100deg, #fff, #ff6738cb, #fff);
+}
+.SearchForm-label {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+.SearchForm-Check {
+  grid-column: 2/3;
+  grid-row: 3;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 780px) {
+  .SearchForm-container {
+    max-width: 708px;
+  }
+  .SearchForm-input {
+    width: 92%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .SearchForm-input {
+    width: 80%;
+  }
+}

@@ -1,0 +1,39 @@
+.FilterCheckbox[type='checkbox'] {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.FilterCheckbox {
+  opacity: 1;
+}
+
+.FilterCheckbox:hover {
+  opacity: .3;
+  cursor: pointer;
+}
+
+.FilterCheckbox[id='span'] {
+  overflow: visible;
+  width: 36px;
+  height: 22px;
+  opacity: 1;
+  background-image: url('../../images/search/tumb/smalltumbOK.svg');
+  background-color: initial;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.FilterCheckbox[type='checkbox']:checked + .FilterCheckbox[id='span'] {
+  background-image: url('../../images/search/tumb/smalltumbOFF.svg');
+  border: none;
+}
+
+.FilterCheckbox-text {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  margin-left: 12px;
+}

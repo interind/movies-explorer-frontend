@@ -1,0 +1,37 @@
+.Portfolio {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 1140px;
+  width: 90%;
+  min-width: 90%;
+}
+
+.Portfolio-arrow {
+  max-width: 29px;
+  min-width: 18px;
+  align-self: flex-end;
+  width: 29px;
+  height: 60px;
+  background-image: url(../../images/portfolio/text__COLOR_font-main.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  font-size: 50px;
+  line-height: 1.2;
+  color: black;
+}
+
+@media screen and (max-width: 460px) {
+  .Portfolio {
+    align-items: flex-start;
+  }
+  .Portfolio-arrow {
+    width: 9px;
+    height: 14px;
+    margin-bottom: 19px;
+    background-size: contain;
+    background-position: center;
+  }
+}

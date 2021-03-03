@@ -1,0 +1,198 @@
+.Button {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.Button:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+.Button__close_place_header {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 22px;
+  height: 22px;
+  background-image: url('../../images/button/Close-black22.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Button-avatar {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  width: 100px;
+  height: 30px;
+  background-image: url('../../images/button/profile.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Button__close_place_header:active {
+  background-image: url('../../images/button/Close-orange.svg');
+}
+.Button__open_place_header {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  height: 0;
+  width: 0;
+}
+.Button__register {
+  height: 45px;
+  color: #fff;
+  background: #FF6838;
+  border-radius: 3px;
+  margin-top: 130px;
+}
+.Button__login {
+  height: 45px;
+  color: #fff;
+  background: #FF6838;
+  border-radius: 3px;
+  margin-top: 179px;
+}
+.Button__search {
+  grid-column: 4/5;
+  grid-row: 1;
+  width: 44px;
+  height: 44px;
+  margin-left: 10px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-image: url('../../images/search/search.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.Button__goBack {
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: normal;
+  width: 42px;
+  color: #FF6838;
+  margin-top: auto;
+}
+.Button__profile-edit {
+  min-height: 20px;
+  max-width: 100%;
+  font-family: inherit;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 220px;
+}
+.Button__profile-exit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  min-height: 20px;
+  color: #EE3465;
+  font-family: inherit;
+  font-size: 12px;
+}
+.Button-MoviesCardList {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.21;
+  font-weight: 500;
+  width: 320px;
+  height: 36px;
+  background-color: #F9F9F9;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  color: #000;
+  margin: auto;
+}
+.Button-MoviesCardList:hover {
+  cursor: pointer;
+  transform: translateY(-2px) scale(1.005) translateZ(0);
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.11), 0 14px 20px;
+  opacity: .5;
+}
+.Button-like {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-self: flex-end;
+  width: 14px;
+  height: 12px;
+  outline-style: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0;
+  background-image: url(../../images/moviesCard/GroupWhite.svg);
+}
+.Button-like:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px lightskyblue;
+}
+.Button-like_color_red {
+  background-image: url(../../images/moviesCard/GroupRed.svg);
+}
+.Button-like_theme_delete {
+  background-image: url(../../images/moviesCard/Close-black.svg);
+}
+.Button-like_theme_delete:active {
+  background-image: url(../../images/moviesCard/Close-red.svg);
+}
+
+@media screen and (max-width: 800px) {
+  .Button_hidden {
+    display: none;
+  }
+  .Button__open_place_header {
+    pointer-events: visibleFill;
+    width: 40px;
+    height: 40px;
+    visibility: visible;
+    opacity: 1;
+    background-image: url('../../images/button/BlackIcon-mainOpen.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+@media screen and (max-width: 620px) {
+  .Button-like  {
+    grid-row: 2;
+    grid-column: 3/2;
+    align-self: flex-start;
+    margin-right: 16px;
+  }
+  .Button-MoviesCardList {
+    width: 240px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .Button__open_place_header {
+    height: 43px;
+  }
+  .Button__register {
+    width: 260px;
+    margin-top: auto;
+  }
+  .Button__login {
+    width: 260px;
+    margin-top: auto;
+  }
+  .Button__profile-edit {
+    width: 260px;
+  }
+  .Button__profile-exit {
+    width: 260px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .Button-like {
+    justify-self: flex-end;
+  }
+  .Button__profile-edit {
+    margin-top: 379px;
+  }
+}
