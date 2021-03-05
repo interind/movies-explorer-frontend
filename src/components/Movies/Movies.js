@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import SearchForm from '../SearchForm/SearchForm';
@@ -11,9 +11,10 @@ function Movies({
   toggleMovies,
   filterTimes,
   onSearch,
+  onHeader,
 }) {
-  const [count, setCount] = React.useState(3);
-  const [fillMovies, setFillMovies] = React.useState([]);
+  const [count, setCount] = useState(3);
+  const [fillMovies, setFillMovies] = useState([]);
   function countVisibleMovies() {
     const moviesCount = (num) => ((num <= fillMovies.length) ? num : fillMovies.length);
     const windowWidth = window.innerWidth;
@@ -31,6 +32,9 @@ function Movies({
     }
     return setFillMovies(filterTimes(movies).slice(0, count));
   }
+  useEffect(() => {
+    onHeader(true);
+  });
   return (
     <React.Fragment>
       <SearchForm onFilter={filterCheck} onSearch={onSearch}/>
@@ -49,6 +53,7 @@ function Movies({
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
   onSearch: PropTypes.func,
   filterTimes: PropTypes.func.isRequired,
   filterMovies: PropTypes.func.isRequired,

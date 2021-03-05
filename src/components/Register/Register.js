@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
@@ -9,7 +9,7 @@ import Navigation from '../Navigation/Navigation';
 import './Register.css';
 import Logo from '../Logo/Logo';
 
-function Register({ onRegister, buttonLoading }) {
+function Register({ onRegister, buttonLoading, onHeader }) {
   const link = [{
     path: '/signin',
     text: 'Войти',
@@ -52,6 +52,10 @@ function Register({ onRegister, buttonLoading }) {
     onRegister(register);
   }
 
+  useEffect(() => {
+    onHeader(false);
+  });
+
   return (
     <section className='Register'>
       <Form className='Register-form' nameFrom='register-form' onSubmit={verifiesAuthorization}>
@@ -78,8 +82,9 @@ function Register({ onRegister, buttonLoading }) {
 }
 
 Register.propTypes = {
-  onRegister: PropTypes.func,
-  buttonLoading: PropTypes.bool,
+  onRegister: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  buttonLoading: PropTypes.bool.isRequired,
 };
 
 export default Register;

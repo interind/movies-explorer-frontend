@@ -76,6 +76,7 @@ function App() {
   ];
   const [currentUser, setCurrentUser] = React.useState({ name: 'Виталий', email: 'pochta@yandex.ru' });
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [stateHeader, setStateHeader] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
   const [statusInfo, setStatusInfo] = React.useState({ type: false, message: '', visible: false });
@@ -93,6 +94,10 @@ function App() {
       visible,
     });
   }, [statusInfo]);
+
+  function onHeader(bool) {
+    setStateHeader(bool);
+  }
 
   function filterTimes(arr) {
     return arr.filter((item) => item.duration <= 40);
@@ -239,6 +244,15 @@ function App() {
       <CurrentUserContext.Provider value={[currentUser, userMovies]}>
         <ErrorBoundary>
           <div className='App'>
+            {stateHeader && (<Header openPopup={openPopup}>
+              {loggedIn ? (<Navigation place={'header'}>
+                <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
+                <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
+                </Navigation>) : (<Navigation place={'header'}>
+                <NavTab links={[page]} onChange={closePopup}/>
+                <NavTab links={dataLinks} place={'header'} onChange={closePopup}/>
+              </Navigation>)}
+            </Header>)}
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
               <Button
                 title={'Закрыть'}
@@ -247,31 +261,25 @@ function App() {
                 onChange={closePopup}
                 />
               <Navigation place={'popup'}>
-                <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
-                <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
+               {loggedIn ? (<>
+                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
+                 <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
+                 </>) : (<>
+                  <NavTab links={[page]} place={'popup'} onChange={closePopup}/>
+                  <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
+                </>)}
               </Navigation>
             </Popup>
             {statusInfo.visible && <InfoTool data={statusInfo} />}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
-                <Header openPopup={openPopup}>
-                    <Navigation place={'header'}>
-                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
-                      <NavTab links={dataLinks} place={'header'} onChange={closePopup}/>
-                    </Navigation>
-                  </Header>
-                <Main />
+                <Main onHeader={onHeader}/>
                 <Footer />
               </Route>
               <Route path='/movies' exact>
-                <Header openPopup={openPopup}>
-                    <Navigation place={'header'}>
-                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
-                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-                    </Navigation>
-                </Header>
                 <Movies
+                  onHeader={onHeader}
                   filterTimes={filterTimes}
                   filterMovies={filterMovies}
                   isOpenCheck={filterDuration}
@@ -283,13 +291,8 @@ function App() {
                 <Footer />
               </Route>
               <Route path='/saved-movies' exact>
-                <Header openPopup={openPopup}>
-                    <Navigation place={'header'}>
-                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
-                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-                    </Navigation>
-                </Header>
                 <SavedMovies
+                  onHeader={onHeader}
                   isOpenCheck={filterDuration}
                   filterTimes={filterTimes}
                   toggleMovies={handleMovies}
@@ -299,24 +302,29 @@ function App() {
                 <Footer />
               </Route>
               <Route path='/profile' exact>
-                <Header openPopup={openPopup}>
-                    <Navigation place={'header'}>
-                      <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
-                      <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-                    </Navigation>
-                </Header>
                 <Profile
+                  onHeader={onHeader}
                   onEditProfile={onEditProfile}
                   signOut={signOut}
                 />
               </Route>
               <Route path='/signup' exact>
-                <Register onRegister={onRegister} buttonLoading={buttonLoading} />
+                <Register
+                  onRegister={onRegister}
+                  onHeader={onHeader}
+                  buttonLoading={buttonLoading}
+                />
               </Route>
               <Route path='/signin' exact>
-                <Login onLogin={onLogin} buttonLoading={buttonLoading} />
+                <Login
+                  onLogin={onLogin}
+                  onHeader={onHeader}
+                  buttonLoading={buttonLoading}
+                />
               </Route>
-              <Route path='*' component={NotFound} />
+              <Route path='*'>
+                <NotFound onHeader={onHeader} />
+              </Route>
               <Redirect to='/' />
             </Switch>
           </div>

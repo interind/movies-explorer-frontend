@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -7,6 +7,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './SavedMovies.css';
 
 function SavedMovies({
+  onHeader,
   onSearch,
   toggleMovies,
   filterTimes,
@@ -14,7 +15,10 @@ function SavedMovies({
   isOpenCheck,
 }) {
   const notFound = <p>Фильмов нет</p>;
-  const [, movies] = React.useContext(CurrentUserContext);
+  const [, movies] = useContext(CurrentUserContext);
+  useEffect(() => {
+    onHeader(true);
+  });
   return (
     <React.Fragment>
       <SearchForm onFilter={isCheckFilter} onSearch={onSearch}/>
@@ -34,6 +38,7 @@ function SavedMovies({
 
 SavedMovies.propTypes = {
   onSearch: PropTypes.func,
+  onHeader: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,

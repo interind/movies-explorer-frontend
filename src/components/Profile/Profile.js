@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
@@ -11,6 +11,7 @@ function Profile({
   onEditProfile,
   isLoadingButton,
   signOut,
+  onHeader,
 }) {
   const userArr = React.useContext(CurrentUserContext);
   const user = userArr[0];
@@ -45,6 +46,10 @@ function Profile({
     onEditProfile(profile);
   }
 
+  useEffect(() => {
+    onHeader(true);
+  });
+
   return (
     <section className='Profile'>
       <Form className='Profile-form' nameFrom='profile-form' onSubmit={handleEditProfile}>
@@ -71,6 +76,7 @@ function Profile({
 Profile.propTypes = {
   onEditProfile: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
   isLoadingButton: PropTypes.bool,
 };
 

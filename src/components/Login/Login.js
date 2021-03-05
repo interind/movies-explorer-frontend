@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
@@ -9,7 +9,7 @@ import Navigation from '../Navigation/Navigation';
 import './Login.css';
 import Logo from '../Logo/Logo';
 
-function Login({ onLogin, buttonLoading }) {
+function Login({ onLogin, buttonLoading, onHeader }) {
   const link = [{
     path: '/signup',
     text: 'Регистрация',
@@ -52,6 +52,10 @@ function Login({ onLogin, buttonLoading }) {
     clearInput();
   }
 
+  useEffect(() => {
+    onHeader(false);
+  });
+
   return (
     <section className='Login'>
       <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
@@ -77,8 +81,9 @@ function Login({ onLogin, buttonLoading }) {
 }
 
 Login.propTypes = {
-  onLogin: PropTypes.func,
-  buttonLoading: PropTypes.bool,
+  onLogin: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  buttonLoading: PropTypes.bool.isRequired,
 };
 
 export default Login;

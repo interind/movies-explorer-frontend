@@ -7,7 +7,6 @@ class MainApi extends Api {
     user,
     register,
     login,
-    headers,
   }) {
     super({
       url,
@@ -15,7 +14,6 @@ class MainApi extends Api {
       user,
       register,
       login,
-      headers,
     });
   }
 }
@@ -26,7 +24,6 @@ const mainApi = new MainApi({
   user: 'users/me',
   register: 'signup',
   login: 'signin',
-  headers: false,
 });
 
 export default mainApi;

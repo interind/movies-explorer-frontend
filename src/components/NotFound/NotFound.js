@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './NotFound.css';
 
-function NotFound() {
+function NotFound({ onHeader }) {
   const history = useHistory();
-
+  useEffect(() => {
+    onHeader(false);
+  });
   return (
     <div className='NotFound'>
     <h2 className='NotFound__title'>404</h2>
@@ -16,5 +19,9 @@ function NotFound() {
     </div>
   );
 }
+
+NotFound.propTypes = {
+  onHeader: PropTypes.func.isRequired,
+};
 
 export default NotFound;
