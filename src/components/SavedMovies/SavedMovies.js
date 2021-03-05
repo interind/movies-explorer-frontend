@@ -1,13 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import CurrentUserContext from '../../context/CurrentUserContext';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import cryptoKeys from '../../utils/crypto';
 import './SavedMovies.css';
 
 function SavedMovies({
   onHeader,
+  movies,
+  userMovies,
   onSearch,
   toggleMovies,
   filterTimes,
@@ -15,7 +17,6 @@ function SavedMovies({
   isOpenCheck,
 }) {
   const notFound = <p>Фильмов нет</p>;
-  const [, movies] = useContext(CurrentUserContext);
   useEffect(() => {
     onHeader(true);
   });
@@ -25,11 +26,11 @@ function SavedMovies({
       <MoviesCardList>
         {(isOpenCheck && movies.length > 0) && (filterTimes(movies).length <= 0
           ? notFound : filterTimes(movies).map((card) => <MoviesCard
-          key={card.id}
-          card={card} movies={movies} toggleMovies={toggleMovies}/>)) }
+          key={cryptoKeys(card._id)}
+          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>)) }
         {(!isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
-          key={card.id}
-          card={card} movies={movies} toggleMovies={toggleMovies}/>))}
+          key={cryptoKeys(card._id)}
+          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
           {movies.length <= 0 && notFound}
       </MoviesCardList>
     </React.Fragment>
@@ -37,6 +38,8 @@ function SavedMovies({
 }
 
 SavedMovies.propTypes = {
+  movies: PropTypes.array.isRequired,
+  userMovies: PropTypes.array.isRequired,
   onSearch: PropTypes.func,
   onHeader: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,

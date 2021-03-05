@@ -8,7 +8,7 @@ function InfoTool({ data }) {
     <React.Fragment>
       <div className='InfoTool'>
         {!type ? <h2 className='InfoTool__title InfoTool__title_theme_red'>{message}</h2>
-          : <h2 className='InfoTool__title .InfoTool__title_theme_green'>{message}</h2>}
+          : <h2 className='InfoTool__title InfoTool__title_theme_green'>{message}</h2>}
       </div>
     </React.Fragment>
   );

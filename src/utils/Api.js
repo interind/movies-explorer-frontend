@@ -70,11 +70,37 @@ class Api {
     }).then(this._getResponse);
   }
 
-  changeSaveMoviesStatus(infoId, isSave) {
-    const toggleMethod = isSave ? 'PUT' : 'DELETE';
-    return fetch(`${this._url}${this._movies}/${infoId}/likes`, {
+  changeSaveMoviesStatus({
+    _id,
+    id,
+    nameRU,
+    nameEN,
+    director,
+    country,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+  }, isSave) {
+    const link = `${isSave ? this._movies : `${this._movies}/${_id}`}`;
+    const toggleMethod = isSave ? 'POST' : 'DELETE';
+    return fetch(`${this._url}${link}`, {
       method: toggleMethod,
       headers: this._headers,
+      body: `${isSave ? JSON.stringify({
+        nameRU,
+        nameEN,
+        director,
+        country,
+        duration,
+        year,
+        movieId: id,
+        description,
+        image: `https://api.nomoreparties.co${image.url}`,
+        trailer: trailerLink,
+        thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+      }) : ''}`,
     }).then(this._getResponse);
   }
 }

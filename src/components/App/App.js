@@ -74,7 +74,7 @@ function App() {
       type: 'local',
     },
   ];
-  const [currentUser, setCurrentUser] = React.useState({ name: 'Виталий', email: 'pochta@yandex.ru' });
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [stateHeader, setStateHeader] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
@@ -115,9 +115,6 @@ function App() {
   }
   function searchSaveMovies(str) {
     setMoviesDate(searchMovies(userMovies, str));
-  }
-  function onEditProfile(profile) {
-    setCurrentUser({ ...currentUser, ...profile });
   }
   function isCheckFilter() {
     return setFilterDuration(!filterDuration);
@@ -163,26 +160,23 @@ function App() {
     setLoading(true);
   }
 
-  function start() {
-    Promise.all([mainApi.getInfoForUser(), mainApi.getInfoForMovies()])
-      .then(([dataUser, dataMovies]) => {
-        if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
-          infoMessage('ошибка данных', false, true);
-          return Promise.reject(new Error('ошибка данных'));
-        }
-        setCurrentUser({ ...currentUser, ...dataUser });
-        setUserMovies(dataMovies);
-        return infoMessage('', true, false);
-      })
-      .catch((err) => {
-        infoMessage(err.message, false, true);
-        localStorage.removeItem('jwt');
-        setLoggedIn(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+  const start = React.useCallback(() => Promise.all([
+    mainApi.getInfoForUser(), mainApi.getInfoForMovies()])
+    .then(([dataUser, dataMovies]) => {
+      if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
+        infoMessage('ошибка данных', false, true);
+        return Promise.reject(new Error('ошибка данных'));
+      }
+      infoMessage('', true, true);
+      setUserMovies(dataMovies);
+      return setCurrentUser({ ...currentUser, ...dataUser });
+    })
+    .catch((err) => {
+      infoMessage(err.message, false, true);
+      localStorage.removeItem('jwt');
+      setLoggedIn(false);
+    })
+    .finally(() => setLoading(false)), []);
 
   function onLogin(evt, login) {
     setButtonLoading(true);
@@ -194,9 +188,12 @@ function App() {
         setButtonLoading(false);
         if (data.token) {
           localStorage.setItem('jwt', data.token);
-          handleLogin(evt);
-          start();
-          infoMessage('Добро пожаловать на проект Movies', true, true);
+          start()
+            .then(() => {
+              handleLogin(evt);
+              infoMessage('Добро пожаловать на проект Movies', true, true);
+            })
+            .catch((err) => err);
         } else if (!data.token && data.message) {
           infoMessage(data.message, false, true);
         }
@@ -206,6 +203,7 @@ function App() {
       })
       .finally(() => {
         setButtonLoading(false);
+        setLoading(false);
       });
   }
 
@@ -213,14 +211,58 @@ function App() {
     localStorage.clear();
     history.push('/signin');
   }
+
   function handleMovies(card) {
-    const cardID = userMovies.some((c) => c.id === card.id);
-    if (cardID) {
-      setUserMovies(userMovies.filter((car) => car !== card));
-    } else {
-      setUserMovies([card, ...userMovies]);
-    }
+    const isSaved = userMovies.some((c) => c.movieId === card.movieId);
+
+    mainApi
+      .changeSaveMoviesStatus(card, !isSaved)
+      .then((newCard) => {
+        if (!isSaved) {
+          setUserMovies([...userMovies, newCard]);
+        } else {
+          const movies = userMovies.filter((m) => m.movieId !== card.movieId);
+          setUserMovies(movies);
+          infoMessage(newCard.message, true, true);
+        }
+      })
+      .catch((err) => console.error('Информация по карточкам с ошибкой', err.message));
   }
+
+  function handleUpdateUser(user) {
+    setButtonLoading(true);
+    setLoading(true);
+
+    mainApi
+      .updateUserInfo(user)
+      .then((infoUser) => {
+        if (!infoUser || infoUser.error) {
+          infoMessage('ошибка данных', false, true);
+          return Promise.reject(new Error('ошибка данных'));
+        }
+        infoMessage('Данные заменены успешно', true, true);
+        return setCurrentUser({ ...currentUser, ...infoUser });
+      })
+      .catch((err) => infoMessage(`Информация пользователя с ошибкой ${err.name}`, false, true))
+      .finally(() => {
+        setButtonLoading(false);
+        setLoading(false);
+      });
+  }
+
+  React.useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      start()
+        .then(() => {
+          setLoggedIn(true);
+          setLoading(true);
+        })
+        .catch((err) => console.error(err))
+        .finally(() => setLoading(false));
+    } else {
+      localStorage.clear();
+    }
+  }, [start]);
 
   React.useEffect(() => {
     moviesApi.getInfoForMovies()
@@ -229,19 +271,9 @@ function App() {
     return infoMessage();
   }, []);
 
-  React.useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      setLoading(true);
-      setLoggedIn(true);
-      start();
-    } else {
-      localStorage.clear();
-    }
-  }, []);
-
   return (
     <React.Fragment>
-      <CurrentUserContext.Provider value={[currentUser, userMovies]}>
+      <CurrentUserContext.Provider value={currentUser}>
         <ErrorBoundary>
           <div className='App'>
             {stateHeader && (<Header openPopup={openPopup}>
@@ -284,6 +316,7 @@ function App() {
                   filterMovies={filterMovies}
                   isOpenCheck={filterDuration}
                   movies={moviesData}
+                  userMovies={userMovies}
                   toggleMovies={handleMovies}
                   onSearch={onSearch}
                   isCheckFilter={isCheckFilter}
@@ -293,6 +326,8 @@ function App() {
               <Route path='/saved-movies' exact>
                 <SavedMovies
                   onHeader={onHeader}
+                  movies={userMovies}
+                  userMovies={userMovies}
                   isOpenCheck={filterDuration}
                   filterTimes={filterTimes}
                   toggleMovies={handleMovies}
@@ -304,7 +339,7 @@ function App() {
               <Route path='/profile' exact>
                 <Profile
                   onHeader={onHeader}
-                  onEditProfile={onEditProfile}
+                  onEditProfile={handleUpdateUser}
                   signOut={signOut}
                 />
               </Route>

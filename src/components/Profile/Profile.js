@@ -13,9 +13,8 @@ function Profile({
   signOut,
   onHeader,
 }) {
-  const userArr = React.useContext(CurrentUserContext);
-  const user = userArr[0];
-  const [profile, setProfile] = useState({ ...user });
+  const { name, email } = React.useContext(CurrentUserContext);
+  const [profile, setProfile] = useState({ name: '', email: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
@@ -54,11 +53,11 @@ function Profile({
     <section className='Profile'>
       <Form className='Profile-form' nameFrom='profile-form' onSubmit={handleEditProfile}>
         <HeaderBar place='profile'>
-        {`Привет, ${user.name}!`}
+        {`Привет, ${name}!`}
         </HeaderBar>
         <MarkupForForms.Profile
-          name={profile.name}
-          email={profile.email}
+          name={name}
+          email={email}
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>

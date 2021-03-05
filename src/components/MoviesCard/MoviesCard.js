@@ -2,21 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import Button from '../Button/Button';
-import CurrentUserContext from '../../context/CurrentUserContext';
 import './MoviesCard.css';
 import '../Button/Button.css';
 
 function MoviesCard({
+  url,
   card,
   movies,
+  userMovies,
   toggleMovies,
 }) {
-  const [, userMovies] = React.useContext(CurrentUserContext);
-  const { url } = card.image;
-  const link = url !== '' ? `https://api.nomoreparties.co${url}` : './static/media/errorPic.b39bbd5d.jpg';
+  const { image } = card;
+  const reg = /^(http)+/;
+  const link = url && !reg.test(url) ? `https://api.nomoreparties.co${url}` : image || './static/media/errorPic.b39bbd5d.jpg';
   const [visible, setVisible] = React.useState(link);
   const classLike = classes('Button-like',
-    { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
+    { 'Button-like_color_red': userMovies.find((car) => car.movieId === card.id) },
     { 'Button-like_theme_delete': movies === userMovies });
 
   return (
@@ -55,10 +56,11 @@ function MoviesCard({
 }
 
 MoviesCard.propTypes = {
-  card: PropTypes.object,
-  movie: PropTypes.object,
-  movies: PropTypes.array,
-  toggleMovies: PropTypes.func,
+  url: PropTypes.string,
+  card: PropTypes.object.isRequired,
+  userMovies: PropTypes.array.isRequired,
+  movies: PropTypes.array.isRequired,
+  toggleMovies: PropTypes.func.isRequired,
 };
 
 export default MoviesCard;

@@ -8,6 +8,7 @@ import './Movies.css';
 
 function Movies({
   movies,
+  userMovies,
   toggleMovies,
   filterTimes,
   onSearch,
@@ -40,7 +41,8 @@ function Movies({
       <SearchForm onFilter={filterCheck} onSearch={onSearch}/>
       <MoviesCardList>
           {fillMovies.length > 0 && (fillMovies.map((card) => <MoviesCard
-           key={card.id} card={card} toggleMovies={toggleMovies}/>))}
+           key={card.id} card={card} url={card.image.url} movies={movies} userMovies={userMovies}
+            toggleMovies={toggleMovies}/>))}
           {(movies.length > 0) ? (<Button className='Button-MoviesCardList'
             type='button' title='Ещё' onChange={countVisibleMovies}>
             Ещё
@@ -52,6 +54,7 @@ function Movies({
 
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
+  userMovies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
   onSearch: PropTypes.func,
