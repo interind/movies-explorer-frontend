@@ -4,14 +4,16 @@ import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
 
 function Profile({
   onEditProfile,
-  user,
   isLoadingButton,
   signOut,
 }) {
+  const userArr = React.useContext(CurrentUserContext);
+  const user = userArr[0];
   const [profile, setProfile] = useState({ ...user });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
@@ -69,7 +71,6 @@ function Profile({
 Profile.propTypes = {
   onEditProfile: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   isLoadingButton: PropTypes.bool,
 };
 

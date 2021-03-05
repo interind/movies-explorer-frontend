@@ -9,7 +9,7 @@ import Navigation from '../Navigation/Navigation';
 import './Register.css';
 import Logo from '../Logo/Logo';
 
-function Register({ onRegister, isLoadingButton }) {
+function Register({ onRegister, buttonLoading }) {
   const link = [{
     path: '/signin',
     text: 'Войти',
@@ -20,7 +20,7 @@ function Register({ onRegister, isLoadingButton }) {
   const [register, setRegister] = useState({ name: 'Виталий', email: 'pochta@yandex.ru', password: '123456' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Проверка...' : 'Зарегистрироваться';
+  const textButton = buttonLoading ? 'Проверка...' : 'Зарегистрироваться';
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -79,7 +79,7 @@ function Register({ onRegister, isLoadingButton }) {
 
 Register.propTypes = {
   onRegister: PropTypes.func,
-  isLoadingButton: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
 };
 
 export default Register;

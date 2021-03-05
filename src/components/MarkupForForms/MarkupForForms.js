@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
-import Button from '../Button/Button';
 
 export default {
   Profile: function Profile({
@@ -257,17 +256,15 @@ export default {
   },
   Search: function Search({
     movie,
-    onSearch,
-    activeButton,
     setEditMovies,
+    validationCheck,
+    placeMessage,
   }) {
     Search.propTypes = {
       movie: PropTypes.string,
       placeMessage: PropTypes.string,
-      onSearch: PropTypes.func,
       setEditMovies: PropTypes.func,
       validationCheck: PropTypes.func,
-      activeButton: PropTypes.bool,
     };
     return (
       <React.Fragment>
@@ -279,9 +276,19 @@ export default {
         placeholder='Фильм'
         minLength='1'
         onChange={setEditMovies}
+        onInput={validationCheck}
         autoComplete='off'
         required />
-        <Button className='Button__search' type='submit' title='Поиск' onChange={onSearch} status={activeButton}/>
+        { placeMessage && (
+          <div className='SearchForm__error'>
+            <span
+              className='SearchForm__input-error SearchForm__input-error_active'
+              id='input-search-error'
+            >
+              {placeMessage}
+            </span>
+          </div>
+        )}
       </React.Fragment>
     );
   },

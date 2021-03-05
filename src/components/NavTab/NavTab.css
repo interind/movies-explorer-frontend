@@ -60,7 +60,6 @@
   align-self: center;
   max-width: 1140px;
   width: 100%;
-  min-width: 100%;
   padding: 0;
 }
 
@@ -264,6 +263,7 @@
   .NavTab_place_portfolio {
     justify-content: flex-start;
     width: 89%;
+    min-width: 100%;
   }
   .NavTab__item_place_register {
     font-size: 12px;

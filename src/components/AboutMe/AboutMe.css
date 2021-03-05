@@ -52,6 +52,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding-left: 5px;
+  align-self: center;
 
 }
 .AboutMe-image {

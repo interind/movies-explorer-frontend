@@ -1,0 +1,22 @@
+.InfoTool {
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+}
+
+.InfoTool__title {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+.InfoTool__title_theme_green {
+  color: #2BE080;
+}
+.InfoTool__title_theme_red {
+  color: #f00;
+}

@@ -10,40 +10,37 @@ function Movies({
   movies,
   toggleMovies,
   filterTimes,
-  searchMovies,
-  filterMovies,
-  isCheckFilter,
-  isOpenCheck,
+  onSearch,
 }) {
   const [count, setCount] = React.useState(3);
-  const lengthMovies = Number(movies.length);
-  const [status, setStatus] = React.useState(lengthMovies);
+  const [fillMovies, setFillMovies] = React.useState([]);
   function countVisibleMovies() {
-    const moviesCount = (num) => ((num <= movies.length) ? num : movies.length);
+    const moviesCount = (num) => ((num <= fillMovies.length) ? num : fillMovies.length);
     const windowWidth = window.innerWidth;
-    if (windowWidth >= 1280) {
+    if (windowWidth > 780) {
       setCount(count + moviesCount(3));
-      setStatus(status - moviesCount(3));
     } if ((windowWidth <= 780) && (windowWidth > 330)) {
       setCount(count + moviesCount(4));
-      setStatus(status - moviesCount(4));
     } if (windowWidth <= 330) {
       setCount(count + moviesCount(5));
-      setStatus(status - moviesCount(5));
     }
+  }
+  function filterCheck(evt) {
+    if (evt.target.checked) {
+      return setFillMovies(movies.slice(0, count));
+    }
+    return setFillMovies(filterTimes(movies).slice(0, count));
   }
   return (
     <React.Fragment>
-      <SearchForm onFilter={isCheckFilter} onSearch={searchMovies}/>
+      <SearchForm onFilter={filterCheck} onSearch={onSearch}/>
       <MoviesCardList>
-          {isOpenCheck && filterMovies(movies).slice(0, count).map((card) => <MoviesCard
-           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          {!isOpenCheck && filterMovies(filterTimes(movies)).slice(0, count)
-            .map((card) => <MoviesCard
-           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          <Button className='Button-MoviesCardList' type='button' title='Ещё' onChange={countVisibleMovies}>
+          {fillMovies.length > 0 && (fillMovies.map((card) => <MoviesCard
+           key={card.id} card={card} toggleMovies={toggleMovies}/>))}
+          {(movies.length > 0) ? (<Button className='Button-MoviesCardList'
+            type='button' title='Ещё' onChange={countVisibleMovies}>
             Ещё
-          </Button>
+          </Button>) : <p>Выберите фильм</p>}
       </MoviesCardList>
     </React.Fragment>
   );
@@ -52,7 +49,7 @@ function Movies({
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
-  searchMovies: PropTypes.func,
+  onSearch: PropTypes.func,
   filterTimes: PropTypes.func.isRequired,
   filterMovies: PropTypes.func.isRequired,
   isCheckFilter: PropTypes.func.isRequired,

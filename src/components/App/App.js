@@ -5,8 +5,7 @@ import {
   Redirect,
   useHistory,
 } from 'react-router-dom';
-import data from '../../vendor/data/response.json';
-import CurrentUserContext from '../../context/CurrentUserContext';
+import moviesApi from '../../utils/MoviesApi';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
@@ -15,12 +14,16 @@ import NavTab from '../NavTab/NavTab';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
+import mainApi from '../../utils/MainApi';
 import Profile from '../Profile/Profile';
+import InfoTool from '../InfoTool/InfoTool';
 import NotFound from '../NotFound/NotFound';
 import Register from '../Register/Register';
+import Preloader from '../Preloader/Preloader';
 import ErrorBoundary from '../Error/ErrorBoundary';
 import Navigation from '../Navigation/Navigation';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import './App.css';
 
 function App() {
@@ -71,25 +74,45 @@ function App() {
       type: 'local',
     },
   ];
-  const [user, setUser] = React.useState({ name: 'Виталий', email: 'pochta@yandex.ru' });
+  const [currentUser, setCurrentUser] = React.useState({ name: 'Виталий', email: 'pochta@yandex.ru' });
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
+  const [statusInfo, setStatusInfo] = React.useState({ type: false, message: '', visible: false });
+  const [movApi, setMovApi] = React.useState([]);
   const [moviesData, setMoviesDate] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [filterDuration, setFilterDuration] = React.useState(false);
-  const [place, setPlace] = React.useState('');
+  const [buttonLoading, setButtonLoading] = React.useState(false);
 
-  function tooglePlace(str) {
-    setPlace(str);
-  }
+  const infoMessage = React.useCallback((text, type, visible) => {
+    setStatusInfo({
+      ...statusInfo,
+      type,
+      message: text,
+      visible,
+    });
+  }, [statusInfo]);
+
   function filterTimes(arr) {
-    return arr.filter((item) => item.duration < 60);
+    return arr.filter((item) => item.duration <= 40);
   }
   function filterMovies(arr) {
     return arr.filter((item) => item.image !== null || undefined);
   }
-
+  function searchMovies(arr, str) {
+    const reg = new RegExp((str), 'gmi');
+    return arr.filter((movie) => reg.test(movie.nameRU)
+     || reg.test(movie.nameEN));
+  }
+  function onSearch(str) {
+    setMoviesDate(searchMovies(movApi, str));
+  }
+  function searchSaveMovies(str) {
+    setMoviesDate(searchMovies(userMovies, str));
+  }
   function onEditProfile(profile) {
-    setUser({ ...user, ...profile });
+    setCurrentUser({ ...currentUser, ...profile });
   }
   function isCheckFilter() {
     return setFilterDuration(!filterDuration);
@@ -100,6 +123,86 @@ function App() {
   const closePopup = () => {
     setStatusPopup(false);
   };
+
+  function onRegister(arg) {
+    setButtonLoading(true);
+    mainApi
+      .register(arg)
+      .then((res) => {
+        if (res) {
+          setButtonLoading(false);
+          infoMessage('Успешная регистрация', true, true);
+          localStorage.setItem('email', res.email);
+          localStorage.setItem('name', res.name);
+          history.push('/signin');
+        } else if (res.error) {
+          infoMessage(res.error, false, true);
+        } else if (res.message) {
+          infoMessage(res.message, false, true);
+        } else {
+          infoMessage('другая ошибка: res', false, true);
+        }
+      })
+      .catch((err) => {
+        infoMessage(err.message, false, true);
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
+  }
+
+  function handleLogin(evt) {
+    evt.preventDefault();
+    history.push('/');
+    setLoggedIn(true);
+    setLoading(true);
+  }
+
+  function start() {
+    Promise.all([mainApi.getInfoForUser(), mainApi.getInfoForMovies()])
+      .then(([dataUser, dataMovies]) => {
+        if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
+          infoMessage('ошибка данных', false, true);
+          return Promise.reject(new Error('ошибка данных'));
+        }
+        setCurrentUser({ ...currentUser, ...dataUser });
+        setUserMovies(dataMovies);
+        return infoMessage('', true, false);
+      })
+      .catch((err) => {
+        infoMessage(err.message, false, true);
+        localStorage.removeItem('jwt');
+        setLoggedIn(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  function onLogin(evt, login) {
+    setButtonLoading(true);
+    mainApi
+      .authorizationPost({
+        ...login,
+      })
+      .then((data) => {
+        setButtonLoading(false);
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          handleLogin(evt);
+          start();
+          infoMessage('Добро пожаловать на проект Movies', true, true);
+        } else if (!data.token && data.message) {
+          infoMessage(data.message, false, true);
+        }
+      })
+      .catch((err) => {
+        infoMessage(err.message, false, true);
+      })
+      .finally(() => {
+        setButtonLoading(false);
+      });
+  }
 
   function signOut() {
     localStorage.clear();
@@ -113,14 +216,27 @@ function App() {
       setUserMovies([card, ...userMovies]);
     }
   }
+
   React.useEffect(() => {
-    const arr = JSON.parse(JSON.stringify(data));
-    setMoviesDate(arr);
+    moviesApi.getInfoForMovies()
+      .then((movies) => setMovApi(movies))
+      .catch((error) => infoMessage(error.message, false, true));
+    return infoMessage();
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      setLoading(true);
+      setLoggedIn(true);
+      start();
+    } else {
+      localStorage.clear();
+    }
   }, []);
 
   return (
     <React.Fragment>
-      <CurrentUserContext.Provider value={userMovies}>
+      <CurrentUserContext.Provider value={[currentUser, userMovies]}>
         <ErrorBoundary>
           <div className='App'>
             <Popup isOpen={isStatusPopup} closePopup={closePopup}>
@@ -130,15 +246,13 @@ function App() {
                 className={'Button__close_place_header'}
                 onChange={closePopup}
                 />
-              {!place ? (<Navigation place={'popup'}>
+              <Navigation place={'popup'}>
                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
                 <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
-              </Navigation>)
-                : (<Navigation place={'popup'}>
-                <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
-                <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
-              </Navigation>)}
+              </Navigation>
             </Popup>
+            {statusInfo.visible && <InfoTool data={statusInfo} />}
+            {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
                 <Header openPopup={openPopup}>
@@ -163,6 +277,7 @@ function App() {
                   isOpenCheck={filterDuration}
                   movies={moviesData}
                   toggleMovies={handleMovies}
+                  onSearch={onSearch}
                   isCheckFilter={isCheckFilter}
                   />
                 <Footer />
@@ -175,11 +290,11 @@ function App() {
                     </Navigation>
                 </Header>
                 <SavedMovies
-                  movies={userMovies}
                   isOpenCheck={filterDuration}
                   filterTimes={filterTimes}
                   toggleMovies={handleMovies}
                   isCheckFilter={isCheckFilter}
+                  onSearch={searchSaveMovies}
                 />
                 <Footer />
               </Route>
@@ -189,18 +304,17 @@ function App() {
                       <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
                       <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
                     </Navigation>
-                  </Header>
+                </Header>
                 <Profile
                   onEditProfile={onEditProfile}
-                  user={user}
                   signOut={signOut}
                 />
               </Route>
               <Route path='/signup' exact>
-                <Register tooglePlace={tooglePlace} />
+                <Register onRegister={onRegister} buttonLoading={buttonLoading} />
               </Route>
               <Route path='/signin' exact>
-                <Login tooglePlace={tooglePlace} />
+                <Login onLogin={onLogin} buttonLoading={buttonLoading} />
               </Route>
               <Route path='*' component={NotFound} />
               <Redirect to='/' />

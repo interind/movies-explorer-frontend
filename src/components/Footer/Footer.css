@@ -34,6 +34,9 @@
 }
 
 @media screen and (max-width:460px) {
+  .Footer {
+    margin-bottom: 10px;
+  }
   .Footer__container {
     flex-direction: column;
   }

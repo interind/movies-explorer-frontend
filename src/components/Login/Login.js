@@ -9,7 +9,7 @@ import Navigation from '../Navigation/Navigation';
 import './Login.css';
 import Logo from '../Logo/Logo';
 
-function Login({ onLogin, isLoadingButton }) {
+function Login({ onLogin, buttonLoading }) {
   const link = [{
     path: '/signup',
     text: 'Регистрация',
@@ -17,10 +17,11 @@ function Login({ onLogin, isLoadingButton }) {
     title: 'Перейти на страницу регистрации',
     type: 'local',
   }];
-  const [login, setLogin] = useState({ email: '', password: '' });
+  const localEmail = localStorage.getItem('email');
+  const [login, setLogin] = useState({ email: localEmail || '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Проверка...' : 'Войти';
+  const textButton = buttonLoading ? 'Проверка...' : 'Войти';
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -35,7 +36,7 @@ function Login({ onLogin, isLoadingButton }) {
   }
 
   function clearInput() {
-    setLogin({
+    return setLogin({
       ...login,
       email: '',
       password: '',
@@ -47,15 +48,15 @@ function Login({ onLogin, isLoadingButton }) {
     if (!login.password || !login.email) {
       return;
     }
+    onLogin(evt, login);
     clearInput();
-    onLogin(login);
   }
 
   return (
     <section className='Login'>
       <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
         <HeaderBar component={Logo} place='login'>
-          Рады видеть!
+          Рады видеть{` ${localStorage.getItem('name') || ''}!`}
         </HeaderBar>
         <MarkupForForms.Login
           password={login.password}
@@ -77,7 +78,7 @@ function Login({ onLogin, isLoadingButton }) {
 
 Login.propTypes = {
   onLogin: PropTypes.func,
-  isLoadingButton: PropTypes.bool,
+  buttonLoading: PropTypes.bool,
 };
 
 export default Login;
