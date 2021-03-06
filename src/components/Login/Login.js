@@ -17,7 +17,11 @@ function Login({ onLogin, buttonLoading, onHeader }) {
     title: 'Перейти на страницу регистрации',
     type: 'local',
   }];
-  const [login, setLogin] = useState({ email: localStorage.getItem('email') || '', password: '' });
+
+  const localEmail = localStorage.getItem('email');
+  const localName = localStorage.getItem('name');
+
+  const [login, setLogin] = useState({ email: localEmail || '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Войти';
@@ -57,9 +61,9 @@ function Login({ onLogin, buttonLoading, onHeader }) {
 
   return (
     <section className='Login'>
-      <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
+      <Form className='Login-form' nameFrom='login-form' onSubmit={(evt) => verifiesAuthorization(evt)}>
         <HeaderBar component={Logo} place='login'>
-          Рады видеть{` ${localStorage.getItem('name') || ''}!`}
+          Рады видеть{` ${localName || ''}!`}
         </HeaderBar>
         <MarkupForForms.Login
           password={login.password}

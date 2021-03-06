@@ -1,27 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './InfoTool.css';
 
-function InfoTool({ data, infoMessage }) {
-  const { message = '', type = '' } = data;
+function InfoTool({ data }) {
+  const { message = '', type = '', visible } = data;
+  const [status, setStatus] = useState(visible);
   useEffect(() => {
-    setTimeout(() => {
-      infoMessage('', true, false);
-    }, 5000);
-  }, [infoMessage]);
+    if (visible) {
+      setTimeout(() => {
+        setStatus(false);
+      }, 3000);
+    }
+  }, [visible]);
   return (
     <React.Fragment>
-      <div className='InfoTool'>
+      {status && <div className='InfoTool'>
         {!type ? <h2 className='InfoTool__title InfoTool__title_theme_red'>{message}</h2>
           : <h2 className='InfoTool__title InfoTool__title_theme_green'>{message}</h2>}
-      </div>
+      </div>}
     </React.Fragment>
   );
 }
 
 InfoTool.propTypes = {
   data: PropTypes.object,
-  infoMessage: PropTypes.func.isRequired,
 };
 
 export default InfoTool;

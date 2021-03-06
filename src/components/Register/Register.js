@@ -6,8 +6,8 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
-import './Register.css';
 import Logo from '../Logo/Logo';
+import './Register.css';
 
 function Register({ onRegister, buttonLoading, onHeader }) {
   const link = [{
@@ -17,7 +17,7 @@ function Register({ onRegister, buttonLoading, onHeader }) {
     title: 'Перейти на страницу авторизации',
     type: 'local',
   }];
-  const [register, setRegister] = useState({ name: 'Виталий', email: 'pochta@yandex.ru', password: '123456' });
+  const [register, setRegister] = useState({ name: '', email: '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Зарегистрироваться';
@@ -35,7 +35,7 @@ function Register({ onRegister, buttonLoading, onHeader }) {
   }
 
   function clearInput() {
-    setRegister({
+    return setRegister({
       ...register,
       name: '',
       email: '',

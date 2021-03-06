@@ -22,7 +22,7 @@ class Api {
   }
 
   _getResponse(res) {
-    const status = [200, 201, 400, 401, 409];
+    const status = [200, 201, 400, 401, 409, 500];
     if (status.includes(res.status)) {
       return res.json();
     }

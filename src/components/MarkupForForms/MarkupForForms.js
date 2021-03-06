@@ -34,7 +34,7 @@ export default {
           placeholder='Имя'
           autoCorrect='off'
           autoCapitalize='words'
-          defaultValue={name}
+          value={name}
           onChange={setEditProfile}
           onInput={validationProfile}
           required
@@ -57,7 +57,7 @@ export default {
           type='email'
           placeholder='E-mail'
           id='input-email'
-          defaultValue={email}
+          value={email}
           name='email'
           onChange={setEditProfile}
           onInput={validationProfile}
@@ -103,7 +103,7 @@ export default {
           type='email'
           placeholder='E-mail'
           id='input-email'
-          defaultValue={email}
+          value={email}
           name='email'
           onChange={setEditLogin}
           onInput={validationCheck}
@@ -129,7 +129,7 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          defaultValue={password}
+          value={password}
           maxLength='30'
           onChange={setEditLogin}
           onInput={validationCheck}
@@ -207,7 +207,7 @@ export default {
           type='email'
           placeholder='Ваш e-mail'
           id='input-email'
-          defaultValue={email}
+          value={email}
           name='email'
           onChange={setEditRegister}
           onInput={validationCheck}
@@ -233,7 +233,7 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          defaultValue={password}
+          value={password}
           maxLength='30'
           onChange={setEditRegister}
           onInput={validationCheck}
@@ -271,7 +271,7 @@ export default {
         <input
         className='SearchForm__input'
         name='search'
-        defaultValue={movie}
+        value={movie}
         type='text'
         placeholder='Фильм'
         minLength='1'

@@ -87,12 +87,14 @@ function App() {
   const [check, setCheck] = React.useState(false);
 
   const infoMessage = React.useCallback((text, type, visible) => {
-    setStatusInfo({
-      ...statusInfo,
-      message: text,
-      type,
-      visible,
-    });
+    if (visible) {
+      setStatusInfo({
+        ...statusInfo,
+        message: text,
+        type,
+        visible,
+      });
+    }
   }, [statusInfo]);
 
   function onHeader(bool) {
@@ -134,23 +136,20 @@ function App() {
     mainApi
       .register(arg)
       .then((res) => {
-        if (res) {
+        if (!res.message) {
           setButtonLoading(false);
-          infoMessage('Успешная регистрация', true, true);
           localStorage.setItem('email', res.email);
           localStorage.setItem('name', res.name);
+          setCurrentUser({ ...currentUser, email: res.email, name: res.name });
+          infoMessage(`${res.name} мы добавили вас!`, true, true);
           history.push('/signin');
-        } else if (res.error) {
-          infoMessage(res.error, false, true);
-        } else if (res.message) {
-          infoMessage(res.message, false, true);
-        } else {
-          infoMessage('другая ошибка: res', false, true);
+        } if (res.error) {
+          infoMessage(`${res.error}!`, false, true);
+        } if (res.message) {
+          infoMessage(`${res.message}!`, false, true);
         }
       })
-      .catch((err) => {
-        infoMessage(err.message, false, true);
-      })
+      .catch((err) => infoMessage(err.message, false, true))
       .finally(() => {
         setButtonLoading(false);
       });
@@ -190,13 +189,12 @@ function App() {
 
   function signOut() {
     localStorage.clear();
-    history.push('/signin');
+    setCurrentUser({});
+    setLoggedIn(false);
   }
 
   function handleSavedMovies(card) {
     let movie = card;
-    // eslint-disable-next-line no-debugger
-    debugger;
     const isSaved = userMovies.some((c) => c.id === card.id);
     if (isSaved && !card._id) {
       movie = userMovies.find((i) => i.id === card.id);
@@ -225,10 +223,10 @@ function App() {
       .then((infoUser) => {
         if (!infoUser || infoUser.error) {
           infoMessage('ошибка данных', false, true);
-          return Promise.reject(new Error('ошибка данных'));
+        } else {
+          setCurrentUser({ ...currentUser, ...infoUser });
+          infoMessage('Данные заменены успешно', true, true);
         }
-        infoMessage('Данные заменены успешно', true, true);
-        return setCurrentUser({ ...currentUser, ...infoUser });
       })
       .catch((err) => infoMessage(`Информация пользователя с ошибкой ${err.name}`, false, true))
       .finally(() => {
@@ -237,17 +235,15 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
       mainApi.token = token;
-    } else {
-      localStorage.clear();
     }
   });
 
   React.useEffect(() => {
-    if (loggedIn && localStorage.getItem('jwt')) {
+    if (mainApi.token) {
       const token = localStorage.getItem('jwt');
       mainApi.token = token;
       Promise.all([
@@ -264,14 +260,10 @@ function App() {
             });
             Promise.reject(new Error('ошибка данных'));
           }
-          setStatusInfo({
-            message: 'OK',
-            type: true,
-            visible: true,
-          });
           setLoading(true);
+          setLoggedIn(true);
           setUserMovies(dataMovies);
-          setCurrentUser(dataUser);
+          setCurrentUser({ ...dataUser });
           return filterMovies(info);
         })
         .then((movies) => {
@@ -280,15 +272,14 @@ function App() {
           setCheck(false);
         })
         .catch((err) => {
-          localStorage.removeItem('jwt');
-          setLoggedIn(false);
+          signOut();
           return new Error(err.message);
         })
         .finally(() => setLoading(false));
     } else {
-      localStorage.clear();
+      setLoggedIn(false);
     }
-  }, [loggedIn]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -321,7 +312,7 @@ function App() {
                 </>)}
               </Navigation>
             </Popup>
-            {statusInfo.visible && <InfoTool data={statusInfo} infoMessage={infoMessage}/>}
+            {statusInfo.visible && <InfoTool data={statusInfo} />}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>

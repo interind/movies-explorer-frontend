@@ -14,7 +14,7 @@ function Profile({
   onHeader,
 }) {
   const { name, email } = React.useContext(CurrentUserContext);
-  const [profile, setProfile] = useState({ name: '', email: '' });
+  const [profile, setProfile] = useState({ name: name || '', email: email || '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
@@ -31,17 +31,8 @@ function Profile({
     setActiveButton(!evt.target.value);
   }
 
-  function clearInput() {
-    setProfile({
-      ...profile,
-      name: '',
-      email: '',
-    });
-  }
-
   function handleEditProfile(evt) {
     evt.preventDefault();
-    clearInput();
     onEditProfile(profile);
   }
 
@@ -56,8 +47,8 @@ function Profile({
         {`Привет, ${name}!`}
         </HeaderBar>
         <MarkupForForms.Profile
-          name={name}
-          email={email}
+          name={profile.name}
+          email={profile.email}
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>
