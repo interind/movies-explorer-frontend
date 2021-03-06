@@ -12,11 +12,8 @@ class Api {
     this._movies = movies;
     this._login = login;
     this._register = register;
-    this.token = localStorage.getItem('jwt');
-    this._headers = !headers ? {
-      authorization: `Bearer ${this.token}`,
-      'Content-type': 'application/json; charset=UTF-8',
-    } : headers;
+    this._headers = headers;
+    this.token = '';
   }
 
   filterKeys(arg) {
@@ -48,24 +45,46 @@ class Api {
     }).then(this._getResponse);
   }
 
-  getInfoForUser() {
+  getInfoForUser(token) {
     return fetch(`${this._url}${this._user}`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
+      },
     }).then(this._getResponse);
   }
 
-  getInfoForMovies() {
+  getInfoForMovies(token) {
     return fetch(`${this._url}${this._movies}`, {
       method: 'GET',
-      headers: this._headers,
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this._getResponse);
+  }
+
+  getMovies() {
+    return fetch(`${this._url}${this._movies}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+      },
     }).then(this._getResponse);
   }
 
   updateUserInfo(arg) {
     return fetch(`${this._url}${this._user}`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.token}`,
+      },
       body: JSON.stringify({ ...this.filterKeys(arg) }),
     }).then(this._getResponse);
   }
@@ -87,18 +106,22 @@ class Api {
     const toggleMethod = isSave ? 'POST' : 'DELETE';
     return fetch(`${this._url}${link}`, {
       method: toggleMethod,
-      headers: this._headers,
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${this.token}`,
+      },
       body: `${isSave ? JSON.stringify({
         nameRU,
         nameEN,
         director,
-        country,
+        country: country || 'Russia',
         duration,
         year,
-        movieId: id,
+        id,
         description,
         image: `https://api.nomoreparties.co${image.url}`,
-        trailer: trailerLink,
+        trailerLink,
         thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
       }) : ''}`,
     }).then(this._getResponse);

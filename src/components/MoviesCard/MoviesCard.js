@@ -6,7 +6,6 @@ import './MoviesCard.css';
 import '../Button/Button.css';
 
 function MoviesCard({
-  url,
   card,
   movies,
   userMovies,
@@ -14,10 +13,10 @@ function MoviesCard({
 }) {
   const { image } = card;
   const reg = /^(http)+/;
-  const link = url && !reg.test(url) ? `https://api.nomoreparties.co${url}` : image || './static/media/errorPic.b39bbd5d.jpg';
+  const link = image.url && !reg.test(image.url) ? `https://api.nomoreparties.co${image.url}` : image || './static/media/errorPic.b39bbd5d.jpg';
   const [visible, setVisible] = React.useState(link);
   const classLike = classes('Button-like',
-    { 'Button-like_color_red': userMovies.find((car) => car.movieId === card.id) },
+    { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
     { 'Button-like_theme_delete': movies === userMovies });
 
   return (
@@ -56,7 +55,6 @@ function MoviesCard({
 }
 
 MoviesCard.propTypes = {
-  url: PropTypes.string,
   card: PropTypes.object.isRequired,
   userMovies: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,

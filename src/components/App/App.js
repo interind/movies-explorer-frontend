@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Route,
   Switch,
-  Redirect,
   useHistory,
 } from 'react-router-dom';
 import moviesApi from '../../utils/MoviesApi';
@@ -23,6 +22,7 @@ import Preloader from '../Preloader/Preloader';
 import ErrorBoundary from '../Error/ErrorBoundary';
 import Navigation from '../Navigation/Navigation';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import './App.css';
 
@@ -74,23 +74,23 @@ function App() {
       type: 'local',
     },
   ];
-  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '', _id: '' });
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [stateHeader, setStateHeader] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
-  const [statusInfo, setStatusInfo] = React.useState({ type: false, message: '', visible: false });
-  const [movApi, setMovApi] = React.useState([]);
+  const [statusInfo, setStatusInfo] = React.useState({ message: '', type: false, visible: false });
   const [moviesData, setMoviesDate] = React.useState([]);
+  const [moviesDataTimes, setMoviesDateTimes] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
-  const [filterDuration, setFilterDuration] = React.useState(false);
   const [buttonLoading, setButtonLoading] = React.useState(false);
+  const [check, setCheck] = React.useState(false);
 
   const infoMessage = React.useCallback((text, type, visible) => {
     setStatusInfo({
       ...statusInfo,
-      type,
       message: text,
+      type,
       visible,
     });
   }, [statusInfo]);
@@ -99,8 +99,8 @@ function App() {
     setStateHeader(bool);
   }
 
-  function filterTimes(arr) {
-    return arr.filter((item) => item.duration <= 40);
+  function filterTimes(arr, time) {
+    return arr.filter((item) => (time ? item.duration <= time : item.duration > 40));
   }
   function filterMovies(arr) {
     return arr.filter((item) => item.image !== null || undefined);
@@ -110,14 +110,17 @@ function App() {
     return arr.filter((movie) => reg.test(movie.nameRU)
      || reg.test(movie.nameEN));
   }
-  function onSearch(str) {
-    setMoviesDate(searchMovies(movApi, str));
+  function onSearch(evt, str) {
+    if (evt.target.checked === true) {
+      setMoviesDate(searchMovies(moviesData, str));
+      setCheck(true);
+    } else {
+      setMoviesDateTimes(searchMovies(moviesDataTimes, str));
+      setCheck(true);
+    }
   }
   function searchSaveMovies(str) {
     setMoviesDate(searchMovies(userMovies, str));
-  }
-  function isCheckFilter() {
-    return setFilterDuration(!filterDuration);
   }
   const openPopup = () => {
     setStatusPopup(true);
@@ -160,24 +163,6 @@ function App() {
     setLoading(true);
   }
 
-  const start = React.useCallback(() => Promise.all([
-    mainApi.getInfoForUser(), mainApi.getInfoForMovies()])
-    .then(([dataUser, dataMovies]) => {
-      if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
-        infoMessage('ошибка данных', false, true);
-        return Promise.reject(new Error('ошибка данных'));
-      }
-      infoMessage('', true, true);
-      setUserMovies(dataMovies);
-      return setCurrentUser({ ...currentUser, ...dataUser });
-    })
-    .catch((err) => {
-      infoMessage(err.message, false, true);
-      localStorage.removeItem('jwt');
-      setLoggedIn(false);
-    })
-    .finally(() => setLoading(false)), []);
-
   function onLogin(evt, login) {
     setButtonLoading(true);
     mainApi
@@ -188,12 +173,8 @@ function App() {
         setButtonLoading(false);
         if (data.token) {
           localStorage.setItem('jwt', data.token);
-          start()
-            .then(() => {
-              handleLogin(evt);
-              infoMessage('Добро пожаловать на проект Movies', true, true);
-            })
-            .catch((err) => err);
+          handleLogin(evt);
+          infoMessage('Добро пожаловать на проект Movies', true, true);
         } else if (!data.token && data.message) {
           infoMessage(data.message, false, true);
         }
@@ -212,21 +193,27 @@ function App() {
     history.push('/signin');
   }
 
-  function handleMovies(card) {
-    const isSaved = userMovies.some((c) => c.movieId === card.movieId);
+  function handleSavedMovies(card) {
+    let movie = card;
+    // eslint-disable-next-line no-debugger
+    debugger;
+    const isSaved = userMovies.some((c) => c.id === card.id);
+    if (isSaved && !card._id) {
+      movie = userMovies.find((i) => i.id === card.id);
+    }
 
     mainApi
-      .changeSaveMoviesStatus(card, !isSaved)
+      .changeSaveMoviesStatus(movie, !isSaved)
       .then((newCard) => {
         if (!isSaved) {
           setUserMovies([...userMovies, newCard]);
         } else {
-          const movies = userMovies.filter((m) => m.movieId !== card.movieId);
+          const movies = userMovies.filter((m) => m.id !== card.id);
           setUserMovies(movies);
           infoMessage(newCard.message, true, true);
         }
       })
-      .catch((err) => console.error('Информация по карточкам с ошибкой', err.message));
+      .catch((err) => infoMessage(err.message, false, true));
   }
 
   function handleUpdateUser(user) {
@@ -252,24 +239,56 @@ function App() {
 
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
-      start()
-        .then(() => {
-          setLoggedIn(true);
+      const token = localStorage.getItem('jwt');
+      mainApi.token = token;
+    } else {
+      localStorage.clear();
+    }
+  });
+
+  React.useEffect(() => {
+    if (loggedIn && localStorage.getItem('jwt')) {
+      const token = localStorage.getItem('jwt');
+      mainApi.token = token;
+      Promise.all([
+        mainApi.getInfoForUser(token),
+        mainApi.getInfoForMovies(token),
+        moviesApi.getMovies(),
+      ])
+        .then(([dataUser, dataMovies, info]) => {
+          if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
+            setStatusInfo({
+              message: 'ошибка данных',
+              type: false,
+              visible: true,
+            });
+            Promise.reject(new Error('ошибка данных'));
+          }
+          setStatusInfo({
+            message: 'OK',
+            type: true,
+            visible: true,
+          });
           setLoading(true);
+          setUserMovies(dataMovies);
+          setCurrentUser(dataUser);
+          return filterMovies(info);
         })
-        .catch((err) => console.error(err))
+        .then((movies) => {
+          setMoviesDateTimes(filterTimes(movies, 40));
+          setMoviesDate(filterTimes(movies));
+          setCheck(false);
+        })
+        .catch((err) => {
+          localStorage.removeItem('jwt');
+          setLoggedIn(false);
+          return new Error(err.message);
+        })
         .finally(() => setLoading(false));
     } else {
       localStorage.clear();
     }
-  }, [start]);
-
-  React.useEffect(() => {
-    moviesApi.getInfoForMovies()
-      .then((movies) => setMovApi(movies))
-      .catch((error) => infoMessage(error.message, false, true));
-    return infoMessage();
-  }, []);
+  }, [loggedIn]);
 
   return (
     <React.Fragment>
@@ -302,47 +321,46 @@ function App() {
                 </>)}
               </Navigation>
             </Popup>
-            {statusInfo.visible && <InfoTool data={statusInfo} />}
+            {statusInfo.visible && <InfoTool data={statusInfo} infoMessage={infoMessage}/>}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
                 <Main onHeader={onHeader}/>
                 <Footer />
               </Route>
-              <Route path='/movies' exact>
-                <Movies
-                  onHeader={onHeader}
-                  filterTimes={filterTimes}
-                  filterMovies={filterMovies}
-                  isOpenCheck={filterDuration}
-                  movies={moviesData}
-                  userMovies={userMovies}
-                  toggleMovies={handleMovies}
-                  onSearch={onSearch}
-                  isCheckFilter={isCheckFilter}
+              <ProtectedRoute
+                path='/movies' exact
+                loggedIn={loggedIn}
+                component={Movies}
+                footer={Footer}
+                onHeader={onHeader}
+                check={check}
+                movies={moviesData}
+                moviesDataTimes={moviesDataTimes}
+                userMovies={userMovies}
+                toggleMovies={handleSavedMovies}
+                onSearch={onSearch}
                   />
-                <Footer />
-              </Route>
-              <Route path='/saved-movies' exact>
-                <SavedMovies
-                  onHeader={onHeader}
-                  movies={userMovies}
-                  userMovies={userMovies}
-                  isOpenCheck={filterDuration}
-                  filterTimes={filterTimes}
-                  toggleMovies={handleMovies}
-                  isCheckFilter={isCheckFilter}
-                  onSearch={searchSaveMovies}
+              <ProtectedRoute
+                path='/saved-movies' exact
+                loggedIn={loggedIn}
+                footer={Footer}
+                component={SavedMovies}
+                onHeader={onHeader}
+                movies={userMovies}
+                userMovies={userMovies}
+                filterTimes={filterTimes}
+                toggleMovies={handleSavedMovies}
+                onSearch={searchSaveMovies}
                 />
-                <Footer />
-              </Route>
-              <Route path='/profile' exact>
-                <Profile
+              <ProtectedRoute
+                  path='/profile' exact
+                  loggedIn={loggedIn}
+                  component={Profile}
                   onHeader={onHeader}
                   onEditProfile={handleUpdateUser}
                   signOut={signOut}
                 />
-              </Route>
               <Route path='/signup' exact>
                 <Register
                   onRegister={onRegister}
@@ -360,7 +378,6 @@ function App() {
               <Route path='*'>
                 <NotFound onHeader={onHeader} />
               </Route>
-              <Redirect to='/' />
             </Switch>
           </div>
         </ErrorBoundary>

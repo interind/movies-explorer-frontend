@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './InfoTool.css';
 
-function InfoTool({ data }) {
-  const { message = 'Неизвестная ошибка', type = '' } = data;
+function InfoTool({ data, infoMessage }) {
+  const { message = '', type = '' } = data;
+  useEffect(() => {
+    setTimeout(() => {
+      infoMessage('', true, false);
+    }, 5000);
+  }, [infoMessage]);
   return (
     <React.Fragment>
       <div className='InfoTool'>
@@ -16,7 +21,7 @@ function InfoTool({ data }) {
 
 InfoTool.propTypes = {
   data: PropTypes.object,
-  message: PropTypes.string,
+  infoMessage: PropTypes.func.isRequired,
 };
 
 export default InfoTool;

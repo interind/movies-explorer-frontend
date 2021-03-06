@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
@@ -7,7 +8,6 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Login.css';
-import Logo from '../Logo/Logo';
 
 function Login({ onLogin, buttonLoading, onHeader }) {
   const link = [{
@@ -17,8 +17,7 @@ function Login({ onLogin, buttonLoading, onHeader }) {
     title: 'Перейти на страницу регистрации',
     type: 'local',
   }];
-  const localEmail = localStorage.getItem('email');
-  const [login, setLogin] = useState({ email: localEmail || '', password: '' });
+  const [login, setLogin] = useState({ email: localStorage.getItem('email') || '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Войти';

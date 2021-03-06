@@ -35,7 +35,7 @@ function SearchForm({ onFilter, onSearch }) {
       return;
     }
     clearInput();
-    onSearch(movie);
+    onSearch(evt, movie);
   }
   return (
     <section className="SearchForm">
@@ -56,8 +56,8 @@ function SearchForm({ onFilter, onSearch }) {
 }
 
 SearchForm.propTypes = {
-  onFilter: PropTypes.func,
-  onSearch: PropTypes.func,
+  onFilter: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

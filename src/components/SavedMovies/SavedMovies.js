@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -13,25 +13,33 @@ function SavedMovies({
   onSearch,
   toggleMovies,
   filterTimes,
-  isCheckFilter,
-  isOpenCheck,
 }) {
-  const notFound = <p>Фильмов нет</p>;
+  const [status, setStatus] = useState(true);
+
+  function filterCheck(evt) {
+    if (evt.target.checked === true) {
+      setStatus(false);
+    } else {
+      setStatus(true);
+    }
+  }
   useEffect(() => {
     onHeader(true);
   });
   return (
     <React.Fragment>
-      <SearchForm onFilter={isCheckFilter} onSearch={onSearch}/>
+      <SearchForm
+        movies={movies}
+        onFilter={filterCheck}
+        onSearch={onSearch}
+      />
       <MoviesCardList>
-        {(isOpenCheck && movies.length > 0) && (filterTimes(movies).length <= 0
-          ? notFound : filterTimes(movies).map((card) => <MoviesCard
+        {(status && movies.length > 0) ? (filterTimes(movies).map((card) => <MoviesCard
           key={cryptoKeys(card._id)}
-          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>)) }
-        {(!isOpenCheck && movies.length > 0) && (movies.map((card) => <MoviesCard
+          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))
+          : (movies.map((card) => <MoviesCard
           key={cryptoKeys(card._id)}
           card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
-          {movies.length <= 0 && notFound}
       </MoviesCardList>
     </React.Fragment>
   );
@@ -44,8 +52,6 @@ SavedMovies.propTypes = {
   onHeader: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,
-  isCheckFilter: PropTypes.func.isRequired,
-  isOpenCheck: PropTypes.bool.isRequired,
 };
 
 export default SavedMovies;

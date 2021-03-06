@@ -7,6 +7,7 @@ class MainApi extends Api {
     user,
     register,
     login,
+    headers,
   }) {
     super({
       url,
@@ -14,9 +15,12 @@ class MainApi extends Api {
       user,
       register,
       login,
+      headers,
     });
   }
 }
+
+const headers = { 'Content-type': 'application/json; charset=UTF-8' };
 
 const mainApi = new MainApi({
   url: '/',
@@ -24,6 +28,7 @@ const mainApi = new MainApi({
   user: 'users/me',
   register: 'signup',
   login: 'signin',
+  headers,
 });
 
 export default mainApi;
