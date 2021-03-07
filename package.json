@@ -24,7 +24,6 @@
     "deploy": "gh-pages -d build",
     "push": "npm run build && scp -r ./build/* interind@84.252.128.37:/home/interind/project/frontend"
   },
-  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
