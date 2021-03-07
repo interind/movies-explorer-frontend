@@ -205,9 +205,9 @@ function App() {
 
   function handleLogin(evt) {
     evt.preventDefault();
-    history.push('/');
     setLoggedIn(true);
     setLoading(true);
+    return history.push('/movies');
   }
 
   function onLogin(evt, login) {
