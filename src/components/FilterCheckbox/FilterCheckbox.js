@@ -4,7 +4,7 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox({
   classLabel = '',
-  onInput,
+  statusCheck,
   onFilter,
   children,
 }) {
@@ -16,7 +16,8 @@ function FilterCheckbox({
           type='checkbox'
           name='checkbox'
           onChange={onFilter}
-          onInput={onInput}/>
+          checked={statusCheck}
+        />
         <span id='span' className='FilterCheckbox'/>
         <span className='FilterCheckbox-text'>{children}</span>
       </label>
@@ -25,13 +26,9 @@ function FilterCheckbox({
 }
 
 FilterCheckbox.propTypes = {
-  value: PropTypes.any,
-  onInput: PropTypes.func,
-  onFilter: PropTypes.func,
+  onFilter: PropTypes.func.isRequired,
   classLabel: PropTypes.string,
-  classCheck: PropTypes.string,
-  idSpan: PropTypes.string,
-  name: PropTypes.string,
+  statusCheck: PropTypes.bool.isRequired,
   children: PropTypes.string,
 
 };

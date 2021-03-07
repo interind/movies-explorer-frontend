@@ -7,7 +7,12 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-function SearchForm({ onFilter, onSearch }) {
+function SearchForm({
+  nameFrom,
+  onFilter,
+  onSearch,
+  statusCheck,
+}) {
   const searchMessage = localStorage.getItem('search');
   const [movie, setMovie] = useState(searchMessage || '');
   const [activeButton, setActiveButton] = useState(true);
@@ -37,7 +42,7 @@ function SearchForm({ onFilter, onSearch }) {
 
   return (
     <section className="SearchForm">
-      <Form className='SearchForm-container' nameFrom='searchForm' onSubmit={searchMovies}>
+      <Form className='SearchForm-container' nameFrom={nameFrom} onSubmit={searchMovies}>
         <MarkupForForms.Search
           movie={movie}
           placeMessage={validCheck}
@@ -46,7 +51,13 @@ function SearchForm({ onFilter, onSearch }) {
         />
         <Button className={classButton} type='submit' title='Поиск' />
         <div className='SearchForm-Check'>
-          <FilterCheckbox classLabel='SearchForm-label' onFilter={onFilter}>Короткометражки</FilterCheckbox>
+          <FilterCheckbox
+            classLabel='SearchForm-label'
+            onFilter={onFilter}
+            statusCheck={statusCheck}
+          >
+              Короткометражки
+            </FilterCheckbox>
         </div>
       </Form>
     </section>
@@ -54,8 +65,10 @@ function SearchForm({ onFilter, onSearch }) {
 }
 
 SearchForm.propTypes = {
+  nameFrom: PropTypes.string.isRequired,
   onFilter: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
+  statusCheck: PropTypes.bool.isRequired,
 };
 
 export default SearchForm;

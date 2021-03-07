@@ -80,10 +80,12 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
   const [statusInfo, setStatusInfo] = React.useState({ message: '', type: false, visible: false });
-  const [moviesData, setMoviesDate] = React.useState([]);
+  const [moviesData, setMoviesDate] = React.useState([]); // фильмы обычные
+  const [moviesDataTimes, setMoviesDateTimes] = React.useState([]); // фильмы короткометражки
   const [filterData, setFilterDate] = React.useState([]);
   const [filterDataTimes, setFilterDateTimes] = React.useState([]);
-  const [moviesDataTimes, setMoviesDateTimes] = React.useState([]);
+  const [filterUserMovies, setFilterUserMovies] = React.useState([]);
+  const [filterUserMoviesTimes, setFilterUserMoviesTimes] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [buttonLoading, setButtonLoading] = React.useState(false);
   const [check, setCheck] = React.useState(false);
@@ -129,22 +131,47 @@ function App() {
     });
   }
   function searchMovies(arr, str) {
-    return arr.filter((mov) => JSON.stringify(mov.nameRU).toLowerCase().includes(str.toLowerCase())
-      || JSON.stringify(mov.nameEN).toLowerCase().includes(str.toLowerCase()));
+    setCheck(true);
+    return new Promise((resolve) => {
+      if (arr.length > 0) {
+        return resolve(arr.filter((mov) => JSON.stringify(mov.nameRU)
+          .toLowerCase()
+          .includes(str.toLowerCase())
+          || JSON.stringify(mov.nameEN)
+            .toLowerCase()
+            .includes(str.toLowerCase())));
+      } return resolve(arr);
+    });
   }
   function onSearch(evt, str) {
     setLoading(true);
     evt.preventDefault();
-    if (evt.target[2].checked === true) {
-      setCheck(true);
-      setFilterDate(searchMovies(moviesData, str));
-    } else {
-      setCheck(true);
-      setFilterDateTimes(searchMovies(moviesDataTimes, str));
-    } setLoading(false);
-  }
-  function searchSaveMovies(str) {
-    setMoviesDate(searchMovies(userMovies, str));
+    const formChecked = evt.target;
+    if (formChecked[2].checked === true) {
+      if (formChecked.name === 'movies') {
+        searchMovies(moviesData, str)
+          .then((data) => setFilterDate(data))
+          .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
+          .finally(() => setLoading(false));
+      } else {
+        searchMovies(userMovies, str)
+          .then((data) => setFilterUserMovies(filterTimes(data)))
+          .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
+          .finally(() => setLoading(false));
+      }
+    } else if (formChecked[2].checked === false) {
+      if (formChecked.name === 'movies') {
+        searchMovies(moviesDataTimes, str)
+          .then((data) => setFilterDateTimes(data))
+          .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
+          .finally(() => setLoading(false));
+      } else {
+        searchMovies(userMovies, str)
+          .then((data) => setFilterUserMoviesTimes(filterTimes(data, 40)))
+          .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
+          .finally(() => setLoading(false));
+      }
+    }
   }
   const openPopup = () => {
     setStatusPopup(true);
@@ -304,21 +331,45 @@ function App() {
     }
   }, [loggedIn, signOut]);
 
+  React.useEffect(() => {
+    setLoading(false);
+  }, [filterData, filterDataTimes]);
+
   return (
     <React.Fragment>
       <CurrentUserContext.Provider value={currentUser}>
         <ErrorBoundary>
           <div className='App'>
             {stateHeader && (<Header openPopup={openPopup}>
-              {loggedIn ? (<Navigation place={'header'}>
-                <NavTab links={moviesPage} place={'header'} onChange={closePopup}/>
-                <NavTab links={avatar} place={'avatar'} onChange={closePopup}/>
-                </Navigation>) : (<Navigation place={'header'}>
-                <NavTab links={[page]} onChange={closePopup}/>
-                <NavTab links={dataLinks} place={'header'} onChange={closePopup}/>
+              {loggedIn ? (
+              <Navigation place={'header'}>
+                <NavTab
+                  links={moviesPage}
+                  place={'header'}
+                  onChange={closePopup}
+                />
+                <NavTab
+                  links={avatar}
+                  place={'avatar'}
+                  onChange={closePopup}
+                />
+              </Navigation>) : (
+              <Navigation place={'header'}>
+                <NavTab
+                  links={[page]}
+                  onChange={closePopup}
+                />
+                <NavTab
+                  links={dataLinks}
+                  place={'header'}
+                  onChange={closePopup}
+                />
               </Navigation>)}
             </Header>)}
-            <Popup isOpen={isStatusPopup} closePopup={closePopup}>
+            <Popup
+              isOpen={isStatusPopup}
+              closePopup={closePopup}
+            >
               <Button
                 title={'Закрыть'}
                 type={'button'}
@@ -326,20 +377,37 @@ function App() {
                 onChange={closePopup}
                 />
               <Navigation place={'popup'}>
-               {loggedIn ? (<>
-                 <NavTab links={[page, ...moviesPage]} place={'popup'} onChange={closePopup}/>
-                 <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
-                 </>) : (<>
-                  <NavTab links={[page]} place={'popup'} onChange={closePopup}/>
-                  <NavTab links={dataLinks} place={'popup'} onChange={closePopup}/>
-                </>)}
+               {loggedIn ? (
+              <>
+                <NavTab
+                  links={[page, ...moviesPage]}
+                  place={'popup'}
+                  onChange={closePopup}
+                />
+                <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
+              </>) : (
+              <>
+                <NavTab
+                  links={[page]}
+                  place={'popup'}
+                  onChange={closePopup}
+                />
+                <NavTab
+                  links={dataLinks}
+                  place={'popup'}
+                  onChange={closePopup}
+                />
+              </>)}
               </Navigation>
             </Popup>
             {statusInfo.visible && <InfoTool data={statusInfo} />}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
-                <Main onHeader={onHeader} stateHeader={stateHeader}/>
+                <Main
+                  onHeader={onHeader}
+                  stateHeader={stateHeader}
+                />
                 <Footer />
               </Route>
               <ProtectedRoute
@@ -348,14 +416,15 @@ function App() {
                 footer={Footer}
               >
                 <Movies
-                  onHeader={onHeader}
-                  stateHeader={stateHeader}
                   check={check}
                   movies={filterData}
-                  moviesDataTimes={filterDataTimes}
                   userMovies={userMovies}
+                  stateHeader={stateHeader}
+                  moviesDataTimes={filterDataTimes}
+                  onSearch={onSearch}
+                  onHeader={onHeader}
                   toggleMovies={handleSavedMovies}
-                  onSearch={onSearch}/>
+                />
               </ProtectedRoute>
               <ProtectedRoute
                 path='/saved-movies' exact
@@ -363,31 +432,33 @@ function App() {
                 footer={Footer}
               >
                 <SavedMovies
-                  onHeader={onHeader}
+                  check={check}
+                  movies={filterUserMovies}
                   stateHeader={stateHeader}
-                  movies={userMovies}
+                  moviesDataTimes={filterUserMoviesTimes}
                   userMovies={userMovies}
-                  filterTimes={filterTimes}
+                  onHeader={onHeader}
+                  onSearch={onSearch}
                   toggleMovies={handleSavedMovies}
-                  onSearch={searchSaveMovies}/>
+                />
               </ProtectedRoute>
               <ProtectedRoute
                 path='/profile' exact
                 loggedIn={loggedIn}
                 >
                   <Profile
-                    onHeader={onHeader}
                     stateHeader={stateHeader}
-                    onEditProfile={handleUpdateUser}
                     signOut={signOut}
+                    onHeader={onHeader}
+                    onEditProfile={handleUpdateUser}
                   />
                 </ProtectedRoute>
               <Route path='/signup' exact>
                 <Register
-                  onRegister={onRegister}
                   stateHeader={stateHeader}
-                  onHeader={onHeader}
                   buttonLoading={buttonLoading}
+                  onHeader={onHeader}
+                  onRegister={onRegister}
                 />
               </Route>
               <Route path='/signin' exact>
@@ -399,7 +470,10 @@ function App() {
                 />
               </Route>
               <Route path='*'>
-                <NotFound onHeader={onHeader} stateHeader={stateHeader} />
+                <NotFound
+                  stateHeader={stateHeader}
+                  onHeader={onHeader}
+                />
               </Route>
             </Switch>
           </div>

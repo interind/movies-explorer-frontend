@@ -7,7 +7,6 @@ import '../Button/Button.css';
 
 function MoviesCard({
   card,
-  movies,
   userMovies,
   toggleMovies,
 }) {
@@ -16,7 +15,7 @@ function MoviesCard({
   const [visible, setVisible] = React.useState(link);
   const classLike = classes('Button-like',
     { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
-    { 'Button-like_theme_delete': movies === userMovies });
+    { 'Button-like_theme_delete': card._id });
 
   return (
     <React.Fragment>
@@ -56,7 +55,6 @@ function MoviesCard({
 MoviesCard.propTypes = {
   card: PropTypes.object.isRequired,
   userMovies: PropTypes.array.isRequired,
-  movies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
 };
 

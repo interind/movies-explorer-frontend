@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import cryptoKeys from '../../utils/crypto';
 import './SavedMovies.css';
 
 function SavedMovies({
+  check,
   onHeader,
   stateHeader,
   movies,
+  moviesDataTimes,
   userMovies,
   onSearch,
   toggleMovies,
-  filterTimes,
 }) {
-  const [status, setStatus] = useState(true);
+  const [statusCheck, setStatusCheck] = React.useState(true);
 
-  function filterCheck(evt) {
-    if (evt.target.checked === true) {
-      setStatus(false);
-    } else {
-      setStatus(true);
-    }
+  function filterCheck() {
+    setStatusCheck(!statusCheck);
   }
   useEffect(() => {
     if (!stateHeader) {
@@ -32,30 +28,36 @@ function SavedMovies({
   return (
     <React.Fragment>
       <SearchForm
-        movies={movies}
+        nameFrom={'saved-movies'}
         onFilter={filterCheck}
         onSearch={onSearch}
+        statusCheck={statusCheck}
       />
-      <MoviesCardList>
-        {(!status && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
-          key={cryptoKeys(card._id)}
-          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
-        {(status && movies.length > 0) && (movies.map((card) => <MoviesCard
-          key={cryptoKeys(card._id)}
-          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
-      </MoviesCardList>
+      {(check && statusCheck) && (<MoviesCardList
+        movies={moviesDataTimes}
+        component={MoviesCard}
+        userMovies={userMovies}
+        toggleMovies={toggleMovies}
+      />)}
+      {(check && !statusCheck) && (<MoviesCardList
+        movies={movies}
+        component={MoviesCard}
+        userMovies={userMovies}
+        toggleMovies={toggleMovies}
+      />)}
     </React.Fragment>
   );
 }
 
 SavedMovies.propTypes = {
   movies: PropTypes.array.isRequired,
+  moviesDataTimes: PropTypes.array.isRequired,
   userMovies: PropTypes.array.isRequired,
-  onSearch: PropTypes.func,
+  onSearch: PropTypes.func.isRequired,
+  check: PropTypes.bool.isRequired,
   stateHeader: PropTypes.bool.isRequired,
   onHeader: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
-  filterTimes: PropTypes.func.isRequired,
 };
 
 export default SavedMovies;
