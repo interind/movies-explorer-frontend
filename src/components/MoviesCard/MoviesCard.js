@@ -12,10 +12,7 @@ function MoviesCard({
   toggleMovies,
 }) {
   const { image } = card;
-  const { url } = image;
-  const src = url || image;
-  const reg = /^(http)+/;
-  const link = src && !reg.test(src) ? `https://api.nomoreparties.co${src}` : image || './static/media/errorPic.b39bbd5d.jpg';
+  const link = image || './static/media/errorPic.b39bbd5d.jpg';
   const [visible, setVisible] = React.useState(link);
   const classLike = classes('Button-like',
     { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },

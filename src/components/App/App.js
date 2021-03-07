@@ -107,7 +107,26 @@ function App() {
     return arr.filter((item) => (time ? item.duration <= time : item.duration > 40));
   }
   function filterMovies(arr) {
-    return arr.filter((item) => item.image !== null || undefined);
+    const regCheck = (url) => {
+      const reg = /^(http)+/;
+      return reg.test(url) ? url : `https://api.nomoreparties.co${url}`;
+    };
+    return arr.filter((item) => item.image !== null || undefined).map((mov) => {
+      const card = {
+        image: regCheck(mov.image.url),
+        nameEN: mov.nameEN || 'Not names films',
+        nameRU: mov.nameRU || 'Фильм без названия',
+        country: mov.country || 'Россия',
+        director: mov.director || 'неизвестный',
+        duration: mov.duration || 100,
+        year: mov.year || 2021,
+        description: mov.description || 'без комментариев',
+        id: mov.id,
+        trailerLink: mov.trailerLink,
+        thumbnail: regCheck(mov.image.formats.thumbnail.url) || this.image,
+      };
+      return card;
+    });
   }
   function searchMovies(arr, str) {
     return arr.filter((mov) => JSON.stringify(mov.nameRU).toLowerCase().includes(str.toLowerCase())
@@ -190,11 +209,12 @@ function App() {
       });
   }
 
-  function signOut() {
+  const signOut = React.useCallback(() => {
     localStorage.clear();
     setCurrentUser({});
     setLoggedIn(false);
-  }
+    infoMessage('Вы вышли из системы', false, true);
+  }, [infoMessage]);
 
   function handleSavedMovies(card) {
     let movie = card;
@@ -272,13 +292,17 @@ function App() {
         })
         .catch((err) => {
           signOut();
-          return new Error(err.message);
+          setStatusInfo({
+            message: err.message,
+            type: false,
+            visible: true,
+          });
         })
         .finally(() => setLoading(false));
     } else {
       setLoggedIn(false);
     }
-  }, [loggedIn]);
+  }, [loggedIn, signOut]);
 
   return (
     <React.Fragment>

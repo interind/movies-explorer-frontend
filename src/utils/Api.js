@@ -101,6 +101,7 @@ class Api {
     description,
     image,
     trailerLink,
+    thumbnail,
   }, isSave) {
     const link = `${isSave ? this._movies : `${this._movies}/${_id}`}`;
     const toggleMethod = isSave ? 'POST' : 'DELETE';
@@ -115,14 +116,14 @@ class Api {
         nameRU,
         nameEN,
         director,
-        country: country || 'Russia',
+        country,
         duration,
         year,
         id,
         description,
-        image: `https://api.nomoreparties.co${image.url}`,
+        image,
         trailerLink,
-        thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+        thumbnail,
       }) : ''}`,
     }).then(this._getResponse);
   }
