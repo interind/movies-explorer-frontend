@@ -21,7 +21,7 @@ function SearchForm({
 
   function setEditMovies(evt) {
     setMovie(evt.target.value);
-    setActiveButton(!evt.target.value);
+    setActiveButton(!evt.target.validity.valid);
   }
 
   function validationCheck(evt) {

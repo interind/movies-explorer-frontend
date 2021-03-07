@@ -18,7 +18,7 @@
   width: 36px;
   height: 22px;
   opacity: 1;
-  background-image: url('../../images/search/tumb/smalltumbOFF.svg');
+  background-image: url('../../images/search/tumb/smalltumbOK.svg');
   background-color: initial;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,7 +26,7 @@
 }
 
 .FilterCheckbox[type='checkbox']:checked + .FilterCheckbox[id='span'] {
-  background-image: url('../../images/search/tumb/smalltumbOK.svg');
+  background-image: url('../../images/search/tumb/smalltumbOFF.svg');
   border: none;
 }
 

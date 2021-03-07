@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
 import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
@@ -30,6 +31,7 @@ function Login({
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Войти';
+  const classButton = classes('Button__login', { Button__disabled: activeButton });
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -40,7 +42,7 @@ function Login({
 
   function setEditLogin(evt) {
     setLogin({ ...login, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
+    setActiveButton(!evt.target.validity.valid);
   }
 
   function clearInput() {
@@ -78,7 +80,7 @@ function Login({
           placeMessage={validCheck}
           setEditLogin={setEditLogin}
           validationCheck={validationCheck}/>
-        <Button className={'Button__login'} type='submit' title='Войти' status={activeButton}>
+        <Button className={classButton} type='submit' title='Войти' status={activeButton}>
           {textButton}
         </Button>
         <Navigation place={'login'}>

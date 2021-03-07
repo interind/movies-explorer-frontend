@@ -6,9 +6,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './Movies.css';
 
 function Movies({
-  check,
   movies,
-  moviesDataTimes,
   userMovies,
   toggleMovies,
   onSearch,
@@ -16,8 +14,8 @@ function Movies({
   stateHeader,
 }) {
   const [statusCheck, setStatusCheck] = React.useState(true);
-  function filterCheck() {
-    setStatusCheck(!statusCheck);
+  function filterCheck(evt) {
+    setStatusCheck(evt.target.checked);
   }
   useEffect(() => {
     if (!stateHeader) {
@@ -32,13 +30,13 @@ function Movies({
         onFilter={filterCheck}
         onSearch={onSearch}
         />
-      {(check && statusCheck) && (<MoviesCardList
-        movies={moviesDataTimes}
+      {statusCheck && (<MoviesCardList
+        movies={movies}
         component={MoviesCard}
         userMovies={userMovies}
         toggleMovies={toggleMovies}
       />)}
-      {(check && !statusCheck) && (<MoviesCardList
+      {!statusCheck && (<MoviesCardList
         movies={movies}
         component={MoviesCard}
         userMovies={userMovies}
@@ -49,9 +47,7 @@ function Movies({
 }
 
 Movies.propTypes = {
-  check: PropTypes.bool.isRequired,
   movies: PropTypes.array.isRequired,
-  moviesDataTimes: PropTypes.array.isRequired,
   userMovies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,

@@ -14,11 +14,11 @@ function MoviesCardList({
   function countVisibleMovies() {
     const windowWidth = window.innerWidth;
     if (windowWidth > 780) {
-      setCount(count + 3);
+      setCount(count + 12);
     } if ((windowWidth <= 780) && (windowWidth > 330)) {
-      setCount(count + 2);
+      setCount(count + 8);
     } if (windowWidth <= 330) {
-      setCount(count + 2);
+      setCount(count + 5);
     }
   }
   return (

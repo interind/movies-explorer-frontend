@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
@@ -26,6 +27,7 @@ function Register({
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Зарегистрироваться';
+  const classButton = classes('Button__register', { Button__disabled: activeButton });
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -36,7 +38,7 @@ function Register({
 
   function setEditRegister(evt) {
     setRegister({ ...register, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
+    setActiveButton(!evt.target.validity.valid);
   }
 
   function clearInput() {
@@ -76,7 +78,7 @@ function Register({
           placeMessage={validCheck}
           setEditRegister={setEditRegister}
           validationCheck={validationCheck}/>
-        <Button className={'Button__register'} type='submit' title='Регистрация' status={activeButton}>
+        <Button className={classButton} type='submit' title='Регистрация' status={activeButton}>
           {textButton}
         </Button>
         <Navigation place={'register'}>

@@ -80,15 +80,11 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
   const [statusInfo, setStatusInfo] = React.useState({ message: '', type: false, visible: false });
-  const [moviesData, setMoviesDate] = React.useState([]); // фильмы обычные
-  const [moviesDataTimes, setMoviesDateTimes] = React.useState([]); // фильмы короткометражки
+  const [moviesData, setMoviesDate] = React.useState([]);
   const [filterData, setFilterDate] = React.useState([]);
-  const [filterDataTimes, setFilterDateTimes] = React.useState([]);
   const [filterUserMovies, setFilterUserMovies] = React.useState([]);
-  const [filterUserMoviesTimes, setFilterUserMoviesTimes] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [buttonLoading, setButtonLoading] = React.useState(false);
-  const [check, setCheck] = React.useState(false);
 
   const infoMessage = React.useCallback((text, type, visible) => {
     if (visible) {
@@ -131,7 +127,6 @@ function App() {
     });
   }
   function searchMovies(arr, str) {
-    setCheck(true);
     return new Promise((resolve) => {
       if (arr.length > 0) {
         return resolve(arr.filter((mov) => JSON.stringify(mov.nameRU)
@@ -145,12 +140,11 @@ function App() {
   }
   function onSearch(evt, str) {
     setLoading(true);
-    evt.preventDefault();
     const formChecked = evt.target;
     if (formChecked[2].checked === true) {
       if (formChecked.name === 'movies') {
         searchMovies(moviesData, str)
-          .then((data) => setFilterDate(data))
+          .then((data) => setFilterDate(filterTimes(data)))
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       } else {
@@ -161,13 +155,13 @@ function App() {
       }
     } else if (formChecked[2].checked === false) {
       if (formChecked.name === 'movies') {
-        searchMovies(moviesDataTimes, str)
-          .then((data) => setFilterDateTimes(data))
+        searchMovies(moviesData, str)
+          .then((data) => setFilterDate(filterTimes(data, 40)))
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       } else {
         searchMovies(userMovies, str)
-          .then((data) => setFilterUserMoviesTimes(filterTimes(data, 40)))
+          .then((data) => setFilterUserMovies(filterTimes(data, 40)))
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       }
@@ -255,10 +249,13 @@ function App() {
       .then((newCard) => {
         if (!isSaved) {
           setUserMovies([...userMovies, newCard]);
+          infoMessage('Фильм сохранен', true, true);
         } else {
           const movies = userMovies.filter((m) => m.id !== card.id);
+          const moviesFilter = filterUserMovies.filter((m) => m.id !== card.id);
           setUserMovies(movies);
-          infoMessage(newCard.message, true, true);
+          setFilterUserMovies(moviesFilter);
+          infoMessage(newCard.message, false, true);
         }
       })
       .catch((err) => infoMessage(err.message, false, true));
@@ -313,9 +310,7 @@ function App() {
           return filterMovies(info);
         })
         .then((movies) => {
-          setMoviesDateTimes(filterTimes(movies, 40));
-          setMoviesDate(filterTimes(movies));
-          setCheck(false);
+          setMoviesDate(movies);
         })
         .catch((err) => {
           signOut();
@@ -330,10 +325,6 @@ function App() {
       setLoggedIn(false);
     }
   }, [loggedIn, signOut]);
-
-  React.useEffect(() => {
-    setLoading(false);
-  }, [filterData, filterDataTimes]);
 
   return (
     <React.Fragment>
@@ -416,11 +407,9 @@ function App() {
                 footer={Footer}
               >
                 <Movies
-                  check={check}
                   movies={filterData}
                   userMovies={userMovies}
                   stateHeader={stateHeader}
-                  moviesDataTimes={filterDataTimes}
                   onSearch={onSearch}
                   onHeader={onHeader}
                   toggleMovies={handleSavedMovies}
@@ -432,10 +421,8 @@ function App() {
                 footer={Footer}
               >
                 <SavedMovies
-                  check={check}
                   movies={filterUserMovies}
                   stateHeader={stateHeader}
-                  moviesDataTimes={filterUserMoviesTimes}
                   userMovies={userMovies}
                   onHeader={onHeader}
                   onSearch={onSearch}
