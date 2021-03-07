@@ -4,7 +4,6 @@ import {
   Switch,
   useHistory,
 } from 'react-router-dom';
-import moviesApi from '../../utils/MoviesApi';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
@@ -14,6 +13,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import mainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
 import Profile from '../Profile/Profile';
 import InfoTool from '../InfoTool/InfoTool';
 import NotFound from '../NotFound/NotFound';
@@ -81,6 +81,8 @@ function App() {
   const [isStatusPopup, setStatusPopup] = React.useState(false);
   const [statusInfo, setStatusInfo] = React.useState({ message: '', type: false, visible: false });
   const [moviesData, setMoviesDate] = React.useState([]);
+  const [filterData, setFilterDate] = React.useState([]);
+  const [filterDataTimes, setFilterDateTimes] = React.useState([]);
   const [moviesDataTimes, setMoviesDateTimes] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [buttonLoading, setButtonLoading] = React.useState(false);
@@ -108,18 +110,19 @@ function App() {
     return arr.filter((item) => item.image !== null || undefined);
   }
   function searchMovies(arr, str) {
-    const reg = new RegExp((str), 'gmi');
-    return arr.filter((movie) => reg.test(movie.nameRU)
-     || reg.test(movie.nameEN));
+    return arr.filter((mov) => JSON.stringify(mov.nameRU).toLowerCase().includes(str.toLowerCase())
+      || JSON.stringify(mov.nameEN).toLowerCase().includes(str.toLowerCase()));
   }
   function onSearch(evt, str) {
-    if (evt.target.checked === true) {
-      setMoviesDate(searchMovies(moviesData, str));
+    setLoading(true);
+    evt.preventDefault();
+    if (evt.target[2].checked === true) {
       setCheck(true);
+      setFilterDate(searchMovies(moviesData, str));
     } else {
-      setMoviesDateTimes(searchMovies(moviesDataTimes, str));
       setCheck(true);
-    }
+      setFilterDateTimes(searchMovies(moviesDataTimes, str));
+    } setLoading(false);
   }
   function searchSaveMovies(str) {
     setMoviesDate(searchMovies(userMovies, str));
@@ -235,15 +238,8 @@ function App() {
       });
   }
 
-  React.useLayoutEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      const token = localStorage.getItem('jwt');
-      mainApi.token = token;
-    }
-  });
-
   React.useEffect(() => {
-    if (mainApi.token) {
+    if (loggedIn && localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
       mainApi.token = token;
       Promise.all([
@@ -258,12 +254,15 @@ function App() {
               type: false,
               visible: true,
             });
+            setLoading(false);
             Promise.reject(new Error('ошибка данных'));
           }
           setLoading(true);
           setLoggedIn(true);
           setUserMovies(dataMovies);
           setCurrentUser({ ...dataUser });
+          localStorage.setItem('email', dataUser.email);
+          localStorage.setItem('name', dataUser.name);
           return filterMovies(info);
         })
         .then((movies) => {
@@ -279,7 +278,7 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, []);
+  }, [loggedIn]);
 
   return (
     <React.Fragment>
@@ -316,45 +315,53 @@ function App() {
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
-                <Main onHeader={onHeader}/>
+                <Main onHeader={onHeader} stateHeader={stateHeader}/>
                 <Footer />
               </Route>
               <ProtectedRoute
                 path='/movies' exact
                 loggedIn={loggedIn}
-                component={Movies}
                 footer={Footer}
-                onHeader={onHeader}
-                check={check}
-                movies={moviesData}
-                moviesDataTimes={moviesDataTimes}
-                userMovies={userMovies}
-                toggleMovies={handleSavedMovies}
-                onSearch={onSearch}
-                  />
+              >
+                <Movies
+                  onHeader={onHeader}
+                  stateHeader={stateHeader}
+                  check={check}
+                  movies={filterData}
+                  moviesDataTimes={filterDataTimes}
+                  userMovies={userMovies}
+                  toggleMovies={handleSavedMovies}
+                  onSearch={onSearch}/>
+              </ProtectedRoute>
               <ProtectedRoute
                 path='/saved-movies' exact
                 loggedIn={loggedIn}
                 footer={Footer}
-                component={SavedMovies}
-                onHeader={onHeader}
-                movies={userMovies}
-                userMovies={userMovies}
-                filterTimes={filterTimes}
-                toggleMovies={handleSavedMovies}
-                onSearch={searchSaveMovies}
-                />
-              <ProtectedRoute
-                  path='/profile' exact
-                  loggedIn={loggedIn}
-                  component={Profile}
+              >
+                <SavedMovies
                   onHeader={onHeader}
-                  onEditProfile={handleUpdateUser}
-                  signOut={signOut}
-                />
+                  stateHeader={stateHeader}
+                  movies={userMovies}
+                  userMovies={userMovies}
+                  filterTimes={filterTimes}
+                  toggleMovies={handleSavedMovies}
+                  onSearch={searchSaveMovies}/>
+              </ProtectedRoute>
+              <ProtectedRoute
+                path='/profile' exact
+                loggedIn={loggedIn}
+                >
+                  <Profile
+                    onHeader={onHeader}
+                    stateHeader={stateHeader}
+                    onEditProfile={handleUpdateUser}
+                    signOut={signOut}
+                  />
+                </ProtectedRoute>
               <Route path='/signup' exact>
                 <Register
                   onRegister={onRegister}
+                  stateHeader={stateHeader}
                   onHeader={onHeader}
                   buttonLoading={buttonLoading}
                 />
@@ -363,11 +370,12 @@ function App() {
                 <Login
                   onLogin={onLogin}
                   onHeader={onHeader}
+                  stateHeader={stateHeader}
                   buttonLoading={buttonLoading}
                 />
               </Route>
               <Route path='*'>
-                <NotFound onHeader={onHeader} />
+                <NotFound onHeader={onHeader} stateHeader={stateHeader} />
               </Route>
             </Switch>
           </div>

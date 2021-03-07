@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './InfoTool.css';
 
 function InfoTool({ data }) {
   const { message = '', type = '', visible } = data;
   const [status, setStatus] = useState(visible);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (visible) {
       setTimeout(() => {
         setStatus(false);

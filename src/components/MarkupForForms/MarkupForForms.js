@@ -34,7 +34,7 @@ export default {
           placeholder='Имя'
           autoCorrect='off'
           autoCapitalize='words'
-          value={name}
+          defaultValue={name}
           onChange={setEditProfile}
           onInput={validationProfile}
           required
@@ -57,7 +57,7 @@ export default {
           type='email'
           placeholder='E-mail'
           id='input-email'
-          value={email}
+          defaultValue={email}
           name='email'
           onChange={setEditProfile}
           onInput={validationProfile}

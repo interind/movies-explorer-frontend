@@ -8,6 +8,7 @@ import './SavedMovies.css';
 
 function SavedMovies({
   onHeader,
+  stateHeader,
   movies,
   userMovies,
   onSearch,
@@ -24,8 +25,10 @@ function SavedMovies({
     }
   }
   useEffect(() => {
-    onHeader(true);
-  });
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
   return (
     <React.Fragment>
       <SearchForm
@@ -34,10 +37,10 @@ function SavedMovies({
         onSearch={onSearch}
       />
       <MoviesCardList>
-        {(status && movies.length > 0) ? (filterTimes(movies).map((card) => <MoviesCard
+        {(!status && movies.length > 0) && (filterTimes(movies).map((card) => <MoviesCard
           key={cryptoKeys(card._id)}
-          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))
-          : (movies.map((card) => <MoviesCard
+          card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
+        {(status && movies.length > 0) && (movies.map((card) => <MoviesCard
           key={cryptoKeys(card._id)}
           card={card} movies={userMovies} userMovies={userMovies} toggleMovies={toggleMovies}/>))}
       </MoviesCardList>
@@ -49,6 +52,7 @@ SavedMovies.propTypes = {
   movies: PropTypes.array.isRequired,
   userMovies: PropTypes.array.isRequired,
   onSearch: PropTypes.func,
+  stateHeader: PropTypes.bool.isRequired,
   onHeader: PropTypes.func.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   filterTimes: PropTypes.func.isRequired,

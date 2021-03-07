@@ -9,7 +9,12 @@ import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Login.css';
 
-function Login({ onLogin, buttonLoading, onHeader }) {
+function Login({
+  onLogin,
+  buttonLoading,
+  onHeader,
+  stateHeader,
+}) {
   const link = [{
     path: '/signup',
     text: 'Регистрация',
@@ -56,8 +61,10 @@ function Login({ onLogin, buttonLoading, onHeader }) {
   }
 
   useEffect(() => {
-    onHeader(false);
-  });
+    if (stateHeader) {
+      onHeader(false);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Login'>
@@ -86,6 +93,7 @@ function Login({ onLogin, buttonLoading, onHeader }) {
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool.isRequired,
 };
 

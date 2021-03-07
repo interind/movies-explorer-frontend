@@ -6,10 +6,12 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import './Main.css';
 
-function Main({ onHeader }) {
+function Main({ onHeader, stateHeader }) {
   useEffect(() => {
-    onHeader(true);
-  });
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
   return (
     <main className='Main'>
       <Promo />
@@ -22,6 +24,7 @@ function Main({ onHeader }) {
 
 Main.propTypes = {
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
 };
 
 export default Main;

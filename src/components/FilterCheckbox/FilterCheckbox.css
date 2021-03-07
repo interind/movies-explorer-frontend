@@ -1,6 +1,6 @@
 .FilterCheckbox[type='checkbox'] {
   width: 1px;
-  height: 1px;
+  height: 0;
   overflow: hidden;
 }
 

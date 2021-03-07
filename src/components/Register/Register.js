@@ -9,7 +9,12 @@ import Navigation from '../Navigation/Navigation';
 import Logo from '../Logo/Logo';
 import './Register.css';
 
-function Register({ onRegister, buttonLoading, onHeader }) {
+function Register({
+  onRegister,
+  buttonLoading,
+  onHeader,
+  stateHeader,
+}) {
   const link = [{
     path: '/signin',
     text: 'Войти',
@@ -53,8 +58,10 @@ function Register({ onRegister, buttonLoading, onHeader }) {
   }
 
   useEffect(() => {
-    onHeader(false);
-  });
+    if (stateHeader) {
+      onHeader(false);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Register'>
@@ -84,6 +91,7 @@ function Register({ onRegister, buttonLoading, onHeader }) {
 Register.propTypes = {
   onRegister: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool.isRequired,
 };
 

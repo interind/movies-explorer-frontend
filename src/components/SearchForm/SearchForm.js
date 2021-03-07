@@ -8,10 +8,11 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
 function SearchForm({ onFilter, onSearch }) {
-  const [movie, setMovie] = useState('');
+  const searchMessage = localStorage.getItem('search');
+  const [movie, setMovie] = useState(searchMessage || '');
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState('');
-  const classButton = classes('Button__search', { Button__search_disabled: activeButton });
+  const classButton = classes('Button__search', { Button__search_disabled: activeButton && movie.length < 1 });
 
   function setEditMovies(evt) {
     setMovie(evt.target.value);
@@ -25,28 +26,25 @@ function SearchForm({ onFilter, onSearch }) {
     return setValidCheck('');
   }
 
-  function clearInput() {
-    setMovie('');
-  }
-
   function searchMovies(evt) {
     evt.preventDefault();
     if (!movie) {
       return;
     }
-    clearInput();
+    localStorage.setItem('search', movie);
     onSearch(evt, movie);
   }
+
   return (
     <section className="SearchForm">
-      <Form className='SearchForm-container' nameFrom='searchForm'>
+      <Form className='SearchForm-container' nameFrom='searchForm' onSubmit={searchMovies}>
         <MarkupForForms.Search
           movie={movie}
           placeMessage={validCheck}
           setEditMovies={setEditMovies}
           validationCheck={validationCheck}
         />
-        <Button className={classButton} type='submit' title='Поиск' onChange={searchMovies} />
+        <Button className={classButton} type='submit' title='Поиск' />
         <div className='SearchForm-Check'>
           <FilterCheckbox classLabel='SearchForm-label' onFilter={onFilter}>Короткометражки</FilterCheckbox>
         </div>

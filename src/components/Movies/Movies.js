@@ -14,6 +14,7 @@ function Movies({
   toggleMovies,
   onSearch,
   onHeader,
+  stateHeader,
 }) {
   const [count, setCount] = useState(3);
   const [status, setStatus] = useState(true);
@@ -35,8 +36,10 @@ function Movies({
     }
   }
   useEffect(() => {
-    onHeader(true);
-  });
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
   return (
     <React.Fragment>
       <SearchForm
@@ -62,7 +65,6 @@ function Movies({
             Ещё
           </Button>)}
         </MoviesCardList>)}
-
     </React.Fragment>
   );
 }
@@ -74,6 +76,7 @@ Movies.propTypes = {
   userMovies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
   onSearch: PropTypes.func,
 };
 

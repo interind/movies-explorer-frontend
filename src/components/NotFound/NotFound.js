@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './NotFound.css';
 
-function NotFound({ onHeader }) {
+function NotFound({ onHeader, stateHeader }) {
   const history = useHistory();
   useEffect(() => {
-    onHeader(false);
-  });
+    if (stateHeader) {
+      onHeader(false);
+    }
+  }, [onHeader, stateHeader]);
   return (
     <div className='NotFound'>
     <h2 className='NotFound__title'>404</h2>
@@ -22,6 +24,7 @@ function NotFound({ onHeader }) {
 
 NotFound.propTypes = {
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
 };
 
 export default NotFound;

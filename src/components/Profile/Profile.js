@@ -12,6 +12,7 @@ function Profile({
   isLoadingButton,
   signOut,
   onHeader,
+  stateHeader,
 }) {
   const { name, email } = React.useContext(CurrentUserContext);
   const [profile, setProfile] = useState({ name: name || '', email: email || '' });
@@ -37,8 +38,10 @@ function Profile({
   }
 
   useEffect(() => {
-    onHeader(true);
-  });
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Profile'>
@@ -47,8 +50,8 @@ function Profile({
         {`Привет, ${name}!`}
         </HeaderBar>
         <MarkupForForms.Profile
-          name={profile.name}
-          email={profile.email}
+          name={name}
+          email={email}
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>
@@ -67,6 +70,7 @@ Profile.propTypes = {
   onEditProfile: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
   isLoadingButton: PropTypes.bool,
 };
 
