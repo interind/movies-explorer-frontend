@@ -278,6 +278,7 @@ export default {
         onChange={setEditMovies}
         onInput={validationCheck}
         autoComplete='off'
+        autoFocus={true}
         required />
         { placeMessage && (
           <div className='SearchForm__error'>

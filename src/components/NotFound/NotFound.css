@@ -6,6 +6,7 @@
   max-width: 1280px;
   min-width: 100%;
   min-height: 80vh;
+  user-select: none;
 }
 .NotFound__title {
   font-family: 'Inter', Arial, Helvetica, sans-serif;

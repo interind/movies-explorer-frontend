@@ -22,6 +22,7 @@
   font-size: 14px;
   line-height: 1.21;
   margin-bottom: 70px;
+  user-select: none;
 }
 .Navigation_place_popup {
   display: flex;

@@ -6,6 +6,7 @@
   max-width: 1280px;
   width: 100%;
   min-height: 608px;
+  user-select: none;
 }
 .AboutMe-container {
   display: flex;

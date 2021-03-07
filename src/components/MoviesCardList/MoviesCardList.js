@@ -9,7 +9,7 @@ function MoviesCardList({
   userMovies,
   toggleMovies,
 }) {
-  const notFound = <p>Фильмов нет</p>;
+  const notFound = <p className='MoviesCardList__not-found'>Фильмов нет</p>;
   const [count, setCount] = useState(3);
   function countVisibleMovies() {
     const windowWidth = window.innerWidth;

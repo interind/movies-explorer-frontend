@@ -5,6 +5,7 @@
   align-items: center;
   max-width: 1140px;
   min-width: 90%;
+  user-select: none;
 }
 .Portfolio-arrow {
   max-width: 29px;

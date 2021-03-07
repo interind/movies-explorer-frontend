@@ -36,4 +36,5 @@
   line-height: 1.5;
   font-weight: 400;
   margin-left: 12px;
+  user-select: none;
 }

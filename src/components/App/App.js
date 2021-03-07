@@ -127,6 +127,7 @@ function App() {
     });
   }
   function searchMovies(arr, str) {
+    setLoading(true);
     return new Promise((resolve) => {
       if (arr.length > 0) {
         return resolve(arr.filter((mov) => JSON.stringify(mov.nameRU)
@@ -139,7 +140,6 @@ function App() {
     });
   }
   function onSearch(evt, str) {
-    setLoading(true);
     const formChecked = evt.target;
     if (formChecked[2].checked === true) {
       if (formChecked.name === 'movies') {
@@ -172,6 +172,11 @@ function App() {
   };
   const closePopup = () => {
     setStatusPopup(false);
+  };
+  const closePopupEsc = (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup();
+    }
   };
 
   function onRegister(arg) {
@@ -229,7 +234,13 @@ function App() {
         setLoading(false);
       });
   }
-
+  async function toggleEventListenerWindow(bool) {
+    if (bool) {
+      window.addEventListener('keydown', closePopupEsc);
+    } else {
+      window.removeEventListener('keydown', closePopupEsc);
+    }
+  }
   const signOut = React.useCallback(() => {
     localStorage.clear();
     setCurrentUser({});
@@ -298,7 +309,6 @@ function App() {
               type: false,
               visible: true,
             });
-            setLoading(false);
             Promise.reject(new Error('ошибка данных'));
           }
           setLoading(true);
@@ -313,7 +323,8 @@ function App() {
           setMoviesDate(movies);
         })
         .catch((err) => {
-          signOut();
+          localStorage.clear();
+          setLoggedIn(false);
           setStatusInfo({
             message: err.message,
             type: false,
@@ -322,9 +333,10 @@ function App() {
         })
         .finally(() => setLoading(false));
     } else {
+      localStorage.clear();
       setLoggedIn(false);
     }
-  }, [loggedIn, signOut]);
+  }, [loggedIn]);
 
   return (
     <React.Fragment>
@@ -360,6 +372,7 @@ function App() {
             <Popup
               isOpen={isStatusPopup}
               closePopup={closePopup}
+              toggleEventListenerWindow={toggleEventListenerWindow}
             >
               <Button
                 title={'Закрыть'}

@@ -3,6 +3,7 @@
   border: none;
   outline: none;
   background-color: transparent;
+  user-select: none;
 }
 .Button:hover {
   cursor: pointer;
@@ -54,7 +55,7 @@
 }
 .Button__disabled {
   pointer-events: none;
-  background: #F8F8F8;
+  background: #b1acac;
 }
 .Button__search {
   grid-column: 4/5;
