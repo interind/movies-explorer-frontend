@@ -10,17 +10,7 @@ function MoviesCardList({
   toggleMovies,
 }) {
   const notFound = <p className='MoviesCardList__not-found'>Фильмов нет</p>;
-  const [count, setCount] = useState(3);
-  function countVisibleMovies() {
-    const windowWidth = window.innerWidth;
-    if (windowWidth > 780) {
-      setCount(count + 12);
-    } if ((windowWidth <= 780) && (windowWidth > 330)) {
-      setCount(count + 8);
-    } if (windowWidth <= 330) {
-      setCount(count + 5);
-    }
-  }
+  const [count, setCount] = useState(4);
   return (
     <React.Fragment>
         <section className='MoviesCardList'>
@@ -32,7 +22,7 @@ function MoviesCardList({
           />)}
           {movies.length <= 0 && notFound}
          {(movies.length > 0) && (movies.length > count) && (<Button className='Button-MoviesCardList'
-            type='button' title='Ещё' onChange={() => countVisibleMovies()}>
+            type='button' title='Ещё' onChange={() => setCount(count + 4)}>
             Ещё
           </Button>)}
         </section>
