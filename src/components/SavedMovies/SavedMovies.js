@@ -19,6 +19,10 @@ function SavedMovies({
     setStatusCheck(evt.target.checked);
   }
   useEffect(() => {
+    const films = JSON.stringify(movies);
+    localStorage.setItem('movies-save', films);
+  }, [movies]);
+  useEffect(() => {
     if (!stateHeader) {
       onHeader(true);
     }

@@ -380,6 +380,9 @@ function App() {
     if (localStorage.getItem('movies')) {
       const films = JSON.parse(localStorage.getItem('movies'));
       setFilterDate(films);
+    } else if (localStorage.getItem('movies-save')) {
+      const filmsUser = JSON.parse(localStorage.getItem('movies-save'));
+      setFilterUserMovies(filmsUser);
     }
   }, []);
 
