@@ -1,20 +1,12 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './InfoTool.css';
 
 function InfoTool({ data }) {
   const { message = '', type = '', visible } = data;
-  const [status, setStatus] = useState(visible);
-  useLayoutEffect(() => {
-    if (visible) {
-      setTimeout(() => {
-        setStatus(false);
-      }, 3000);
-    }
-  }, [visible]);
   return (
     <React.Fragment>
-      {status && <div className='InfoTool'>
+      {visible && <div className='InfoTool'>
         {!type ? <h2 className='InfoTool__title InfoTool__title_theme_red'>{message}</h2>
           : <h2 className='InfoTool__title InfoTool__title_theme_green'>{message}</h2>}
       </div>}

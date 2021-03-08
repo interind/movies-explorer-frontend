@@ -172,6 +172,7 @@ function App() {
   };
   const closePopup = () => {
     setStatusPopup(false);
+    setStatusInfo({ ...statusInfo, visible: false });
   };
   const closePopupEsc = (evt) => {
     if (evt.key === 'Escape') {
