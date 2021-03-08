@@ -127,7 +127,6 @@ function App() {
     });
   }
   function searchMovies(arr, str) {
-    setLoading(true);
     return new Promise((resolve) => {
       if (arr.length > 0) {
         return resolve(arr.filter((mov) => JSON.stringify(mov.nameRU)
@@ -140,6 +139,12 @@ function App() {
     });
   }
   function onSearch(evt, str) {
+    setTimeout(() => {
+      setLoading(true);
+    }, 100);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
     const formChecked = evt.target;
     if (formChecked[2].checked === true) {
       if (formChecked.name === 'movies') {
@@ -242,6 +247,14 @@ function App() {
       window.removeEventListener('keydown', closePopupEsc);
     }
   }
+  async function toggleEventListenerWindowClick(bool) {
+    if (bool) {
+      window.addEventListener('click', closePopup);
+    } else {
+      window.removeEventListener('click', closePopup);
+    }
+  }
+
   const signOut = React.useCallback(() => {
     localStorage.clear();
     setCurrentUser({});
@@ -339,6 +352,13 @@ function App() {
     }
   }, [loggedIn]);
 
+  React.useEffect(() => {
+    if (localStorage.getItem('movies')) {
+      const films = JSON.parse(localStorage.getItem('movies'));
+      setFilterDate(films);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <CurrentUserContext.Provider value={currentUser}>
@@ -405,7 +425,10 @@ function App() {
               </>)}
               </Navigation>
             </Popup>
-            {statusInfo.visible && <InfoTool data={statusInfo} />}
+            {statusInfo.visible && <InfoTool
+              data={statusInfo}
+              toggleEventListenerWindowClick={toggleEventListenerWindowClick}
+            />}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>

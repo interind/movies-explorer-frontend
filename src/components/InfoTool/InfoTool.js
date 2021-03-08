@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './InfoTool.css';
 
-function InfoTool({ data }) {
+function InfoTool({ data, toggleEventListenerWindowClick }) {
   const { message = '', type = '', visible } = data;
+  useEffect(() => {
+    if (visible) {
+      toggleEventListenerWindowClick(true);
+    }
+    return () => {
+      toggleEventListenerWindowClick(false);
+    };
+  }, [visible, toggleEventListenerWindowClick]);
   return (
     <React.Fragment>
       {visible && <div className='InfoTool'>
@@ -15,7 +23,8 @@ function InfoTool({ data }) {
 }
 
 InfoTool.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired,
+  toggleEventListenerWindowClick: PropTypes.func.isRequired,
 };
 
 export default InfoTool;

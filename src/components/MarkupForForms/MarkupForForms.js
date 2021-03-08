@@ -37,10 +37,11 @@ export default {
           defaultValue={name}
           onChange={setEditProfile}
           onInput={validationProfile}
+          onFocus={validationProfile}
           required
         />
         </label>
-        {name === '' && (
+        {name !== '' && (
           <div className='Profile__error'>
             <span
               className='Profile__input-error Profile__input-error_active'
@@ -61,6 +62,7 @@ export default {
           name='email'
           onChange={setEditProfile}
           onInput={validationProfile}
+          onFocus={validationProfile}
           required
         />
         </label>
@@ -107,6 +109,7 @@ export default {
           name='email'
           onChange={setEditLogin}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -133,6 +136,7 @@ export default {
           maxLength='30'
           onChange={setEditLogin}
           onInput={validationCheck}
+          onFocus={validationCheck}
           autoComplete='off'
           required
         />
@@ -187,6 +191,7 @@ export default {
           value={name}
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -211,6 +216,7 @@ export default {
           name='email'
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -237,6 +243,7 @@ export default {
           maxLength='30'
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           autoComplete='off'
           required
         />
@@ -277,6 +284,7 @@ export default {
         minLength='1'
         onChange={setEditMovies}
         onInput={validationCheck}
+        onFocus={validationCheck}
         autoComplete='off'
         autoFocus={true}
         required />

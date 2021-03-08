@@ -22,6 +22,12 @@ function Movies({
       onHeader(true);
     }
   }, [onHeader, stateHeader]);
+  useEffect(() => {
+    if (movies.length > 0) {
+      const films = JSON.stringify(movies);
+      localStorage.setItem('movies', films);
+    }
+  }, [movies]);
   return (
     <React.Fragment>
       <SearchForm

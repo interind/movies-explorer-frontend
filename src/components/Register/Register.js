@@ -31,14 +31,15 @@ function Register({
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
+      setActiveButton(!evt.target.validity.valid);
       return setValidCheck({ [evt.target.name]: evt.target.validationMessage });
     }
+    setActiveButton(!evt.target.validity.valid);
     return setValidCheck({ [evt.target.name]: '' });
   }
 
   function setEditRegister(evt) {
     setRegister({ ...register, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.validity.valid);
   }
 
   function clearInput() {
