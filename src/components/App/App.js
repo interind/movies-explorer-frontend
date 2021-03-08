@@ -135,7 +135,8 @@ function App() {
           || JSON.stringify(mov.nameEN)
             .toLowerCase()
             .includes(str.toLowerCase())));
-      } return resolve(arr);
+      }
+      return resolve(arr);
     });
   }
   function onSearch(evt, str) {
@@ -149,24 +150,48 @@ function App() {
     if (formChecked[2].checked === true) {
       if (formChecked.name === 'movies') {
         searchMovies(moviesData, str)
-          .then((data) => setFilterDate(filterTimes(data)))
+          .then((data) => {
+            if (data.length <= 0) {
+              setFilterDate(filterTimes(data));
+              infoMessage('Ничего не найдено', false, true);
+            }
+            setFilterDate(filterTimes(data));
+          })
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       } else {
         searchMovies(userMovies, str)
-          .then((data) => setFilterUserMovies(filterTimes(data)))
+          .then((data) => {
+            if (data.length <= 0) {
+              setFilterUserMovies(filterTimes(data));
+              infoMessage('Ничего не найдено', false, true);
+            }
+            setFilterUserMovies(filterTimes(data));
+          })
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       }
     } else if (formChecked[2].checked === false) {
       if (formChecked.name === 'movies') {
         searchMovies(moviesData, str)
-          .then((data) => setFilterDate(filterTimes(data, 40)))
+          .then((data) => {
+            if (data.length <= 0) {
+              setFilterDate(filterTimes(data, 40));
+              infoMessage('Ничего не найдено', false, true);
+            }
+            setFilterDate(filterTimes(data, 40));
+          })
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       } else {
         searchMovies(userMovies, str)
-          .then((data) => setFilterUserMovies(filterTimes(data, 40)))
+          .then((data) => {
+            if (data.length <= 0) {
+              setFilterUserMovies(filterTimes(data, 40));
+              infoMessage('Ничего не найдено', false, true);
+            }
+            setFilterUserMovies(filterTimes(data, 40));
+          })
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       }
@@ -187,26 +212,22 @@ function App() {
 
   function onRegister(arg) {
     setButtonLoading(true);
-    mainApi
-      .register(arg)
+    return mainApi.register(arg)
       .then((res) => {
-        if (!res.message) {
+        if (res && !res.error && !res.message) {
           setButtonLoading(false);
           localStorage.setItem('email', res.email);
           localStorage.setItem('name', res.name);
           setCurrentUser({ ...currentUser, email: res.email, name: res.name });
           infoMessage(`${res.name} мы добавили вас!`, true, true);
           history.push('/signin');
-        } if (res.error) {
-          infoMessage(`${res.error}!`, false, true);
-        } if (res.message) {
-          infoMessage(`${res.message}!`, false, true);
+          return Promise.resolve();
         }
+        infoMessage(`${res.error} ${res.statusCode}!`, false, true);
+        return Promise.reject(res.err);
       })
       .catch((err) => infoMessage(err.message, false, true))
-      .finally(() => {
-        setButtonLoading(false);
-      });
+      .finally(() => setButtonLoading(false));
   }
 
   function handleLogin(evt) {
@@ -218,23 +239,26 @@ function App() {
 
   function onLogin(evt, login) {
     setButtonLoading(true);
-    mainApi
+    return mainApi
       .authorizationPost({
         ...login,
       })
       .then((data) => {
-        setButtonLoading(false);
         if (data.token) {
           localStorage.setItem('jwt', data.token);
           handleLogin(evt);
           infoMessage('Добро пожаловать на проект Movies', true, true);
-        } else if (!data.token && data.message) {
-          infoMessage(data.message, false, true);
+          return Promise.resolve();
         }
+        setStatusInfo({
+          ...statusInfo,
+          message: data.error,
+          type: false,
+          visible: true,
+        });
+        return Promise.reject(data.err);
       })
-      .catch((err) => {
-        infoMessage(err.message, false, true);
-      })
+      .catch((err) => infoMessage(err.message, false, true))
       .finally(() => {
         setButtonLoading(false);
         setLoading(false);

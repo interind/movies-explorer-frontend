@@ -59,8 +59,10 @@ function Login({
     if (!login.password || !login.email) {
       return;
     }
-    onLogin(evt, login);
-    clearInput();
+    onLogin(evt, login)
+      .then(() => {
+        clearInput();
+      }).catch((err) => err);
   }
 
   useEffect(() => {

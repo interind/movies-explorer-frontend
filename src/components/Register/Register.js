@@ -56,8 +56,10 @@ function Register({
     if (!register.password || !register.email || !register.name) {
       return;
     }
-    clearInput();
-    onRegister(register);
+    onRegister(register)
+      .then(() => {
+        clearInput();
+      }).catch((err) => err);
   }
 
   useEffect(() => {
