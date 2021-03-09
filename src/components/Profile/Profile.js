@@ -29,7 +29,11 @@ function Profile({
 
   function setEditProfile(evt) {
     setProfile({ ...profile, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
+    if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
   }
 
   function handleEditProfile(evt) {
