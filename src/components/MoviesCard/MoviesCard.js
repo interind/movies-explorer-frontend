@@ -2,25 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import Button from '../Button/Button';
-import CurrentUserContext from '../../context/CurrentUserContext';
 import './MoviesCard.css';
 import '../Button/Button.css';
 
 function MoviesCard({
   card,
-  movies,
+  userMovies,
   toggleMovies,
 }) {
-  const userMovies = React.useContext(CurrentUserContext);
-  const visible = card.image.url !== '' ? `https://api.nomoreparties.co${card.image.url}` : './static/media/errorPic.b39bbd5d.jpg';
+  const { image } = card;
+  const link = image || './static/media/errorPic.b39bbd5d.jpg';
+  const [visible, setVisible] = React.useState(link);
   const classLike = classes('Button-like',
     { 'Button-like_color_red': userMovies.find((car) => car.id === card.id) },
-    { 'Button-like_theme_delete': movies === userMovies });
+    { 'Button-like_theme_delete': card._id });
 
   return (
     <React.Fragment>
         <div className='MoviesCard'>
-          <a className='MoviesCard__pic' style={{ backgroundImage: `url(${visible})` }} title={card.description} href={card.trailerLink} target='_blank' rel='noopener noreferrer'/>
+          <a className='MoviesCard__link' title={card.description} href={card.trailerLink} target='_blank' rel='noopener noreferrer'>
+            <img
+              className='MoviesCard__pic'
+              src={visible}
+              alt={card.nameRU}
+              onError={() => {
+                setVisible('/static/media/errorPic.b39bbd5d.jpg');
+              }}
+            />
+          </a>
             <h2 className='MoviesCard__title' title={card.nameRU}>
               {card.nameRU}
             </h2>
@@ -44,10 +53,9 @@ function MoviesCard({
 }
 
 MoviesCard.propTypes = {
-  card: PropTypes.object,
-  movie: PropTypes.object,
-  movies: PropTypes.array,
-  toggleMovies: PropTypes.func,
+  card: PropTypes.object.isRequired,
+  userMovies: PropTypes.array.isRequired,
+  toggleMovies: PropTypes.func.isRequired,
 };
 
 export default MoviesCard;

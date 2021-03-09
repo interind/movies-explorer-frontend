@@ -20,7 +20,7 @@ function HeaderBar({
 HeaderBar.propTypes = {
   place: PropTypes.string.isRequired,
   component: PropTypes.func,
-  children: PropTypes.string,
+  children: PropTypes.any,
 };
 
 export default HeaderBar;

@@ -3,6 +3,7 @@
   border: none;
   outline: none;
   background-color: transparent;
+  user-select: none;
 }
 .Button:hover {
   cursor: pointer;
@@ -52,12 +53,16 @@
   border-radius: 3px;
   margin-top: 179px;
 }
+.Button__disabled {
+  pointer-events: none;
+  background: #b1acac;
+}
 .Button__search {
   grid-column: 4/5;
   grid-row: 1;
+  justify-self: center;
   width: 44px;
   height: 44px;
-  margin-left: 10px;
   background-color: transparent;
   box-sizing: border-box;
   border-radius: 10px;
@@ -66,6 +71,10 @@
   background-image: url('../../images/search/search.svg');
   background-position: center;
   background-repeat: no-repeat;
+}
+.Button__search_disabled {
+  pointer-events: none;
+  background-image: url('../../images/search/searchDisabled.svg');
 }
 .Button__goBack {
   font-size: 14px;
@@ -83,6 +92,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #000;
   margin-bottom: 30px;
   margin-top: 220px;
 }
@@ -119,13 +129,11 @@
 .Button-like {
   grid-column: 1;
   grid-row: 2;
-  display: flex;
   align-self: flex-end;
   width: 14px;
   height: 12px;
   outline-style: none;
   background-repeat: no-repeat;
-  background-size: cover;
   padding: 0;
   background-image: url(../../images/moviesCard/GroupWhite.svg);
 }
@@ -141,6 +149,9 @@
 }
 .Button-like_theme_delete:active {
   background-image: url(../../images/moviesCard/Close-red.svg);
+}
+.Button-like_theme_delete:focus {
+   box-shadow: 0 0 0 1px #EE3465;
 }
 
 @media screen and (max-width: 800px) {

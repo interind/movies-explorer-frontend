@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
 
 function Profile({
   onEditProfile,
-  user,
   isLoadingButton,
   signOut,
+  onHeader,
+  stateHeader,
 }) {
-  const [profile, setProfile] = useState({ ...user });
+  const { name, email } = React.useContext(CurrentUserContext);
+  const [profile, setProfile] = useState({ name: name || '', email: email || '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = isLoadingButton ? 'Отправка...' : 'Редактировать';
@@ -26,32 +29,33 @@ function Profile({
 
   function setEditProfile(evt) {
     setProfile({ ...profile, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
-  }
-
-  function clearInput() {
-    setProfile({
-      ...profile,
-      name: '',
-      email: '',
-    });
+    if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
   }
 
   function handleEditProfile(evt) {
     evt.preventDefault();
-    clearInput();
     onEditProfile(profile);
   }
+
+  useEffect(() => {
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Profile'>
       <Form className='Profile-form' nameFrom='profile-form' onSubmit={handleEditProfile}>
         <HeaderBar place='profile'>
-        {`Привет, ${user.name}!`}
+        {`Привет, ${name}!`}
         </HeaderBar>
         <MarkupForForms.Profile
-          name={profile.name}
-          email={profile.email}
+          name={name}
+          email={email}
           profileMessage={validCheck}
           setEditProfile={setEditProfile}
           validationProfile={validationCheck}/>
@@ -69,7 +73,8 @@ function Profile({
 Profile.propTypes = {
   onEditProfile: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
   isLoadingButton: PropTypes.bool,
 };
 

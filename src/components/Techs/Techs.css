@@ -7,6 +7,7 @@
   min-height: 608px;
   min-width: 100%;
   background-color: #F5F5F5;
+  user-select: none;
 }
 .Techs__title {
   font-family: 'Inter', Arial, Helvetica, sans-serif;

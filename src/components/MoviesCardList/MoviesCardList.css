@@ -6,8 +6,17 @@
   max-width: 1280px;
   width: 100%;
   justify-items: stretch;
-  padding-top: 70px;
+  padding: 70px 0;
   text-align: center;
+}
+
+.MoviesCardList__not-found {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+  margin: 0;
+  user-select: none;
 }
 
 @media screen and (max-width: 620px) {
@@ -18,6 +27,6 @@
 @media screen and (max-width: 340px) {
   .MoviesCardList {
     min-width: 95%;
-    width: 310px;
+    width: 100%;
   }
 }

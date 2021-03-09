@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from 'classnames';
 import PropTypes from 'prop-types';
-import Button from '../Button/Button';
 
 export default {
   Profile: function Profile({
@@ -38,10 +37,11 @@ export default {
           defaultValue={name}
           onChange={setEditProfile}
           onInput={validationProfile}
+          onFocus={validationProfile}
           required
         />
         </label>
-        {name === '' && (
+        {name !== '' && (
           <div className='Profile__error'>
             <span
               className='Profile__input-error Profile__input-error_active'
@@ -62,6 +62,7 @@ export default {
           name='email'
           onChange={setEditProfile}
           onInput={validationProfile}
+          onFocus={validationProfile}
           required
         />
         </label>
@@ -104,10 +105,11 @@ export default {
           type='email'
           placeholder='E-mail'
           id='input-email'
-          defaultValue={email}
+          value={email}
           name='email'
           onChange={setEditLogin}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -130,10 +132,11 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          defaultValue={password}
+          value={password}
           maxLength='30'
           onChange={setEditLogin}
           onInput={validationCheck}
+          onFocus={validationCheck}
           autoComplete='off'
           required
         />
@@ -188,6 +191,7 @@ export default {
           value={name}
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -208,10 +212,11 @@ export default {
           type='email'
           placeholder='Ваш e-mail'
           id='input-email'
-          defaultValue={email}
+          value={email}
           name='email'
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           required
         />
         </label>
@@ -234,10 +239,11 @@ export default {
           id='input-password'
           name='password'
           minLength='6'
-          defaultValue={password}
+          value={password}
           maxLength='30'
           onChange={setEditRegister}
           onInput={validationCheck}
+          onFocus={validationCheck}
           autoComplete='off'
           required
         />
@@ -255,15 +261,43 @@ export default {
       </React.Fragment>
     );
   },
-  Search: function Search({ movie, onFind }) {
+  Search: function Search({
+    movie,
+    setEditMovies,
+    validationCheck,
+    placeMessage,
+  }) {
     Search.propTypes = {
       movie: PropTypes.string,
-      onFind: PropTypes.func,
+      placeMessage: PropTypes.string,
+      setEditMovies: PropTypes.func,
+      validationCheck: PropTypes.func,
     };
     return (
       <React.Fragment>
-        <input className='SearchForm-input' name='search' defaultValue={movie} type='text' placeholder='Фильм' />
-        <Button className='Button__search' type='submit' title='Поиск' onChange={onFind}/>
+        <input
+        className='SearchForm__input'
+        name='search'
+        value={movie}
+        type='text'
+        placeholder='Фильм'
+        minLength='1'
+        onChange={setEditMovies}
+        onInput={validationCheck}
+        onFocus={validationCheck}
+        autoComplete='off'
+        autoFocus={true}
+        required />
+        { placeMessage && (
+          <div className='SearchForm__error'>
+            <span
+              className='SearchForm__input-error SearchForm__input-error_active'
+              id='input-search-error'
+            >
+              {placeMessage}
+            </span>
+          </div>
+        )}
       </React.Fragment>
     );
   },

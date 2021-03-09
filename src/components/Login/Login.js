@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  useHistory,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
+import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
@@ -7,9 +12,13 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Login.css';
-import Logo from '../Logo/Logo';
 
-function Login({ onLogin, isLoadingButton }) {
+function Login({
+  onLogin,
+  buttonLoading,
+  onHeader,
+  stateHeader,
+}) {
   const link = [{
     path: '/signup',
     text: 'Регистрация',
@@ -17,10 +26,15 @@ function Login({ onLogin, isLoadingButton }) {
     title: 'Перейти на страницу регистрации',
     type: 'local',
   }];
-  const [login, setLogin] = useState({ email: '', password: '' });
+  const history = useHistory();
+  const localEmail = localStorage.getItem('email');
+  const localName = localStorage.getItem('name');
+
+  const [login, setLogin] = useState({ email: localEmail || '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Проверка...' : 'Войти';
+  const textButton = buttonLoading ? 'Проверка...' : 'Войти';
+  const classButton = classes('Button__login', { Button__disabled: activeButton });
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -31,11 +45,15 @@ function Login({ onLogin, isLoadingButton }) {
 
   function setEditLogin(evt) {
     setLogin({ ...login, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
+    if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
   }
 
   function clearInput() {
-    setLogin({
+    return setLogin({
       ...login,
       email: '',
       password: '',
@@ -47,15 +65,24 @@ function Login({ onLogin, isLoadingButton }) {
     if (!login.password || !login.email) {
       return;
     }
-    clearInput();
-    onLogin(login);
+    onLogin(evt, login)
+      .then(() => {
+        clearInput();
+        history.push('/movies');
+      }).catch((err) => err);
   }
+
+  useEffect(() => {
+    if (stateHeader) {
+      onHeader(false);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Login'>
-      <Form className='Login-form' nameFrom='login-form' onSubmit={verifiesAuthorization}>
+      <Form className='Login-form' nameFrom='login-form' onSubmit={(evt) => verifiesAuthorization(evt)}>
         <HeaderBar component={Logo} place='login'>
-          Рады видеть!
+          Рады видеть{` ${localName || ''}!`}
         </HeaderBar>
         <MarkupForForms.Login
           password={login.password}
@@ -63,7 +90,7 @@ function Login({ onLogin, isLoadingButton }) {
           placeMessage={validCheck}
           setEditLogin={setEditLogin}
           validationCheck={validationCheck}/>
-        <Button className={'Button__login'} type='submit' title='Войти' status={activeButton}>
+        <Button className={classButton} type='submit' title='Войти' status={activeButton}>
           {textButton}
         </Button>
         <Navigation place={'login'}>
@@ -76,8 +103,10 @@ function Login({ onLogin, isLoadingButton }) {
 }
 
 Login.propTypes = {
-  onLogin: PropTypes.func,
-  isLoadingButton: PropTypes.bool,
+  onLogin: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool.isRequired,
 };
 
 export default Login;

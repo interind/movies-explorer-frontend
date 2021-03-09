@@ -9,6 +9,7 @@
   margin-top: auto;
   min-height: 172px;
   background-color: #fff;
+  user-select: none;
 }
 
 .Footer__container {
@@ -28,12 +29,16 @@
   font-size: 13px;
   line-height: 1.21;
   color: #000;
+  user-select: none;
 }
 .Footer-item:last-of-type {
   margin-right: 0;
 }
 
 @media screen and (max-width:460px) {
+  .Footer {
+    margin-bottom: 10px;
+  }
   .Footer__container {
     flex-direction: column;
   }

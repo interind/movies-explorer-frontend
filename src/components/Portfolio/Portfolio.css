@@ -4,10 +4,9 @@
   justify-content: flex-start;
   align-items: center;
   max-width: 1140px;
-  width: 90%;
   min-width: 90%;
+  user-select: none;
 }
-
 .Portfolio-arrow {
   max-width: 29px;
   min-width: 18px;

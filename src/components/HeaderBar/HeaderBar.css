@@ -5,6 +5,7 @@
   align-items: flex-end;
   max-width: 1140px;
   width: 89%;
+  user-select: none;
 }
 .HeaderBar_place_aboutProject {
   min-height: 160px;

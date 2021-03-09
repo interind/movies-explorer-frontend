@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button/Button';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesCard from '../MoviesCard/MoviesCard';
@@ -8,37 +7,56 @@ import './Movies.css';
 
 function Movies({
   movies,
+  userMovies,
   toggleMovies,
-  filterTimes,
-  filterMovies,
-  isCheckFilter,
-  isOpenCheck,
+  onSearch,
+  onHeader,
+  stateHeader,
 }) {
-  const [count, setCount] = React.useState(3);
+  const [statusCheck, setStatusCheck] = React.useState(true);
+  function filterCheck(evt) {
+    setStatusCheck(evt.target.checked);
+  }
+  useEffect(() => {
+    if (!stateHeader) {
+      onHeader(true);
+    }
+  }, [onHeader, stateHeader]);
+  useEffect(() => {
+    const films = JSON.stringify(movies);
+    localStorage.setItem('movies', films);
+  }, [movies]);
   return (
     <React.Fragment>
-      <SearchForm onChange={isCheckFilter}/>
-      <MoviesCardList>
-          {isOpenCheck && filterMovies(movies).slice(0, count).map((card) => <MoviesCard
-           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          {!isOpenCheck && filterMovies(filterTimes(movies)).slice(0, count)
-            .map((card) => <MoviesCard
-           key={card.id} card={card} toggleMovies={toggleMovies}/>)}
-          <Button className='Button-MoviesCardList' type='button' title='Ещё' onChange={() => setCount(count + 3)}>
-            Ещё
-          </Button>
-      </MoviesCardList>
+      <SearchForm
+        nameFrom={'movies'}
+        statusCheck={statusCheck}
+        onFilter={filterCheck}
+        onSearch={onSearch}
+        />
+      {statusCheck && (<MoviesCardList
+        movies={movies}
+        component={MoviesCard}
+        userMovies={userMovies}
+        toggleMovies={toggleMovies}
+      />)}
+      {!statusCheck && (<MoviesCardList
+        movies={movies}
+        component={MoviesCard}
+        userMovies={userMovies}
+        toggleMovies={toggleMovies}
+      />)}
     </React.Fragment>
   );
 }
 
 Movies.propTypes = {
   movies: PropTypes.array.isRequired,
+  userMovies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
-  filterTimes: PropTypes.func.isRequired,
-  filterMovies: PropTypes.func.isRequired,
-  isCheckFilter: PropTypes.func.isRequired,
-  isOpenCheck: PropTypes.bool.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default Movies;

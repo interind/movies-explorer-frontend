@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
 import Form from '../Form/Form';
 import Button from '../Button/Button';
 import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
-import './Register.css';
 import Logo from '../Logo/Logo';
+import './Register.css';
 
-function Register({ onRegister, isLoadingButton }) {
+function Register({
+  onRegister,
+  buttonLoading,
+  onHeader,
+  stateHeader,
+}) {
   const link = [{
     path: '/signin',
     text: 'Войти',
@@ -17,10 +23,11 @@ function Register({ onRegister, isLoadingButton }) {
     title: 'Перейти на страницу авторизации',
     type: 'local',
   }];
-  const [register, setRegister] = useState({ name: 'Виталий', email: 'pochta@yandex.ru', password: '123456' });
+  const [register, setRegister] = useState({ name: '', email: '', password: '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
-  const textButton = isLoadingButton ? 'Проверка...' : 'Зарегистрироваться';
+  const textButton = buttonLoading ? 'Проверка...' : 'Зарегистрироваться';
+  const classButton = classes('Button__register', { Button__disabled: activeButton });
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
@@ -31,11 +38,15 @@ function Register({ onRegister, isLoadingButton }) {
 
   function setEditRegister(evt) {
     setRegister({ ...register, [evt.target.name]: evt.target.value });
-    setActiveButton(!evt.target.value);
+    if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
   }
 
   function clearInput() {
-    setRegister({
+    return setRegister({
       ...register,
       name: '',
       email: '',
@@ -48,9 +59,17 @@ function Register({ onRegister, isLoadingButton }) {
     if (!register.password || !register.email || !register.name) {
       return;
     }
-    clearInput();
-    onRegister(register);
+    onRegister(register)
+      .then(() => {
+        clearInput();
+      }).catch((err) => err);
   }
+
+  useEffect(() => {
+    if (stateHeader) {
+      onHeader(false);
+    }
+  }, [onHeader, stateHeader]);
 
   return (
     <section className='Register'>
@@ -65,7 +84,7 @@ function Register({ onRegister, isLoadingButton }) {
           placeMessage={validCheck}
           setEditRegister={setEditRegister}
           validationCheck={validationCheck}/>
-        <Button className={'Button__register'} type='submit' title='Регистрация' status={activeButton}>
+        <Button className={classButton} type='submit' title='Регистрация' status={activeButton}>
           {textButton}
         </Button>
         <Navigation place={'register'}>
@@ -78,8 +97,10 @@ function Register({ onRegister, isLoadingButton }) {
 }
 
 Register.propTypes = {
-  onRegister: PropTypes.func,
-  isLoadingButton: PropTypes.bool,
+  onRegister: PropTypes.func.isRequired,
+  onHeader: PropTypes.func.isRequired,
+  stateHeader: PropTypes.bool.isRequired,
+  buttonLoading: PropTypes.bool.isRequired,
 };
 
 export default Register;
