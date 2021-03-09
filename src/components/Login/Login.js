@@ -35,15 +35,18 @@ function Login({
 
   function validationCheck(evt) {
     if (!evt.target.validity.valid) {
-      setActiveButton(!evt.target.validity.valid);
       return setValidCheck({ [evt.target.name]: evt.target.validationMessage });
     }
-    setActiveButton(!evt.target.validity.valid);
     return setValidCheck({ [evt.target.name]: '' });
   }
 
   function setEditLogin(evt) {
     setLogin({ ...login, [evt.target.name]: evt.target.value });
+    if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
+      setActiveButton(true);
+    } else {
+      setActiveButton(false);
+    }
   }
 
   function clearInput() {
