@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  useHistory,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import Logo from '../Logo/Logo';
@@ -23,7 +26,7 @@ function Login({
     title: 'Перейти на страницу регистрации',
     type: 'local',
   }];
-
+  const history = useHistory();
   const localEmail = localStorage.getItem('email');
   const localName = localStorage.getItem('name');
 
@@ -65,6 +68,7 @@ function Login({
     onLogin(evt, login)
       .then(() => {
         clearInput();
+        history.push('/movies');
       }).catch((err) => err);
   }
 

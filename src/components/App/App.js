@@ -234,7 +234,6 @@ function App() {
     evt.preventDefault();
     setLoggedIn(true);
     setLoading(true);
-    return history.push('/movies');
   }
 
   function onLogin(evt, login) {
@@ -247,7 +246,12 @@ function App() {
         if (data.token) {
           localStorage.setItem('jwt', data.token);
           handleLogin(evt);
-          infoMessage('Добро пожаловать на проект Movies', true, true);
+          setStatusInfo({
+            ...statusInfo,
+            message: 'Добро пожаловать на проект Movies',
+            type: true,
+            visible: true,
+          });
           return Promise.resolve();
         }
         setStatusInfo({
