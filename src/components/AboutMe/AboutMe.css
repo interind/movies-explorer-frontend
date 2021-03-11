@@ -54,7 +54,6 @@
   align-items: flex-start;
   padding-left: 5px;
   align-self: center;
-
 }
 .AboutMe-image {
   width: 100%;
@@ -105,6 +104,9 @@
   }
   .AboutMe-container {
     max-width: 300px;
+  }
+  .AboutMe-info {
+    max-width: 90%;
   }
   .AboutMe-image {
     min-width: 90%;

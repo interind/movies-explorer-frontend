@@ -106,8 +106,7 @@
     align-self: center;
   }
   .HeaderBar_place_footer {
-    max-width: 300px;
-    width: 100%;
+    min-width: 90%;
     margin-bottom: 30px;
   }
   .HeaderBar_place_register {
@@ -118,7 +117,7 @@
   }
   .HeaderBar__title_place_footer {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.21;
     text-align: center;
   }

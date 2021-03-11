@@ -9,6 +9,7 @@
 }
 
 .Logo:hover {
-  opacity: .5;
+  opacity: .8;
   cursor: pointer;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, .1), 0 6px 10px;
 }
