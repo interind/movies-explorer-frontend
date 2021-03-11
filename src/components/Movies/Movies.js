@@ -6,6 +6,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './Movies.css';
 
 function Movies({
+  allMovies,
   movies,
   userMovies,
   toggleMovies,
@@ -30,6 +31,7 @@ function Movies({
     <React.Fragment>
       <SearchForm
         nameFrom={'movies'}
+        base={allMovies.length}
         statusCheck={statusCheck}
         onFilter={filterCheck}
         onSearch={onSearch}
@@ -51,6 +53,7 @@ function Movies({
 }
 
 Movies.propTypes = {
+  allMovies: PropTypes.array.isRequired,
   movies: PropTypes.array.isRequired,
   userMovies: PropTypes.array.isRequired,
   toggleMovies: PropTypes.func.isRequired,
