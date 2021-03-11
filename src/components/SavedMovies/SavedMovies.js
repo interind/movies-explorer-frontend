@@ -31,6 +31,7 @@ function SavedMovies({
     <React.Fragment>
       <SearchForm
         nameFrom={'saved-movies'}
+        base={userMovies.length}
         onFilter={filterCheck}
         onSearch={onSearch}
         statusCheck={statusCheck}

@@ -19,7 +19,7 @@ function SearchForm({
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState('');
   const classButton = classes('Button__search', { Button__search_disabled: activeButton && movie.length < 1 });
-  const validText = base ? `Нужно ввести ключевое слово по названию фильма, в базе сейчас ${base} 🎥.` : 'Нужно ввести ключевое слово!';
+  const validText = (base > 0) ? `Нужно ввести ключевое слово по названию фильма, в базе сейчас ${base} 🎥.` : `Вам нечего искать у вас ${base} 🎥!`;
 
   function setEditMovies(evt) {
     setMovie(evt.target.value);
