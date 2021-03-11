@@ -51,12 +51,12 @@
 }
 .SearchForm__input-error {
   visibility: hidden;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.25;
   font-weight: normal;
   font-style: normal;
-  font-family: inherit;
-  color: #f00;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: #EE3465;
 }
 .SearchForm__input-error_active {
   visibility: visible;
