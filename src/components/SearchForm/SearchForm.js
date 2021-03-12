@@ -12,14 +12,13 @@ function SearchForm({
   onFilter,
   onSearch,
   statusCheck,
-  base,
 }) {
   const searchMessage = localStorage.getItem('search');
   const [movie, setMovie] = useState(searchMessage || '');
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState('');
   const classButton = classes('Button__search', { Button__search_disabled: activeButton && movie.length < 1 });
-  const validText = (base > 0) ? `Нужно ввести ключевое слово по названию фильма, в базе сейчас ${base} 🎥.` : `Вам нечего искать у вас ${base} 🎥!`;
+  const validText = 'Нужно ввести ключевое слово.';
 
   function setEditMovies(evt) {
     setMovie(evt.target.value);
@@ -71,7 +70,6 @@ SearchForm.propTypes = {
   onFilter: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   statusCheck: PropTypes.bool.isRequired,
-  base: PropTypes.number,
 };
 
 export default SearchForm;
