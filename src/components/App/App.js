@@ -531,7 +531,6 @@ function App() {
                 />
               </Route>
             </Switch>
-            <Button className='Button__app' type='button' title='Вверх' onChange={() => window.scrollTo(0, 0)}/>
           </div>
         </ErrorBoundary>
       </CurrentUserContext.Provider>
