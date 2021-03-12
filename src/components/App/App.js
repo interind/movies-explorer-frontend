@@ -218,11 +218,16 @@ function App() {
           localStorage.setItem('email', res.email);
           localStorage.setItem('name', res.name);
           setCurrentUser({ ...currentUser, email: res.email, name: res.name });
-          infoMessage(`${res.name} мы добавили вас!`, true, true);
+          setStatusInfo({
+            ...statusInfo,
+            message: `${res.name} Мы вас добавили!`,
+            type: true,
+            visible: true,
+          });
           history.push('/signin');
           return Promise.resolve();
         }
-        infoMessage(`${res.error} ${res.statusCode}!`, false, true);
+        infoMessage(`${res.error ? res.error : res.message} ${res.statusCode}!`, false, true);
         return Promise.reject(res.err);
       })
       .catch((err) => infoMessage(err.message, false, true))
@@ -253,12 +258,7 @@ function App() {
           });
           return Promise.resolve();
         }
-        setStatusInfo({
-          ...statusInfo,
-          message: data.error,
-          type: false,
-          visible: true,
-        });
+        infoMessage(data.message, false, true);
         return Promise.reject(data.err);
       })
       .catch((err) => infoMessage(err.message, false, true))
