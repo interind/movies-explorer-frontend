@@ -297,7 +297,6 @@ function App() {
     if (isSaved && !card._id) {
       movie = userMovies.find((i) => i.id === card.id);
     }
-    console.log(card);
     mainApi
       .changeSaveMoviesStatus(movie, !isSaved)
       .then((newCard) => {
