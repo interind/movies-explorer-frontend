@@ -228,7 +228,7 @@ function App() {
           history.push('/signin');
           return Promise.resolve();
         }
-        infoMessage(`${res.error ? res.error : res.message} ${res.statusCode}!`, false, true);
+        infoMessage(`${res.error ? res.error : res.message}!`, false, true);
         return Promise.reject(res.err);
       })
       .catch((err) => infoMessage(err.message, false, true))
