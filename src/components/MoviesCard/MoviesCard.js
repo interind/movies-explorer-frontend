@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import Button from '../Button/Button';
+import notFound from '../../images/moviesCard/errorPic.jpg';
 import './MoviesCard.css';
-import '../Button/Button.css';
+import '../NotFound/NotFound.css';
 
 function MoviesCard({
   card,
@@ -26,7 +27,7 @@ function MoviesCard({
               src={visible}
               alt={card.nameRU}
               onError={() => {
-                setVisible('/static/media/errorPic.b39bbd5d.jpg');
+                setVisible(notFound);
               }}
             />
           </a>

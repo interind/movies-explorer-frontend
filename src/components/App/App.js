@@ -109,9 +109,11 @@ function App() {
       const reg = /^(http)+/;
       return reg.test(url) ? url : `https://api.nomoreparties.co${url}`;
     };
-    return arr.filter((item) => item.image !== null || undefined).map((mov) => {
+    return arr.map((mov) => {
+      const { url } = mov.image
+        ? mov.image : 'https://avatars.mds.yandex.net/get-zen_doc/1881616/pub_5e1ea9963639e600ad0cfebb_5e21840e86c4a900ac971659/scale_1200';
       const card = {
-        image: regCheck(mov.image.url),
+        image: regCheck(url),
         nameEN: mov.nameEN || 'Not names films',
         nameRU: mov.nameRU || 'Фильм без названия',
         country: mov.country || 'Россия',
@@ -121,7 +123,7 @@ function App() {
         description: mov.description || 'без комментариев',
         id: mov.id,
         trailerLink: mov.trailerLink,
-        thumbnail: regCheck(mov.image.formats.thumbnail.url) || this.image,
+        thumbnail: regCheck(url),
       };
       return card;
     });
@@ -295,7 +297,7 @@ function App() {
     if (isSaved && !card._id) {
       movie = userMovies.find((i) => i.id === card.id);
     }
-
+    console.log(card);
     mainApi
       .changeSaveMoviesStatus(movie, !isSaved)
       .then((newCard) => {
