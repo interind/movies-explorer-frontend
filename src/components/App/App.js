@@ -474,7 +474,6 @@ function App() {
                 footer={Footer}
               >
                 <Movies
-                  allMovies={moviesData}
                   movies={filterData}
                   userMovies={userMovies}
                   stateHeader={stateHeader}
