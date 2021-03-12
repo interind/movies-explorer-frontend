@@ -38,7 +38,7 @@ function SearchForm({
       return;
     }
     localStorage.setItem('search', movie);
-    onSearch(evt, movie);
+    onSearch(statusCheck, nameFrom, movie);
   }
 
   return (

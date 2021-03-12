@@ -139,16 +139,15 @@ function App() {
       return resolve(arr);
     });
   }
-  function onSearch(evt, str) {
+  function onSearch(checked, nameForm, str) {
     setTimeout(() => {
       setLoading(true);
     }, 100);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-    const formChecked = evt.target;
-    if (formChecked[2].checked === true) {
-      if (formChecked.name === 'movies') {
+    if (checked === true) {
+      if (nameForm === 'movies') {
         searchMovies(moviesData, str)
           .then((data) => {
             if (data.length <= 0) {
@@ -171,8 +170,8 @@ function App() {
           .catch((err) => infoMessage(`ошибка фильтра ${err.name || '?'}`, false, true))
           .finally(() => setLoading(false));
       }
-    } else if (formChecked[2].checked === false) {
-      if (formChecked.name === 'movies') {
+    } else if (checked === false) {
+      if (nameForm === 'movies') {
         searchMovies(moviesData, str)
           .then((data) => {
             if (data.length <= 0) {
