@@ -9,6 +9,17 @@
   cursor: pointer;
   opacity: .5;
 }
+.Button__app {
+  position: fixed;
+  bottom: 100px;
+  right: 15%;
+  width: 30px;
+  height: 30px;
+  background-image: url('../../images/button/top.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 150%;
+}
 .Button__close_place_header {
   position: absolute;
   top: 25px;

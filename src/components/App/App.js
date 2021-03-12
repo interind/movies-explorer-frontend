@@ -85,7 +85,6 @@ function App() {
   const [filterUserMovies, setFilterUserMovies] = React.useState([]);
   const [userMovies, setUserMovies] = React.useState([]);
   const [buttonLoading, setButtonLoading] = React.useState(false);
-
   const infoMessage = React.useCallback((text, type, visible) => {
     if (visible) {
       setStatusInfo({
@@ -532,6 +531,7 @@ function App() {
                 />
               </Route>
             </Switch>
+            <Button className='Button__app' type='button' title='Вверх' onChange={() => window.scrollTo(0, 0)}/>
           </div>
         </ErrorBoundary>
       </CurrentUserContext.Provider>

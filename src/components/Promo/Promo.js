@@ -32,7 +32,7 @@ function Promo() {
     document.querySelector(evt.target.hash).scrollIntoView();
   };
   return (
-    <section className="Promo">
+    <section className="Promo" id={'promo'}>
       <h1 className='Promo__title'>{promo.title}</h1>
       <div className='Promo__nav-tab'>
         <NavTab links={dataLinks} place={promo.place} handleLinkClick={handleLinkClick}/>
