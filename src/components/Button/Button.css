@@ -15,6 +15,7 @@
   right: 50%;
   width: 30px;
   height: 30px;
+  transform: translateX(-50%);
   background-image: url('../../images/button/top.svg');
   background-position: center;
   background-repeat: no-repeat;

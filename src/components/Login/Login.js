@@ -14,6 +14,7 @@ import Navigation from '../Navigation/Navigation';
 import './Login.css';
 
 function Login({
+  loggedIn,
   onLogin,
   buttonLoading,
   onHeader,
@@ -73,6 +74,12 @@ function Login({
   }
 
   useEffect(() => {
+    if (loggedIn) {
+      history.push('/movies');
+    }
+  }, [history, loggedIn]);
+
+  useEffect(() => {
     if (stateHeader) {
       onHeader(false);
     }
@@ -105,6 +112,7 @@ function Login({
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   stateHeader: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool.isRequired,
 };
