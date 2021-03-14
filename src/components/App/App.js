@@ -301,6 +301,7 @@ function App() {
       .then((newCard) => {
         if (!isSaved) {
           setUserMovies([...userMovies, newCard]);
+          setFilterUserMovies([...filterUserMovies, newCard]);
           infoMessage('Фильм сохранен', true, true);
         } else {
           const movies = userMovies.filter((m) => m.id !== card.id);
