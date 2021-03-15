@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  useHistory,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 import Form from '../Form/Form';
@@ -15,7 +18,9 @@ function Register({
   buttonLoading,
   onHeader,
   stateHeader,
+  loggedIn,
 }) {
+  const history = useHistory();
   const link = [{
     path: '/signin',
     text: 'Войти',
@@ -66,6 +71,12 @@ function Register({
   }
 
   useEffect(() => {
+    if (loggedIn) {
+      history.push('/movies');
+    }
+  }, [history, loggedIn]);
+
+  useEffect(() => {
     if (stateHeader) {
       onHeader(false);
     }
@@ -99,6 +110,7 @@ function Register({
 Register.propTypes = {
   onRegister: PropTypes.func.isRequired,
   onHeader: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   stateHeader: PropTypes.bool.isRequired,
   buttonLoading: PropTypes.bool.isRequired,
 };

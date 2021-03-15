@@ -510,6 +510,7 @@ function App() {
                 </ProtectedRoute>
               <Route path='/signup' exact>
                 <Register
+                  loggedIn={loggedIn}
                   stateHeader={stateHeader}
                   buttonLoading={buttonLoading}
                   onHeader={onHeader}
