@@ -56,12 +56,12 @@
 }
 .Register__input-error {
   visibility: hidden;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.25;
   font-weight: normal;
   font-style: normal;
   font-family: inherit;
-  color: #f00;
+  color: #EE3465;
   text-align: right;
   padding-left: 30px;
 }
