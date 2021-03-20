@@ -85,6 +85,13 @@ function Login({
     }
   }, [onHeader, stateHeader]);
 
+  React.useEffect(() => {
+    if (!localStorage.getItem('email')) {
+      setLogin({ email: 'guest@pochta.ru', password: '123456' });
+      setActiveButton(false);
+    }
+  }, []);
+
   return (
     <section className='Login'>
       <Form className='Login-form' nameFrom='login-form' onSubmit={(evt) => verifiesAuthorization(evt)}>

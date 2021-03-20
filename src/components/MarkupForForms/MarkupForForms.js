@@ -286,7 +286,6 @@ export default {
         onInput={validationCheck}
         onFocus={validationCheck}
         autoComplete='off'
-        autoFocus={true}
         required />
         { placeMessage && (
           <div className='SearchForm__error'>
