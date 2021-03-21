@@ -25,6 +25,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import './App.css';
+import guest from '../../utils/constants';
 
 function App() {
   const history = useHistory();
@@ -393,8 +394,8 @@ function App() {
 
   React.useEffect(() => {
     if (!localStorage.getItem('email')) {
-      localStorage.setItem('email', 'guest@pochta.ru');
-      localStorage.setItem('password', '123456');
+      localStorage.setItem('email', guest.email);
+      localStorage.setItem('password', guest.password);
     }
   }, []);
 

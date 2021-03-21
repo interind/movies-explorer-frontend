@@ -6,6 +6,7 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
+import guest from '../../utils/constants';
 
 function Profile({
   onEditProfile,
@@ -38,7 +39,11 @@ function Profile({
 
   function handleEditProfile(evt) {
     evt.preventDefault();
-    onEditProfile(profile);
+    if (localStorage.getItem('email') === guest.email) {
+      onEditProfile({ name: '', email: '' });
+    } else {
+      onEditProfile(profile);
+    }
   }
 
   useEffect(() => {

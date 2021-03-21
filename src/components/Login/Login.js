@@ -12,6 +12,7 @@ import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
 import './Login.css';
+import guest from '../../utils/constants';
 
 function Login({
   loggedIn,
@@ -88,7 +89,7 @@ function Login({
 
   useEffect(() => {
     if (!localStorage.getItem('email')) {
-      setLogin({ email: 'guest@pochta.ru', password: '123456' });
+      setLogin({ ...guest });
       setActiveButton(false);
     }
   }, []);
