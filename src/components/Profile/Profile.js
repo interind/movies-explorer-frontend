@@ -40,7 +40,7 @@ function Profile({
   function handleEditProfile(evt) {
     evt.preventDefault();
     if (localStorage.getItem('email') === guest.email) {
-      onEditProfile({ name: '', email: '' });
+      onEditProfile(guest);
     } else {
       onEditProfile(profile);
     }
