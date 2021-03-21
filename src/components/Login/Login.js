@@ -29,9 +29,10 @@ function Login({
   }];
   const history = useHistory();
   const localEmail = localStorage.getItem('email');
+  const localPassword = localStorage.getItem('password');
   const localName = localStorage.getItem('name');
 
-  const [login, setLogin] = useState({ email: localEmail || '', password: '' });
+  const [login, setLogin] = useState({ email: localEmail || '', password: localPassword || '' });
   const [activeButton, setActiveButton] = useState(true);
   const [validCheck, setValidCheck] = useState({});
   const textButton = buttonLoading ? 'Проверка...' : 'Войти';
@@ -85,7 +86,7 @@ function Login({
     }
   }, [onHeader, stateHeader]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!localStorage.getItem('email')) {
       setLogin({ email: 'guest@pochta.ru', password: '123456' });
       setActiveButton(false);

@@ -390,6 +390,13 @@ function App() {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (!localStorage.getItem('email')) {
+      localStorage.setItem('email', 'guest@pochta.ru');
+      localStorage.setItem('password', '123456');
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <CurrentUserContext.Provider value={currentUser}>
