@@ -356,6 +356,7 @@ function App() {
           setLoading(true);
           setLoggedIn(true);
           setUserMovies(dataMovies);
+          setFilterUserMovies(dataMovies);
           setCurrentUser({ ...dataUser });
           localStorage.setItem('email', dataUser.email);
           localStorage.setItem('name', dataUser.name);
