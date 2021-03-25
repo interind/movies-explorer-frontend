@@ -43,7 +43,7 @@ function AddPlaceForm({
   }
 
   function setPlace(evt) {
-    setAddPlace({ ...addPlace, [evt.target.name]: evt.target.value });
+    setAddPlace({ ...addPlace, [evt.target.name]: evt.target.value.trim() });
     messageStorage({ [evt.target.name]: evt.target.value });
     if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
       setActiveButton(true);
@@ -52,9 +52,10 @@ function AddPlaceForm({
     }
   }
 
-  function clearInput() {
+  function clearInput(evt) {
     localStorage.removeItem('place');
     localStorage.removeItem('link');
+    evt.target.reset();
     setAddPlace({ ...addPlace, place: '', link: '' });
   }
 
@@ -62,9 +63,8 @@ function AddPlaceForm({
     evt.preventDefault();
     imagesCheck(addPlace.link)
       .then(() => {
-        onAddPlace(addPlace)
-          .then(() => clearInput())
-          .catch((err) => err);
+        onAddPlace(addPlace);
+        return clearInput(evt);
       })
       .catch((err) => {
         setValidPlace({ ...validPlace, link: err.message });

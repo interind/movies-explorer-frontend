@@ -21,7 +21,7 @@ function SearchForm({
   const validText = 'Нужно ввести ключевое слово.';
 
   function setEditMovies(evt) {
-    setMovie(evt.target.value);
+    setMovie(evt.target.value.trim());
     setActiveButton(!evt.target.validity.valid);
   }
 

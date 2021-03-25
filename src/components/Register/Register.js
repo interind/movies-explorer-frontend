@@ -42,7 +42,7 @@ function Register({
   }
 
   function setEditRegister(evt) {
-    setRegister({ ...register, [evt.target.name]: evt.target.value });
+    setRegister({ ...register, [evt.target.name]: evt.target.value.trim() });
     if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
       setActiveButton(true);
     } else {

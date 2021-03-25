@@ -47,7 +47,7 @@ function Login({
   }
 
   function setEditLogin(evt) {
-    setLogin({ ...login, [evt.target.name]: evt.target.value });
+    setLogin({ ...login, [evt.target.name]: evt.target.value.trim() });
     if (Array.from(evt.target.form).some((e) => e.validationMessage)) {
       setActiveButton(true);
     } else {

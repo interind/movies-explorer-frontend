@@ -402,7 +402,6 @@ function App() {
 
   function handleAddPlace({ place, link }) {
     setButtonLoading(true);
-    setLoading(true);
     return mainApi
       .addCard({ name: place, link })
       .then((newCard) => {
@@ -410,16 +409,16 @@ function App() {
           return infoMessage('ошибка данных', false, true);
         }
         setCards([newCard, ...cards]);
-        return setStatusInfo({
+        setStatusInfo({
           ...statusInfo,
           message: 'Карточка добавлена',
           type: true,
           visible: true,
         });
+        return Promise.resolve();
       })
       .catch((err) => infoMessage(`Информация cards error: ${err.message}`, false, true))
       .finally(() => {
-        setLoading(false);
         setButtonLoading(false);
       });
   }
