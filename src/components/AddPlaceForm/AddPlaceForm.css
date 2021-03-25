@@ -1,26 +1,22 @@
-.SearchForm {
+.AddPlaceForm {
   display: flex;
   max-width: 1280px;
   width: 100%;
+  justify-content: center;
 }
-.SearchForm-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 54px;
-  grid-template-rows: 1fr 28px auto;
-  align-items: center;
+.AddPlaceForm-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   max-width: 1140px;
-  width: 100%;
-  min-width: 89%;
+  width: 89%;
   background-color: #fff;
-  padding-bottom: 40px;
   border-bottom: 1px solid #E8E8E8;
   margin: 0 auto;
   margin-bottom: 10px;
-  padding: 0 10px;
 }
-.SearchForm__input {
-  grid-column: 1/4;
-  grid-row: 1;
+.AddPlaceForm__input {
   min-height: 44px;
   background-color: #F9F9F9;
   border-radius: 5px;
@@ -31,28 +27,27 @@
   min-width: 238px;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 12px;
-  padding: auto 10px;
+  padding: 0 10px;
   outline: none;
+  margin-top: 20px;
 }
-.SearchForm__input:placeholder {
+.AddPlaceForm__input:placeholder {
   color: #A0A0A0;
 }
-.SearchForm__input:valid {
+.AddPlaceForm__input:valid {
   background: linear-gradient(100deg, #fff, #2BE080, #fff);
 }
-.SearchForm__input:invalid {
+.AddPlaceForm__input:invalid {
   background: linear-gradient(100deg, #fff, #ff6738cb, #fff);
 }
-.SearchForm__error {
-  grid-column: 1/4;
-  grid-row: 2;
+
+.AddPlaceForm__error {
   position: relative;
   width: 100%;
   height: 0;
   align-self: flex-start;
-  margin-left: 20px;
 }
-.SearchForm__input-error {
+.AddPlaceForm__input-error {
   visibility: hidden;
   font-size: 10px;
   line-height: 1.25;
@@ -61,28 +56,20 @@
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: #EE3465;
 }
-.SearchForm__input-error_active {
+.AddPlaceForm__input-error_active {
   visibility: visible;
   position: absolute;
   top: 0;
   left: 0;
 }
-.SearchForm-label {
+.AddPlaceForm-label {
   display: flex;
   justify-content: center;
   margin: 0 auto;
 }
-.SearchForm-Check {
-  grid-column: 2/3;
-  grid-row: 3;
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  align-self: flex-start;
-}
 
 @media screen and (max-width: 780px) {
-  .SearchForm-container {
+  .AddPlaceForm-container {
     max-width: 708px;
   }
 }

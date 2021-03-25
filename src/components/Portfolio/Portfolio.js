@@ -21,11 +21,11 @@ function Portfolio() {
       type: 'url',
     },
     {
-      path: 'https://interind.students.nomoreparties.xyz',
+      path: '/movies',
       text: 'Одностраничное приложение',
       title: 'ссылка на сайт mesto-react',
       active: '',
-      type: 'url',
+      type: 'local',
     },
   ];
   return (

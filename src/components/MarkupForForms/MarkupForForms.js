@@ -3,6 +3,76 @@ import classes from 'classnames';
 import PropTypes from 'prop-types';
 
 export default {
+  Place: function Place({
+    place,
+    link,
+    editPlace,
+    validationPlace,
+    placeMessage,
+  }) {
+    Place.propTypes = {
+      place: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      editPlace: PropTypes.func.isRequired,
+      validationPlace: PropTypes.func.isRequired,
+      placeMessage: PropTypes.object.isRequired,
+    };
+    const inputValidClass = classes('AddPlaceForm__input', {
+      AddPlaceForm__input_type_error: place || link,
+    });
+    return (
+      <React.Fragment>
+        <label className='AddPlaceForm__label' htmlFor='input-place' />
+          <input
+            className={inputValidClass}
+            type='text'
+            placeholder='Название'
+            id='input-place'
+            name='place'
+            minLength='2'
+            defaultValue={place}
+            maxLength='30'
+            onChange={editPlace}
+            onInput={validationPlace}
+            onFocus={validationPlace}
+            required
+          />
+        {place !== '' && (
+          <div className='AddPlaceForm__error'>
+            <span
+              className='AddPlaceForm__input-error AddPlaceForm__input-error_active'
+              id='input-place-error'
+            >
+              {placeMessage.place}
+            </span>
+          </div>
+        )}
+        <label className='AddPlaceForm__label' htmlFor='input-link' />
+          <input
+            className={inputValidClass}
+            type='url'
+            placeholder='Ссылка на картинку'
+            id='input-link'
+            defaultValue={link}
+            name='link'
+            onChange={editPlace}
+            onInput={validationPlace}
+            onFocus={validationPlace}
+            required
+          />
+        {link !== '' && (
+          <div className='AddPlaceForm__error'>
+            <span
+              className='AddPlaceForm__input-error AddPlaceForm__input-error_active'
+              id='input-link-error'
+            >
+              {placeMessage.link}
+            </span>
+          </div>
+        )}
+      </React.Fragment>
+    );
+  },
   Profile: function Profile({
     name,
     email,

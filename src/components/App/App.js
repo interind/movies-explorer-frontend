@@ -4,6 +4,8 @@ import {
   Switch,
   useHistory,
 } from 'react-router-dom';
+import guest from '../../utils/constants';
+import Card from '../Card/Card';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
@@ -13,19 +15,21 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
 import Profile from '../Profile/Profile';
 import InfoTool from '../InfoTool/InfoTool';
+import CardList from '../CardsList/CardList';
 import NotFound from '../NotFound/NotFound';
 import Register from '../Register/Register';
 import Preloader from '../Preloader/Preloader';
-import ErrorBoundary from '../Error/ErrorBoundary';
+import moviesApi from '../../utils/MoviesApi';
 import Navigation from '../Navigation/Navigation';
+import DeleteForm from '../DeleteForm/DeleteForm';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import ImageForPopup from '../ImageForPopup/ImageForPopup';
+import ErrorBoundary from '../Error/ErrorBoundary';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import './App.css';
-import guest from '../../utils/constants';
 
 function App() {
   const history = useHistory();
@@ -58,6 +62,13 @@ function App() {
       title: 'Перейти на страницу поиска фильмов',
       type: 'local',
     },
+    {
+      path: '/cards',
+      text: 'Картинки',
+      active: '',
+      title: 'Перейти к картинкам',
+      type: 'local',
+    },
   ];
   const dataLinks = [
     {
@@ -75,6 +86,11 @@ function App() {
       type: 'local',
     },
   ];
+  const [isCard, setIsCard] = React.useState({});
+  const [isConfirmDeletePopupOpen, setConfirmDeletePopup] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isOpenCard, setOpenCard] = React.useState(false);
+  const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '', _id: '' });
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [stateHeader, setStateHeader] = React.useState(true);
@@ -201,13 +217,15 @@ function App() {
   const openPopup = () => {
     setStatusPopup(true);
   };
-  const closePopup = () => {
+  const closeAllPopups = () => {
+    setConfirmDeletePopup(false);
     setStatusPopup(false);
-    setStatusInfo({ ...statusInfo, visible: false });
+    setOpenCard(false);
+    setStatusInfo({ ...statusInfo, message: '', visible: false });
   };
   const closePopupEsc = (evt) => {
     if (evt.key === 'Escape') {
-      closePopup();
+      closeAllPopups();
     }
   };
 
@@ -278,9 +296,9 @@ function App() {
   }
   async function toggleEventListenerWindowClick(bool) {
     if (bool) {
-      window.addEventListener('click', closePopup);
+      window.addEventListener('click', closeAllPopups);
     } else {
-      window.removeEventListener('click', closePopup);
+      window.removeEventListener('click', closeAllPopups);
     }
   }
 
@@ -336,6 +354,76 @@ function App() {
       });
   }
 
+  function handleCardLike({ likes, _id }) {
+    // получаем лайки с сервера
+    const isLiked = likes.some((i) => i === currentUser._id);
+
+    mainApi
+      .changeLikeCardStatus(_id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === _id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) => infoMessage(`Информация cards error: ${err.message}`, false, true));
+  }
+
+  function handleCardDelete({ _id }) {
+    // удаляем карточку
+    const idCard = _id;
+    setButtonLoading(true);
+    return mainApi
+      .deleteCard(_id)
+      .then((res) => {
+        if (res.error) {
+          setStatusInfo({
+            ...statusInfo,
+            message: `${res.error}`,
+            type: false,
+            visible: true,
+          });
+        }
+        setCards(cards.filter((card) => card._id !== idCard));
+      })
+      .catch((err) => infoMessage(`Информация cards error: ${err.message}`, false, true))
+      .finally(() => {
+        setButtonLoading(false);
+        closeAllPopups();
+      });
+  }
+
+  function handleConfirmDeleteClick(card) {
+    setConfirmDeletePopup(true);
+    setIsCard(card);
+  }
+  function handleCardClick({ ...props }) {
+    setSelectedCard({ ...props });
+    setOpenCard(true);
+  }
+
+  function handleAddPlace({ place, link }) {
+    setButtonLoading(true);
+    setLoading(true);
+    return mainApi
+      .addCard({ name: place, link })
+      .then((newCard) => {
+        if (!newCard || newCard.error || newCard.message) {
+          return infoMessage('ошибка данных', false, true);
+        }
+        setCards([newCard, ...cards]);
+        return setStatusInfo({
+          ...statusInfo,
+          message: 'Карточка добавлена',
+          type: true,
+          visible: true,
+        });
+      })
+      .catch((err) => infoMessage(`Информация cards error: ${err.message}`, false, true))
+      .finally(() => {
+        setLoading(false);
+        setButtonLoading(false);
+      });
+  }
+
   React.useEffect(() => {
     if (loggedIn && localStorage.getItem('jwt')) {
       const token = localStorage.getItem('jwt');
@@ -343,10 +431,11 @@ function App() {
       Promise.all([
         mainApi.getInfoForUser(token),
         mainApi.getInfoForMovies(token),
+        mainApi.getInfoForCards(token),
         moviesApi.getMovies(),
       ])
-        .then(([dataUser, dataMovies, info]) => {
-          if (!(dataUser && dataMovies) || (dataUser.error && dataMovies.error)) {
+        .then(([dataUser, dataMovies, dataCards, info]) => {
+          if (!(dataUser && dataMovies && dataCards) || (dataUser.error && dataMovies.error)) {
             setStatusInfo({
               message: 'ошибка данных',
               type: false,
@@ -358,6 +447,7 @@ function App() {
           setLoggedIn(true);
           setUserMovies(dataMovies);
           setFilterUserMovies(dataMovies);
+          setCards(dataCards);
           setCurrentUser({ ...dataUser });
           localStorage.setItem('email', dataUser.email);
           localStorage.setItem('name', dataUser.name);
@@ -410,36 +500,36 @@ function App() {
                 <NavTab
                   links={moviesPage}
                   place={'header'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
                 <NavTab
                   links={avatar}
                   place={'avatar'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
               </Navigation>) : (
               <Navigation place={'header'}>
                 <NavTab
                   links={[page]}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
                 <NavTab
                   links={dataLinks}
                   place={'header'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
               </Navigation>)}
             </Header>)}
             <Popup
               isOpen={isStatusPopup}
-              closePopup={closePopup}
+              closePopup={closeAllPopups}
               toggleEventListenerWindow={toggleEventListenerWindow}
             >
               <Button
                 title={'Закрыть'}
                 type={'button'}
                 className={'Button__close_place_header'}
-                onChange={closePopup}
+                onChange={closeAllPopups}
                 />
               <Navigation place={'popup'}>
                {loggedIn ? (
@@ -447,28 +537,28 @@ function App() {
                 <NavTab
                   links={[page, ...moviesPage]}
                   place={'popup'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
-                <NavTab links={avatar} place={'avatar-popup'} onChange={closePopup}/>
+                <NavTab links={avatar} place={'avatar-popup'} onChange={closeAllPopups}/>
               </>) : (
               <>
                 <NavTab
                   links={[page]}
                   place={'popup'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
                 <NavTab
                   links={dataLinks}
                   place={'popup'}
-                  onChange={closePopup}
+                  onChange={closeAllPopups}
                 />
               </>)}
               </Navigation>
             </Popup>
-            {statusInfo.visible && <InfoTool
+            <InfoTool
               data={statusInfo}
               toggleEventListenerWindowClick={toggleEventListenerWindowClick}
-            />}
+            />
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>
@@ -507,6 +597,21 @@ function App() {
                 />
               </ProtectedRoute>
               <ProtectedRoute
+                path='/cards' exact
+                loggedIn={loggedIn}
+                footer={Footer}
+              >
+                <CardList
+                  component={Card}
+                  cards={cards}
+                  handleCardLike={handleCardLike}
+                  onAddPlace={handleAddPlace}
+                  buttonLoading={buttonLoading}
+                  handleCardClick={handleCardClick}
+                  handleCardDelete={handleConfirmDeleteClick}
+                />
+              </ProtectedRoute>
+              <ProtectedRoute
                 path='/profile' exact
                 loggedIn={loggedIn}
                 >
@@ -542,6 +647,20 @@ function App() {
                 />
               </Route>
             </Switch>
+            <DeleteForm
+              isCard={isCard}
+              buttonLoading={buttonLoading}
+              isOpen={isConfirmDeletePopupOpen}
+              onClose={closeAllPopups}
+              onDeleteCard={handleCardDelete}
+              toggleEventListenerWindow={toggleEventListenerWindow}
+            />
+            <ImageForPopup
+              isOpen={isOpenCard}
+              selectedCard={selectedCard}
+              onClose={closeAllPopups}
+              toggleEventListenerWindow={toggleEventListenerWindow}
+            />
           </div>
         </ErrorBoundary>
       </CurrentUserContext.Provider>

@@ -11,8 +11,8 @@ import HeaderBar from '../HeaderBar/HeaderBar';
 import MarkupForForms from '../MarkupForForms/MarkupForForms';
 import NavTab from '../NavTab/NavTab';
 import Navigation from '../Navigation/Navigation';
-import './Login.css';
 import guest from '../../utils/constants';
+import './Login.css';
 
 function Login({
   loggedIn,

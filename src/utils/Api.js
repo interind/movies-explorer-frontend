@@ -3,12 +3,14 @@ class Api {
     url,
     login,
     user,
+    cards,
     movies,
     register,
     headers,
   }) {
     this._url = url;
     this._user = user;
+    this._cards = cards;
     this._movies = movies;
     this._login = login;
     this._register = register;
@@ -67,6 +69,16 @@ class Api {
     }).then(this._getResponse);
   }
 
+  getInfoForCards() {
+    return fetch(`${this._url}${this._cards}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then(this._getResponse);
+  }
+
   getMovies() {
     return fetch(`${this._url}${this._movies}`, {
       method: 'GET',
@@ -86,6 +98,42 @@ class Api {
         Authorization: `Bearer ${this.token}`,
       },
       body: JSON.stringify({ ...this.filterKeys(arg) }),
+    }).then(this._getResponse);
+  }
+
+  addCard({ name, link }) {
+    return fetch(`${this._url}${this._cards}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    }).then(this._getResponse);
+  }
+
+  changeLikeCardStatus(infoId, isLike) {
+    const toggleMethod = isLike ? 'PUT' : 'DELETE';
+    return fetch(`${this._url}${this._cards}/${infoId}/likes`, {
+      method: toggleMethod,
+
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then(this._getResponse);
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._url}${this._cards}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        'Content-type': 'application/json; charset=UTF-8',
+      },
     }).then(this._getResponse);
   }
 

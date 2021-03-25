@@ -4,7 +4,6 @@ import classes from 'classnames';
 import Button from '../Button/Button';
 import notFound from '../../images/moviesCard/errorPic.jpg';
 import './MoviesCard.css';
-import '../NotFound/NotFound.css';
 
 function MoviesCard({
   card,

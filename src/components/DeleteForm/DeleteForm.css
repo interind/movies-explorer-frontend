@@ -1,0 +1,60 @@
+.DeleteForm-container {
+  visibility: inherit;
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 430px;
+  min-width: 280px;
+  width: 100%;
+  background-color:#fff;
+  padding: 34px 36px 36.51px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+  border-radius: 10px;
+  max-height: 75vh;
+}
+
+.DeleteForm-title {
+  max-width: 330px;
+  width: 100%;
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #000;
+  align-self: start;
+}
+
+@media screen and (max-height: 414px) {
+  .DeleteForm-container {
+    padding: 15px 36px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .DeleteForm-container {
+    width: 80%;
+    padding: 16px 18px 18px;
+  }
+  .DeleteForm-title {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .DeleteForm-container {
+    width: 75%;
+    padding: 30px 20px;
+  }
+  .DeleteForm-title {
+    max-width: 185px;
+  }
+}

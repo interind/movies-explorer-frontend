@@ -1,0 +1,150 @@
+.Card {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  max-width: 200px;
+  min-height: 260px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11), 0 4px 6px;
+}
+
+.Card:hover {
+  transform: translateY(-2px) scale(1.005) translateZ(0);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 46px;
+}
+
+.Card__title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 160px;
+  width: 100%;
+  margin: 26px 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
+}
+
+.Card__title:hover {
+  cursor: default;
+}
+
+.Card__pic {
+  display: block;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.Card__pic:hover {
+  cursor: zoom-in;
+}
+
+.Card__like {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  margin: 26px 0;
+}
+
+.Card__info {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  max-width: 200px;
+  width: 100%;
+  margin: 0;
+  padding-left: 21px;
+  padding-right: 7px;
+}
+
+.Card__counter-like {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.23;
+  transform: translate( 0, 3px);
+}
+
+.Card__counter-like:hover {
+  cursor: default;
+}
+
+.Card__button-trash {
+  position: absolute;
+  visibility: hidden;
+  right: 15px;
+  top: 18px;
+  background-color: transparent;
+  background-image: url(../../images/elements/TrashBlack.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  width: 18px;
+  height: 19.5px;
+  border: none;
+  outline: none;
+}
+
+.Card__button-trash:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
+.Card__button-trash_visible {
+  visibility: visible;
+}
+
+.Card__button-like {
+  display: flex;
+  align-items: center;
+  width: 21px;
+  height: 19px;
+  outline-style: none;
+  background-repeat: no-repeat;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  background-image: url(../../images/elements/GroupWhite.svg);
+  background-position: center;
+}
+
+.Card__button-like:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.Card__button-like:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px lightskyblue;
+}
+
+.Card__button-like_color_black {
+ background-image: url(../../images/elements/GroupBlack.svg);
+}
+
+@media screen and (max-width: 600px) {
+  .Card {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 320px) {
+  .Card {
+    max-width: 282px;
+  }
+  .Card__info {
+    padding-right: 15px;
+  }
+}

@@ -5,11 +5,12 @@ import './Popup.css';
 
 function Popup({
   isOpen,
+  modifier,
   closePopup,
   children,
   toggleEventListenerWindow,
 }) {
-  const popup = classes('Popup', { Popup_opened: isOpen });
+  const popup = classes(`Popup ${modifier ? `Popup_type_${modifier}` : ''}`, { Popup_opened: isOpen });
   React.useEffect(() => {
     if (isOpen) {
       toggleEventListenerWindow(true);
@@ -31,6 +32,7 @@ function Popup({
 
 Popup.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  modifier: PropTypes.string,
   children: PropTypes.any.isRequired,
   closePopup: PropTypes.func.isRequired,
   toggleEventListenerWindow: PropTypes.func.isRequired,

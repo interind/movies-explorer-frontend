@@ -4,6 +4,7 @@ class MainApi extends Api {
   constructor({
     url,
     movies,
+    cards,
     user,
     register,
     login,
@@ -12,6 +13,7 @@ class MainApi extends Api {
     super({
       url,
       movies,
+      cards,
       user,
       register,
       login,
@@ -23,7 +25,8 @@ class MainApi extends Api {
 const headers = { 'Content-type': 'application/json; charset=UTF-8' };
 
 const mainApi = new MainApi({
-  url: 'https://api.interind.students.nomoredomains.monster/',
+  url: 'http://api.interind.students.nomoredomains.monster/',
+  cards: 'cards',
   movies: 'movies',
   user: 'users/me',
   register: 'signup',
