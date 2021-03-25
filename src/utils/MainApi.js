@@ -25,7 +25,7 @@ class MainApi extends Api {
 const headers = { 'Content-type': 'application/json; charset=UTF-8' };
 
 const mainApi = new MainApi({
-  url: 'http://api.interind.students.nomoredomains.monster/',
+  url: '/',
   cards: 'cards',
   movies: 'movies',
   user: 'users/me',
