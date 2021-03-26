@@ -221,8 +221,11 @@ function App() {
     setConfirmDeletePopup(false);
     setStatusPopup(false);
     setOpenCard(false);
-    setStatusInfo({ ...statusInfo, message: '', visible: false });
   };
+
+  function closeInfo() {
+    setStatusInfo({ ...statusInfo, message: '', visible: false });
+  }
   const closePopupEsc = (evt) => {
     if (evt.key === 'Escape') {
       closeAllPopups();
@@ -296,9 +299,9 @@ function App() {
   }
   async function toggleEventListenerWindowClick(bool) {
     if (bool) {
-      window.addEventListener('click', closeAllPopups);
+      window.addEventListener('click', closeInfo);
     } else {
-      window.removeEventListener('click', closeAllPopups);
+      window.removeEventListener('click', closeInfo);
     }
   }
 
@@ -383,6 +386,12 @@ function App() {
           });
         }
         setCards(cards.filter((card) => card._id !== idCard));
+        setStatusInfo({
+          ...statusInfo,
+          message: 'Карточка удалена',
+          type: true,
+          visible: true,
+        });
       })
       .catch((err) => infoMessage(`Информация cards error: ${err.message}`, false, true))
       .finally(() => {
@@ -554,10 +563,10 @@ function App() {
               </>)}
               </Navigation>
             </Popup>
-            <InfoTool
+            {statusInfo.visible && (<InfoTool
               data={statusInfo}
               toggleEventListenerWindowClick={toggleEventListenerWindowClick}
-            />
+            />)}
             {(loggedIn && loading) && <Preloader />}
             <Switch>
               <Route path='/' exact>

@@ -55,6 +55,7 @@ function AddPlaceForm({
   function clearInput(evt) {
     localStorage.removeItem('place');
     localStorage.removeItem('link');
+    setActiveButton(true);
     evt.target.reset();
     setAddPlace({ ...addPlace, place: '', link: '' });
   }
