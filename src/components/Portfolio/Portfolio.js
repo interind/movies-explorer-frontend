@@ -21,9 +21,9 @@ function Portfolio() {
       type: 'url',
     },
     {
-      path: '/movies',
+      path: '/cards',
       text: 'Одностраничное приложение',
-      title: 'ссылка на сайт mesto-react',
+      title: 'ссылка на проект',
       active: '',
       type: 'local',
     },
