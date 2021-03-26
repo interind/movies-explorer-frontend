@@ -18,15 +18,15 @@ function NavTab(
         {links.map((link) => <li key={cryptoKeys(link.path)} onClick={onChange} className={`NavTab__item NavTab__item_place_${place} ${link.active ? 'NavTab__item-active' : ''}`}>
             {link.type === 'local' && (<NavLink className='NavTab__link' activeClassName={`${link.active ? '' : 'NavTab__link_active'}`} exact
               to={link.path} title={link.title}>
-              {link.text}
+              {link.text} {children && children}
             </NavLink>)}
             { link.type === 'url' && (<a className='NavTab__link'
               href={link.path} title={link.title} target='_blank' rel='noopener noreferrer'>
-              {link.text} {children}
+              {link.text} {children && children}
             </a>)}
             {link.type === '' && (<NavLink className='NavTab__link'
               to={link.path} title={link.title} onClick={handleLinkClick}>
-              {link.text}
+              {link.text} {children && children}
             </NavLink>)}
           </li>)}
       </ul>
