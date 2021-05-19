@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from '../Popup/Popup';
 import notFound from '../../images/moviesCard/errorPic.jpg';
-import Button from '../Button/Button';
 import './ImageForPopup.css';
 
 function ImageForPopup({
@@ -25,12 +24,6 @@ function ImageForPopup({
       <div className='ImageForPopup'>
         <img className='ImageForPopup__pic' src={selectedCard.link || ImagePopup.link} alt={selectedCard.name || 'картинка'} />
         <span className='ImageForPopup__place-pic'>{selectedCard.name}</span>
-        <Button
-          className='Button-Close'
-          type='button'
-          title='закрыть'
-          onChange={onClose}
-        />
       </div>
     </Popup>
   );
