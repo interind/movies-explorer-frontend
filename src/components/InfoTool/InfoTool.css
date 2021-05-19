@@ -1,6 +1,6 @@
 .InfoTool {
-  position: absolute;
-  top: 200px;
+  position: sticky;
+  top: 50%;
   left: 0;
   right: 0;
   display: flex;
@@ -18,11 +18,13 @@
   font-weight: 400;
   line-height: 1.21;
   text-align: center;
-  background-color: #fff;
+  color: #fff;
+  width: 90vw;
+  max-width: 1200px;
 }
 .InfoTool__title_theme_green {
-  color: #2BE080;
+  background: #157491;
 }
 .InfoTool__title_theme_red {
-  color: #f00;
+  background: #f00;
 }

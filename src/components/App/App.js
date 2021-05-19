@@ -96,7 +96,7 @@ function App() {
   const [stateHeader, setStateHeader] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [isStatusPopup, setStatusPopup] = React.useState(false);
-  const [statusInfo, setStatusInfo] = React.useState({ message: '', type: false, visible: false });
+  const [statusInfo, setStatusInfo] = React.useState({ message: '', type: true, visible: false });
   const [moviesData, setMoviesDate] = React.useState([]);
   const [filterData, setFilterDate] = React.useState([]);
   const [filterUserMovies, setFilterUserMovies] = React.useState([]);

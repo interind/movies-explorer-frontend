@@ -350,7 +350,7 @@ export default {
         name='search'
         value={movie}
         type='text'
-        placeholder='Фильм'
+        placeholder='Введите слово для поиска фильма'
         minLength='1'
         onChange={setEditMovies}
         onInput={validationCheck}
