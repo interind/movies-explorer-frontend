@@ -1,6 +1,8 @@
 ## Проект Movies + Pictures
 
-адрес: https://interind.students.nomoredomains.monster
+Приложение для API по ссылке https://github.com/interind/movies-explorer-api
+
+сначала нужно запустить API, затем приложения работают в связке.
 
 **Описание:**
 Это моё портфолио.
