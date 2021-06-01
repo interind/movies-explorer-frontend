@@ -25,7 +25,7 @@ class MainApi extends Api {
 const headers = { 'Content-type': 'application/json; charset=UTF-8' };
 
 const mainApi = new MainApi({
-  url: '/',
+  url: 'http://82.148.29.66/',
   cards: 'cards',
   movies: 'movies',
   user: 'users/me',
