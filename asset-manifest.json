@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.78eea157.chunk.css",
-    "main.js": "/static/js/main.b5b64686.chunk.js",
-    "main.js.map": "/static/js/main.b5b64686.chunk.js.map",
+    "main.js": "/static/js/main.f120b217.chunk.js",
+    "main.js.map": "/static/js/main.f120b217.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.116e80f9.js",
     "runtime-main.js.map": "/static/js/runtime-main.116e80f9.js.map",
-    "static/js/2.465c6036.chunk.js": "/static/js/2.465c6036.chunk.js",
-    "static/js/2.465c6036.chunk.js.map": "/static/js/2.465c6036.chunk.js.map",
+    "static/js/2.4c5a4edb.chunk.js": "/static/js/2.4c5a4edb.chunk.js",
+    "static/js/2.4c5a4edb.chunk.js.map": "/static/js/2.4c5a4edb.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.78eea157.chunk.css.map": "/static/css/main.78eea157.chunk.css.map",
-    "static/js/2.465c6036.chunk.js.LICENSE.txt": "/static/js/2.465c6036.chunk.js.LICENSE.txt",
+    "static/js/2.4c5a4edb.chunk.js.LICENSE.txt": "/static/js/2.4c5a4edb.chunk.js.LICENSE.txt",
     "static/media/Button.css": "/static/media/top.f060744f.svg",
     "static/media/Card.css": "/static/media/TrashBlack.b5f290b7.svg",
     "static/media/AboutMe.css": "/static/media/Image2021.f0e9c648.jpeg",
@@ -21,8 +21,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.116e80f9.js",
-    "static/js/2.465c6036.chunk.js",
+    "static/js/2.4c5a4edb.chunk.js",
     "static/css/main.78eea157.chunk.css",
-    "static/js/main.b5b64686.chunk.js"
+    "static/js/main.f120b217.chunk.js"
   ]
 }
